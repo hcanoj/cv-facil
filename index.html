@@ -5,292 +5,602 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>CV Fácil - Crea tu CV profesional</title>
+    <meta
+        name="description"
+        content="Crea un CV profesional gratis en pocos minutos."
+    >
+
+    <title>CV Fácil — Crea tu CV profesional gratis</title>
 
     <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-    <header class="cabecera">
-        <div class="cabecera-contenido">
-            <h1>CV Fácil</h1>
-            <p>Crea un CV profesional en pocos minutos</p>
+    <!-- =========================================
+         CABECERA
+    ========================================== -->
+
+    <header class="site-header">
+
+        <div class="header-inner">
+
+            <div class="brand">
+                <div class="brand-icon">CV</div>
+
+                <div>
+                    <h1>CV Fácil</h1>
+                    <span>Crea tu CV profesional</span>
+                </div>
+            </div>
+
+            <div class="header-badge">
+                Gratis · Sin registro
+            </div>
+
         </div>
+
     </header>
 
 
-    <main class="contenedor">
+    <!-- =========================================
+         CONTENIDO PRINCIPAL
+    ========================================== -->
 
-        <!-- FORMULARIO -->
+    <main class="app-container">
 
-        <section class="formulario">
 
-            <h2>Tu información</h2>
+        <!-- =====================================
+             PANEL IZQUIERDO
+        ====================================== -->
 
-            <p class="descripcion">
-                Completa tus datos y podrás ver tu CV en tiempo real.
-            </p>
+        <aside class="editor-panel">
 
+            <div class="panel-header">
 
-            <label for="nombre">Nombre completo</label>
-            <input
-                type="text"
-                id="nombre"
-                placeholder="Ej: Carlos Martínez"
-            >
+                <div>
+                    <h2>Crear mi CV</h2>
 
+                    <p>
+                        Completa tus datos y mira el resultado
+                        en tiempo real.
+                    </p>
+                </div>
 
-            <label for="profesion">Profesión</label>
-            <input
-                type="text"
-                id="profesion"
-                placeholder="Ej: Diseñador gráfico"
-            >
-
-
-            <label for="email">Email</label>
-            <input
-                type="email"
-                id="email"
-                placeholder="ejemplo@email.com"
-            >
-
-
-            <label for="telefono">Teléfono</label>
-            <input
-                type="text"
-                id="telefono"
-                placeholder="600 123 456"
-            >
-
-
-            <label for="ubicacion">Ubicación</label>
-            <input
-                type="text"
-                id="ubicacion"
-                placeholder="Madrid, España"
-            >
-
-
-            <label for="perfil">Perfil profesional</label>
-            <textarea
-                id="perfil"
-                placeholder="Escribe una breve descripción sobre ti..."
-            ></textarea>
-
-
-         <!-- EXPERIENCIA -->
-
-<div class="bloque-formulario">
-
-    <h3>Experiencia profesional</h3>
-
-    <label for="puesto">
-        Puesto
-    </label>
-
-    <input
-        type="text"
-        id="puesto"
-        placeholder="Ej: Diseñador gráfico"
-    >
-
-
-    <label for="empresa">
-        Empresa
-    </label>
-
-    <input
-        type="text"
-        id="empresa"
-        placeholder="Ej: Agencia Creativa"
-    >
-
-
-    <div class="fila">
-
-        <div>
-
-            <label for="fechaInicio">
-                Fecha de inicio
-            </label>
-
-            <input
-                type="text"
-                id="fechaInicio"
-                placeholder="2022"
-            >
-
-        </div>
-
-
-        <div>
-
-            <label for="fechaFin">
-                Fecha de finalización
-            </label>
-
-            <input
-                type="text"
-                id="fechaFin"
-                placeholder="2025"
-            >
-
-        </div>
-
-    </div>
-
-
-    <label for="experiencia">
-        Descripción
-    </label>
-
-    <textarea
-        id="experiencia"
-        placeholder="Describe tus principales responsabilidades y logros..."
-    ></textarea>
-
-</div>
-
-
-<!-- FORMACIÓN -->
-
-<div class="bloque-formulario">
-
-    <h3>Formación</h3>
-
-    <label for="titulo">
-        Titulación
-    </label>
-
-    <input
-        type="text"
-        id="titulo"
-        placeholder="Ej: Grado en Diseño Gráfico"
-    >
-
-
-    <label for="centro">
-        Centro educativo
-    </label>
-
-    <input
-        type="text"
-        id="centro"
-        placeholder="Ej: Universidad de Madrid"
-    >
-
-
-    <label for="fechaFormacion">
-        Año
-    </label>
-
-    <input
-        type="text"
-        id="fechaFormacion"
-        placeholder="2020"
-    >
-
-</div>
-
-
-            <label for="habilidades">Habilidades</label>
-            <textarea
-                id="habilidades"
-                placeholder="Ej: Excel, ventas, liderazgo, Photoshop..."
-            ></textarea>
-
-
-            <button id="generarCV" class="boton-principal">
-                Actualizar CV
-            </button>
-
-        </section>
-
-
-        <!-- VISTA PREVIA DEL CV -->
-
-        <section class="vista-previa">
-
-            <div class="barra-vista">
-                <h2>Vista previa</h2>
-
-                <button
-                    id="imprimirCV"
-                    class="boton-imprimir"
-                >
-                    Descargar PDF
-                </button>
             </div>
 
 
-            <article id="cv" class="cv">
+            <!-- DATOS PERSONALES -->
 
-                <div class="cv-cabecera">
+            <section class="form-section">
 
-                    <h1 id="cvNombre">
-                        Tu nombre
-                    </h1>
+                <div class="section-heading">
 
-                    <h2 id="cvProfesion">
-                        Tu profesión
-                    </h2>
+                    <span class="section-number">1</span>
 
-                    <div
-                        id="cvContacto"
-                        class="cv-contacto"
-                    >
-                        email@ejemplo.com · Teléfono · Ubicación
+                    <div>
+                        <h3>Datos personales</h3>
+                        <p>Información básica de contacto.</p>
                     </div>
 
                 </div>
 
 
-                <div class="cv-cuerpo">
+                <div class="field">
 
-                    <section class="cv-seccion">
+                    <label for="nombre">
+                        Nombre completo
+                    </label>
 
+                    <input
+                        type="text"
+                        id="nombre"
+                        placeholder="Ej: Carlos Martínez"
+                        autocomplete="name"
+                    >
+
+                </div>
+
+
+                <div class="field">
+
+                    <label for="profesion">
+                        Profesión o puesto
+                    </label>
+
+                    <input
+                        type="text"
+                        id="profesion"
+                        placeholder="Ej: Diseñador gráfico"
+                    >
+
+                </div>
+
+
+                <div class="two-columns">
+
+                    <div class="field">
+
+                        <label for="email">
+                            Email
+                        </label>
+
+                        <input
+                            type="email"
+                            id="email"
+                            placeholder="correo@ejemplo.com"
+                            autocomplete="email"
+                        >
+
+                    </div>
+
+
+                    <div class="field">
+
+                        <label for="telefono">
+                            Teléfono
+                        </label>
+
+                        <input
+                            type="tel"
+                            id="telefono"
+                            placeholder="600 123 456"
+                            autocomplete="tel"
+                        >
+
+                    </div>
+
+                </div>
+
+
+                <div class="field">
+
+                    <label for="ubicacion">
+                        Ubicación
+                    </label>
+
+                    <input
+                        type="text"
+                        id="ubicacion"
+                        placeholder="Madrid, España"
+                    >
+
+                </div>
+
+            </section>
+
+
+            <!-- PERFIL -->
+
+            <section class="form-section">
+
+                <div class="section-heading">
+
+                    <span class="section-number">2</span>
+
+                    <div>
                         <h3>Perfil profesional</h3>
 
-                        <p id="cvPerfil">
+                        <p>
+                            Una breve presentación profesional.
+                        </p>
+                    </div>
+
+                </div>
+
+
+                <div class="field">
+
+                    <textarea
+                        id="perfil"
+                        rows="5"
+                        placeholder="Ej: Diseñador gráfico con 5 años de experiencia especializado en branding y diseño digital..."
+                    ></textarea>
+
+                </div>
+
+            </section>
+
+
+            <!-- EXPERIENCIA -->
+
+            <section class="form-section">
+
+                <div class="section-heading section-heading-actions">
+
+                    <div class="heading-left">
+
+                        <span class="section-number">3</span>
+
+                        <div>
+                            <h3>Experiencia</h3>
+
+                            <p>
+                                Añade tus puestos anteriores.
+                            </p>
+                        </div>
+
+                    </div>
+
+
+                    <button
+                        type="button"
+                        id="addExperience"
+                        class="small-button"
+                    >
+                        + Añadir
+                    </button>
+
+                </div>
+
+
+                <div id="experienceList"></div>
+
+            </section>
+
+
+            <!-- FORMACIÓN -->
+
+            <section class="form-section">
+
+                <div class="section-heading section-heading-actions">
+
+                    <div class="heading-left">
+
+                        <span class="section-number">4</span>
+
+                        <div>
+                            <h3>Formación</h3>
+
+                            <p>
+                                Estudios y certificaciones.
+                            </p>
+                        </div>
+
+                    </div>
+
+
+                    <button
+                        type="button"
+                        id="addEducation"
+                        class="small-button"
+                    >
+                        + Añadir
+                    </button>
+
+                </div>
+
+
+                <div id="educationList"></div>
+
+            </section>
+
+
+            <!-- HABILIDADES -->
+
+            <section class="form-section">
+
+                <div class="section-heading">
+
+                    <span class="section-number">5</span>
+
+                    <div>
+                        <h3>Habilidades</h3>
+
+                        <p>
+                            Tus principales competencias.
+                        </p>
+                    </div>
+
+                </div>
+
+
+                <div class="field">
+
+                    <label for="skills">
+                        Habilidades
+                    </label>
+
+                    <textarea
+                        id="skills"
+                        rows="4"
+                        placeholder="Ej: Photoshop, Excel, ventas, liderazgo, comunicación..."
+                    ></textarea>
+
+                </div>
+
+            </section>
+
+
+            <!-- IDIOMAS -->
+
+            <section class="form-section">
+
+                <div class="section-heading">
+
+                    <span class="section-number">6</span>
+
+                    <div>
+                        <h3>Idiomas</h3>
+
+                        <p>
+                            Indica los idiomas que dominas.
+                        </p>
+                    </div>
+
+                </div>
+
+
+                <div class="field">
+
+                    <label for="languages">
+                        Idiomas
+                    </label>
+
+                    <textarea
+                        id="languages"
+                        rows="3"
+                        placeholder="Ej: Español — Nativo&#10;Inglés — B2&#10;Francés — A2"
+                    ></textarea>
+
+                </div>
+
+            </section>
+
+
+            <!-- PLANTILLAS -->
+
+            <section class="form-section">
+
+                <div class="section-heading">
+
+                    <span class="section-number">7</span>
+
+                    <div>
+                        <h3>Diseño</h3>
+
+                        <p>
+                            Elige el estilo de tu CV.
+                        </p>
+                    </div>
+
+                </div>
+
+
+                <div class="template-grid">
+
+                    <button
+                        type="button"
+                        class="template-option active"
+                        data-template="professional"
+                    >
+                        <span class="template-preview professional-preview"></span>
+
+                        <span>
+                            Profesional
+                        </span>
+                    </button>
+
+
+                    <button
+                        type="button"
+                        class="template-option"
+                        data-template="minimal"
+                    >
+                        <span class="template-preview minimal-preview"></span>
+
+                        <span>
+                            Minimalista
+                        </span>
+                    </button>
+
+
+                    <button
+                        type="button"
+                        class="template-option"
+                        data-template="modern"
+                    >
+                        <span class="template-preview modern-preview"></span>
+
+                        <span>
+                            Moderno
+                        </span>
+                    </button>
+
+                </div>
+
+            </section>
+
+
+            <!-- BOTÓN -->
+
+            <button
+                type="button"
+                id="generateButton"
+                class="generate-button"
+            >
+                Actualizar CV
+            </button>
+
+
+            <p class="privacy-note">
+                Tus datos se procesan localmente en tu navegador
+                en esta versión. No necesitas crear una cuenta.
+            </p>
+
+        </aside>
+
+
+        <!-- =====================================
+             PANEL DERECHO
+        ====================================== -->
+
+        <section class="preview-panel">
+
+            <div class="preview-toolbar">
+
+                <div>
+
+                    <span class="preview-label">
+                        VISTA PREVIA
+                    </span>
+
+                    <h2>
+                        Tu CV
+                    </h2>
+
+                </div>
+
+
+                <button
+                    type="button"
+                    id="printButton"
+                    class="download-button"
+                >
+                    <span>↓</span>
+                    Descargar PDF
+                </button>
+
+            </div>
+
+
+            <!-- =================================
+                 CV
+            ================================== -->
+
+            <article
+                id="cv"
+                class="cv template-professional"
+            >
+
+
+                <!-- CABECERA CV -->
+
+                <header class="cv-header">
+
+                    <div class="cv-header-main">
+
+                        <h1 id="cvName">
+                            Tu nombre
+                        </h1>
+
+                        <h2 id="cvJob">
+                            Tu profesión
+                        </h2>
+
+                    </div>
+
+
+                    <div
+                        id="cvContact"
+                        class="cv-contact"
+                    >
+                        <span>
+                            email@ejemplo.com
+                        </span>
+
+                        <span>
+                            Teléfono
+                        </span>
+
+                        <span>
+                            Ubicación
+                        </span>
+                    </div>
+
+                </header>
+
+
+                <!-- CUERPO CV -->
+
+                <div class="cv-body">
+
+
+                    <!-- PERFIL -->
+
+                    <section class="cv-block">
+
+                        <h3>
+                            Perfil profesional
+                        </h3>
+
+                        <p id="cvProfile">
                             Tu perfil profesional aparecerá aquí.
                         </p>
 
                     </section>
 
 
-                    <section class="cv-seccion">
+                    <!-- EXPERIENCIA -->
 
-                        <h3>Experiencia profesional</h3>
+                    <section class="cv-block">
 
-                        <p id="cvExperiencia">
-                            Tu experiencia aparecerá aquí.
-                        </p>
+                        <h3>
+                            Experiencia profesional
+                        </h3>
 
-                    </section>
+                        <div id="cvExperienceList">
 
+                            <div class="empty-cv">
+                                Tu experiencia aparecerá aquí.
+                            </div>
 
-                    <section class="cv-seccion">
-
-                        <h3>Formación</h3>
-
-                        <p id="cvFormacion">
-                            Tu formación aparecerá aquí.
-                        </p>
+                        </div>
 
                     </section>
 
 
-                    <section class="cv-seccion">
+                    <!-- FORMACIÓN -->
 
-                        <h3>Habilidades</h3>
+                    <section class="cv-block">
 
-                        <p id="cvHabilidades">
+                        <h3>
+                            Formación
+                        </h3>
+
+                        <div id="cvEducationList">
+
+                            <div class="empty-cv">
+                                Tu formación aparecerá aquí.
+                            </div>
+
+                        </div>
+
+                    </section>
+
+
+                    <!-- HABILIDADES -->
+
+                    <section class="cv-block">
+
+                        <h3>
+                            Habilidades
+                        </h3>
+
+                        <p id="cvSkills">
                             Tus habilidades aparecerán aquí.
                         </p>
 
                     </section>
+
+
+                    <!-- IDIOMAS -->
+
+                    <section class="cv-block">
+
+                        <h3>
+                            Idiomas
+                        </h3>
+
+                        <p
+                            id="cvLanguages"
+                            class="multiline"
+                        >
+                            Tus idiomas aparecerán aquí.
+                        </p>
+
+                    </section>
+
 
                 </div>
 
@@ -301,8 +611,16 @@
     </main>
 
 
-    <footer>
-        <p>CV Fácil · Crea tu CV profesional</p>
+    <!-- =========================================
+         FOOTER
+    ========================================== -->
+
+    <footer class="site-footer">
+
+        <p>
+            CV Fácil · Generador de CV profesional
+        </p>
+
     </footer>
 
 
