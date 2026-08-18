@@ -758,7 +758,85 @@ aiButton.addEventListener(
     /* =================================================
        ACTUALIZAR TODO EL CV
     ================================================= */
+/* =================================================
+   MEJORAR EXPERIENCIA CON IA
+================================================= */
 
+async function mejorarExperienciaConIA(
+    item,
+    button
+) {
+
+    const description =
+        item
+            .querySelector(
+                ".experience-description"
+            )
+            .value
+            .trim();
+
+
+    if (!description) {
+
+        alert(
+            "Escribe primero una descripción de tu experiencia."
+        );
+
+        return;
+    }
+
+
+    button.classList.add("loading");
+
+    button.textContent =
+        "✨ Mejorando...";
+
+
+    try {
+
+        /*
+         * Todavía no conectamos ninguna API.
+         * Primero comprobamos que el sistema funciona.
+         */
+
+        await new Promise(
+            function (resolve) {
+
+                setTimeout(
+                    resolve,
+                    1200
+                );
+
+            }
+        );
+
+
+        alert(
+            "El botón de IA está funcionando. La conexión con la IA la añadiremos ahora."
+        );
+
+
+    } catch (error) {
+
+        console.error(error);
+
+        alert(
+            "Ha ocurrido un error."
+        );
+
+
+    } finally {
+
+        button.classList.remove(
+            "loading"
+        );
+
+        button.textContent =
+            "✨ Mejorar con IA";
+
+    }
+
+}
     function updateCV() {
 
         updatePersonalData();
