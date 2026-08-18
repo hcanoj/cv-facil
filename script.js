@@ -31,7 +31,15 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
     /* =================================================
-       UTILIDAD
+       URL DEL BACKEND
+    ================================================= */
+
+    const AI_BACKEND_URL =
+        "https://bitter-band-b917.hectorcanojimenez.workers.dev/";
+
+
+    /* =================================================
+       UTILIDADES
     ================================================= */
 
     function getValue(id) {
@@ -182,7 +190,7 @@ document.addEventListener("DOMContentLoaded", function () {
         `;
 
 
-        /* BOTÓN ELIMINAR */
+        /* ELIMINAR EXPERIENCIA */
 
         const deleteButton =
             item.querySelector(
@@ -224,7 +232,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
         experienceList.appendChild(item);
-
 
         updateCV();
 
@@ -457,16 +464,26 @@ document.addEventListener("DOMContentLoaded", function () {
             getValue("languages");
 
 
-        document
-            .getElementById("cvName")
-            .textContent =
-            name || "Tu nombre";
+        const cvName =
+            document.getElementById("cvName");
+
+        if (cvName) {
+
+            cvName.textContent =
+                name || "Tu nombre";
+
+        }
 
 
-        document
-            .getElementById("cvJob")
-            .textContent =
-            job || "Tu profesión";
+        const cvJob =
+            document.getElementById("cvJob");
+
+        if (cvJob) {
+
+            cvJob.textContent =
+                job || "Tu profesión";
+
+        }
 
 
         const contact =
@@ -475,47 +492,79 @@ document.addEventListener("DOMContentLoaded", function () {
             );
 
 
-        contact.innerHTML = "";
+        if (contact) {
+
+            contact.innerHTML = "";
 
 
-        [
-            email || "email@ejemplo.com",
-            phone || "Teléfono",
-            location || "Ubicación"
-        ].forEach(
-            function (value) {
+            [
+                email || "email@ejemplo.com",
+                phone || "Teléfono",
+                location || "Ubicación"
+            ].forEach(
+                function (value) {
 
-                const span =
-                    document.createElement("span");
+                    const span =
+                        document.createElement(
+                            "span"
+                        );
 
-                span.textContent =
-                    value;
+                    span.textContent =
+                        value;
 
-                contact.appendChild(span);
+                    contact.appendChild(
+                        span
+                    );
 
-            }
-        );
+                }
+            );
 
-
-        document
-            .getElementById("cvProfile")
-            .textContent =
-            profile ||
-            "Tu perfil profesional aparecerá aquí.";
-
-
-        document
-            .getElementById("cvSkills")
-            .textContent =
-            skills ||
-            "Tus habilidades aparecerán aquí.";
+        }
 
 
-        document
-            .getElementById("cvLanguages")
-            .textContent =
-            languages ||
-            "Tus idiomas aparecerán aquí.";
+        const cvProfile =
+            document.getElementById(
+                "cvProfile"
+            );
+
+
+        if (cvProfile) {
+
+            cvProfile.textContent =
+                profile ||
+                "Tu perfil profesional aparecerá aquí.";
+
+        }
+
+
+        const cvSkills =
+            document.getElementById(
+                "cvSkills"
+            );
+
+
+        if (cvSkills) {
+
+            cvSkills.textContent =
+                skills ||
+                "Tus habilidades aparecerán aquí.";
+
+        }
+
+
+        const cvLanguages =
+            document.getElementById(
+                "cvLanguages"
+            );
+
+
+        if (cvLanguages) {
+
+            cvLanguages.textContent =
+                languages ||
+                "Tus idiomas aparecerán aquí.";
+
+        }
 
     }
 
@@ -530,6 +579,11 @@ document.addEventListener("DOMContentLoaded", function () {
             document.getElementById(
                 "cvExperienceList"
             );
+
+
+        if (!container) {
+            return;
+        }
 
 
         const experiences =
@@ -556,7 +610,10 @@ document.addEventListener("DOMContentLoaded", function () {
             function (experience) {
 
                 const item =
-                    document.createElement("div");
+                    document.createElement(
+                        "div"
+                    );
+
 
                 item.className =
                     "cv-experience";
@@ -626,7 +683,9 @@ document.addEventListener("DOMContentLoaded", function () {
                 `;
 
 
-                container.appendChild(item);
+                container.appendChild(
+                    item
+                );
 
             }
         );
@@ -635,7 +694,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
     /* =================================================
-       ACTUALIZAR FORMACIÓN EN EL CV
+       ACTUALIZAR FORMACIÓN
     ================================================= */
 
     function updateEducation() {
@@ -644,6 +703,11 @@ document.addEventListener("DOMContentLoaded", function () {
             document.getElementById(
                 "cvEducationList"
             );
+
+
+        if (!container) {
+            return;
+        }
 
 
         const education =
@@ -670,7 +734,10 @@ document.addEventListener("DOMContentLoaded", function () {
             function (data) {
 
                 const item =
-                    document.createElement("div");
+                    document.createElement(
+                        "div"
+                    );
+
 
                 item.className =
                     "cv-education";
@@ -706,9 +773,10 @@ document.addEventListener("DOMContentLoaded", function () {
 
                         ${school}
 
-                        ${date
-                            ? " · " + date
-                            : ""
+                        ${
+                            date
+                                ? " · " + date
+                                : ""
                         }
 
                     </div>
@@ -716,7 +784,9 @@ document.addEventListener("DOMContentLoaded", function () {
                 `;
 
 
-                container.appendChild(item);
+                container.appendChild(
+                    item
+                );
 
             }
         );
@@ -740,7 +810,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
     /* =================================================
-       IA — PRUEBA
+       MEJORAR EXPERIENCIA CON IA
     ================================================= */
 
     async function mejorarExperienciaConIA(
@@ -748,13 +818,14 @@ document.addEventListener("DOMContentLoaded", function () {
         button
     ) {
 
+        const textarea =
+            item.querySelector(
+                ".experience-description"
+            );
+
+
         const description =
-            item
-                .querySelector(
-                    ".experience-description"
-                )
-                .value
-                .trim();
+            textarea.value.trim();
 
 
         if (!description) {
@@ -777,39 +848,71 @@ document.addEventListener("DOMContentLoaded", function () {
             "✨ Mejorando...";
 
 
+        button.disabled = true;
+
+
         try {
 
-            /*
-             * Esta es solamente una prueba.
-             *
-             * TODAVÍA NO estamos enviando
-             * información a ninguna API.
-             */
+            const response =
+                await fetch(
+                    AI_BACKEND_URL,
+                    {
+                        method: "POST",
 
-            await new Promise(
-                function (resolve) {
+                        headers: {
+                            "Content-Type":
+                                "application/json"
+                        },
 
-                    setTimeout(
-                        resolve,
-                        1200
-                    );
+                        body: JSON.stringify({
+                            description:
+                                description
+                        })
 
-                }
-            );
+                    }
+                );
 
 
-            alert(
-                "El botón de IA funciona correctamente. En el siguiente paso conectaremos la IA real."
-            );
+            const data =
+                await response.json();
+
+
+            if (!response.ok) {
+
+                throw new Error(
+                    data.error ||
+                    "Error del servidor."
+                );
+
+            }
+
+
+            if (!data.text) {
+
+                throw new Error(
+                    "La IA no devolvió ningún texto."
+                );
+
+            }
+
+
+            textarea.value =
+                data.text;
+
+
+            updateCV();
 
 
         } catch (error) {
 
-            console.error(error);
+            console.error(
+                "Error IA:",
+                error
+            );
 
 
             alert(
-                "Ha ocurrido un error."
+                "No se ha podido mejorar el texto. Comprueba que el backend esté correctamente configurado."
             );
 
         } finally {
@@ -821,6 +924,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
             button.textContent =
                 "✨ Mejorar con IA";
+
+
+            button.disabled = false;
 
         }
 
@@ -864,6 +970,11 @@ document.addEventListener("DOMContentLoaded", function () {
                         );
 
 
+                    if (!cv) {
+                        return;
+                    }
+
+
                     cv.classList.remove(
                         "template-professional",
                         "template-minimal",
@@ -887,34 +998,50 @@ document.addEventListener("DOMContentLoaded", function () {
        BOTONES
     ================================================= */
 
-    addExperienceButton.addEventListener(
-        "click",
-        addExperience
-    );
+    if (addExperienceButton) {
+
+        addExperienceButton.addEventListener(
+            "click",
+            addExperience
+        );
+
+    }
 
 
-    addEducationButton.addEventListener(
-        "click",
-        addEducation
-    );
+    if (addEducationButton) {
+
+        addEducationButton.addEventListener(
+            "click",
+            addEducation
+        );
+
+    }
 
 
-    generateButton.addEventListener(
-        "click",
-        updateCV
-    );
+    if (generateButton) {
+
+        generateButton.addEventListener(
+            "click",
+            updateCV
+        );
+
+    }
 
 
-    printButton.addEventListener(
-        "click",
-        function () {
+    if (printButton) {
 
-            updateCV();
+        printButton.addEventListener(
+            "click",
+            function () {
 
-            window.print();
+                updateCV();
 
-        }
-    );
+                window.print();
+
+            }
+        );
+
+    }
 
 
     /* =================================================
@@ -940,12 +1067,22 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
     /* =================================================
-       INICIAR APLICACIÓN
+       INICIAR
     ================================================= */
 
-    addExperience();
+    if (experienceList) {
 
-    addEducation();
+        addExperience();
+
+    }
+
+
+    if (educationList) {
+
+        addEducation();
+
+    }
+
 
     updateCV();
 
