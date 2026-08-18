@@ -28,11 +28,29 @@ document.addEventListener("DOMContentLoaded", function () {
         const perfil =
             document.getElementById("perfil").value.trim();
 
-        const experiencia =
-            document.getElementById("experiencia").value.trim();
+     const puesto =
+    document.getElementById("puesto").value.trim();
 
-        const formacion =
-            document.getElementById("formacion").value.trim();
+const empresa =
+    document.getElementById("empresa").value.trim();
+
+const fechaInicio =
+    document.getElementById("fechaInicio").value.trim();
+
+const fechaFin =
+    document.getElementById("fechaFin").value.trim();
+
+const experiencia =
+    document.getElementById("experiencia").value.trim();
+
+const titulo =
+    document.getElementById("titulo").value.trim();
+
+const centro =
+    document.getElementById("centro").value.trim();
+
+const fechaFormacion =
+    document.getElementById("fechaFormacion").value.trim();
 
         const habilidades =
             document.getElementById("habilidades").value.trim();
@@ -62,14 +80,29 @@ document.addEventListener("DOMContentLoaded", function () {
             "Tu perfil profesional aparecerá aquí.";
 
 
-        document.getElementById("cvExperiencia").textContent =
-            experiencia ||
-            "Tu experiencia profesional aparecerá aquí.";
+      const experienciaCompleta = [
+    puesto,
+    empresa,
+    fechaInicio || fechaFin
+].filter(Boolean).join(" · ");
 
 
-        document.getElementById("cvFormacion").textContent =
-            formacion ||
-            "Tu formación aparecerá aquí.";
+document.getElementById("cvExperiencia").textContent =
+    experienciaCompleta
+        ? experienciaCompleta + "\n" + experiencia
+        : "Tu experiencia profesional aparecerá aquí.";
+
+
+const formacionCompleta = [
+    titulo,
+    centro,
+    fechaFormacion
+].filter(Boolean).join(" · ");
+
+
+document.getElementById("cvFormacion").textContent =
+    formacionCompleta ||
+    "Tu formación aparecerá aquí.";
 
 
         document.getElementById("cvHabilidades").textContent =
