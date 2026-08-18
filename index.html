@@ -4,35 +4,257 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CV Fácil - Generador de CV</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            background: #f2f2f2;
+            color: #222;
+        }
+
+        header {
+            background: #111827;
+            color: white;
+            text-align: center;
+            padding: 30px 20px;
+        }
+
+        .contenedor {
+            max-width: 1100px;
+            margin: 30px auto;
+            padding: 20px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+        }
+
+        .panel {
+            background: white;
+            padding: 25px;
+            border-radius: 10px;
+        }
+
+        label {
+            display: block;
+            margin-top: 15px;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        input,
+        textarea {
+            width: 100%;
+            box-sizing: border-box;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 15px;
+        }
+
+        textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+
+        button {
+            margin-top: 20px;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 6px;
+            background: #2563eb;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #1d4ed8;
+        }
+
+        #cv {
+            background: white;
+            padding: 40px;
+            min-height: 800px;
+        }
+
+        .cv-nombre {
+            font-size: 32px;
+            margin-bottom: 5px;
+        }
+
+        .cv-profesion {
+            color: #2563eb;
+            font-size: 18px;
+            margin-bottom: 20px;
+        }
+
+        .seccion {
+            margin-top: 25px;
+        }
+
+        .seccion h3 {
+            border-bottom: 2px solid #ddd;
+            padding-bottom: 5px;
+        }
+
+        @media (max-width: 800px) {
+            .contenedor {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
 </head>
 
 <body>
 
+<header>
     <h1>CV Fácil</h1>
-
     <p>Crea tu CV profesional en pocos minutos.</p>
+</header>
 
-    <h2>Tus datos</h2>
+<div class="contenedor">
 
-    <label>Nombre completo</label>
-    <br>
-    <input type="text" id="nombre" placeholder="Ej: Juan García">
+    <!-- FORMULARIO -->
 
-    <br><br>
+    <div class="panel">
 
-    <label>Profesión</label>
-    <br>
-    <input type="text" id="profesion" placeholder="Ej: Diseñador gráfico">
+        <h2>Completa tu información</h2>
 
-    <br><br>
+        <label>Nombre completo</label>
+        <input type="text" id="nombre" placeholder="Ej: Juan García">
 
-    <label>Email</label>
-    <br>
-    <input type="email" id="email" placeholder="ejemplo@email.com">
+        <label>Profesión</label>
+        <input type="text" id="profesion" placeholder="Ej: Diseñador gráfico">
 
-    <br><br>
+        <label>Email</label>
+        <input type="email" id="email" placeholder="ejemplo@email.com">
 
-    <button>Crear mi CV</button>
+        <label>Teléfono</label>
+        <input type="text" id="telefono" placeholder="600 123 456">
+
+        <label>Ubicación</label>
+        <input type="text" id="ubicacion" placeholder="Madrid, España">
+
+        <label>Perfil profesional</label>
+        <textarea id="perfil"
+            placeholder="Escribe una breve descripción profesional..."></textarea>
+
+        <label>Experiencia</label>
+        <textarea id="experiencia"
+            placeholder="Empresa, puesto, años y principales responsabilidades..."></textarea>
+
+        <label>Formación</label>
+        <textarea id="formacion"
+            placeholder="Estudios, cursos, certificaciones..."></textarea>
+
+        <label>Habilidades</label>
+        <textarea id="habilidades"
+            placeholder="Ej: Photoshop, Excel, ventas, liderazgo..."></textarea>
+
+        <button onclick="generarCV()">
+            Generar CV
+        </button>
+
+    </div>
+
+
+    <!-- VISTA PREVIA -->
+
+    <div class="panel">
+
+        <h2>Vista previa</h2>
+
+        <div id="cv">
+
+            <div class="cv-nombre" id="cvNombre">
+                Tu nombre
+            </div>
+
+            <div class="cv-profesion" id="cvProfesion">
+                Tu profesión
+            </div>
+
+            <div id="cvContacto">
+                email@ejemplo.com · Teléfono · Ubicación
+            </div>
+
+            <div class="seccion">
+                <h3>Perfil profesional</h3>
+                <p id="cvPerfil">
+                    Tu perfil profesional aparecerá aquí.
+                </p>
+            </div>
+
+            <div class="seccion">
+                <h3>Experiencia</h3>
+                <p id="cvExperiencia">
+                    Tu experiencia aparecerá aquí.
+                </p>
+            </div>
+
+            <div class="seccion">
+                <h3>Formación</h3>
+                <p id="cvFormacion">
+                    Tu formación aparecerá aquí.
+                </p>
+            </div>
+
+            <div class="seccion">
+                <h3>Habilidades</h3>
+                <p id="cvHabilidades">
+                    Tus habilidades aparecerán aquí.
+                </p>
+            </div>
+
+        </div>
+
+        <button onclick="window.print()">
+            Descargar / imprimir CV
+        </button>
+
+    </div>
+
+</div>
+
+
+<script>
+
+function generarCV() {
+
+    const nombre = document.getElementById("nombre").value;
+    const profesion = document.getElementById("profesion").value;
+    const email = document.getElementById("email").value;
+    const telefono = document.getElementById("telefono").value;
+    const ubicacion = document.getElementById("ubicacion").value;
+    const perfil = document.getElementById("perfil").value;
+    const experiencia = document.getElementById("experiencia").value;
+    const formacion = document.getElementById("formacion").value;
+    const habilidades = document.getElementById("habilidades").value;
+
+    document.getElementById("cvNombre").textContent =
+        nombre || "Tu nombre";
+
+    document.getElementById("cvProfesion").textContent =
+        profesion || "Tu profesión";
+
+    document.getElementById("cvContacto").textContent =
+        `${email || "email@ejemplo.com"} · ${telefono || "Teléfono"} · ${ubicacion || "Ubicación"}`;
+
+    document.getElementById("cvPerfil").textContent =
+        perfil || "Tu perfil profesional aparecerá aquí.";
+
+    document.getElementById("cvExperiencia").textContent =
+        experiencia || "Tu experiencia aparecerá aquí.";
+
+    document.getElementById("cvFormacion").textContent =
+        formacion || "Tu formación aparecerá aquí.";
+
+    document.getElementById("cvHabilidades").textContent =
+        habilidades || "Tus habilidades aparecerán aquí.";
+}
+
+</script>
 
 </body>
 </html>
