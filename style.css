@@ -1,323 +1,1305 @@
-/* =========================================
-   CONFIGURACIÓN GENERAL
-========================================= */
+/* =====================================================
+   VARIABLES
+===================================================== */
+
+:root {
+
+    --primary: #2563eb;
+    --primary-dark: #1d4ed8;
+
+    --dark: #111827;
+    --text: #1f2937;
+    --muted: #6b7280;
+
+    --background: #f3f4f6;
+
+    --white: #ffffff;
+
+    --border: #e5e7eb;
+
+    --danger: #dc2626;
+
+    --radius: 10px;
+
+}
+
+
+/* =====================================================
+   RESET
+===================================================== */
 
 * {
     box-sizing: border-box;
 }
 
+
+html {
+    scroll-behavior: smooth;
+}
+
+
 body {
+
     margin: 0;
-    font-family: Arial, Helvetica, sans-serif;
-    background: #eef1f5;
-    color: #1f2937;
+
+    font-family:
+        Inter,
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        Arial,
+        sans-serif;
+
+    background: var(--background);
+
+    color: var(--text);
+
+    line-height: 1.5;
+
 }
 
 
-/* =========================================
-   CABECERA DE LA WEB
-========================================= */
+button,
+input,
+textarea {
 
-.cabecera {
-    background: #111827;
+    font: inherit;
+
+}
+
+
+/* =====================================================
+   HEADER
+===================================================== */
+
+.site-header {
+
+    background: var(--dark);
+
     color: white;
-    padding: 28px 20px;
+
+    border-bottom:
+        1px solid rgba(255,255,255,.08);
+
 }
 
-.cabecera-contenido {
-    max-width: 1200px;
+
+.header-inner {
+
+    max-width: 1500px;
+
     margin: auto;
+
+    padding:
+        20px 30px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
 }
 
-.cabecera h1 {
+
+.brand {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 12px;
+
+}
+
+
+.brand-icon {
+
+    width: 42px;
+
+    height: 42px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    background: var(--primary);
+
+    border-radius: 9px;
+
+    font-weight: 800;
+
+    font-size: 14px;
+
+}
+
+
+.brand h1 {
+
     margin: 0;
-    font-size: 30px;
+
+    font-size: 20px;
+
 }
 
-.cabecera p {
-    margin: 6px 0 0;
+
+.brand span {
+
+    display: block;
+
+    margin-top: 1px;
+
+    font-size: 12px;
+
+    color: #9ca3af;
+
+}
+
+
+.header-badge {
+
+    padding:
+        7px 12px;
+
+    border:
+        1px solid #374151;
+
+    border-radius: 999px;
+
     color: #d1d5db;
+
+    font-size: 12px;
+
 }
 
 
-/* =========================================
-   CONTENEDOR PRINCIPAL
-========================================= */
+/* =====================================================
+   APP
+===================================================== */
 
-.contenedor {
-    max-width: 1400px;
-    margin: 30px auto;
-    padding: 0 25px;
+.app-container {
+
+    max-width: 1500px;
+
+    margin:
+        30px auto;
+
+    padding:
+        0 30px;
 
     display: grid;
-    grid-template-columns: 420px 1fr;
+
+    grid-template-columns:
+        430px
+        minmax(0, 1fr);
+
     gap: 30px;
 
     align-items: start;
+
 }
 
 
-/* =========================================
-   FORMULARIO
-========================================= */
+/* =====================================================
+   EDITOR
+===================================================== */
 
-.formulario {
+.editor-panel {
+
     background: white;
-    padding: 28px;
-    border-radius: 12px;
+
+    border:
+        1px solid var(--border);
+
+    border-radius:
+        var(--radius);
 
     box-shadow:
-        0 4px 15px rgba(0, 0, 0, 0.06);
+        0 5px 20px rgba(0,0,0,.05);
+
+    overflow: hidden;
+
 }
 
-.formulario h2 {
-    margin-top: 0;
-    margin-bottom: 8px;
+
+.panel-header {
+
+    padding:
+        25px;
+
+    border-bottom:
+        1px solid var(--border);
+
 }
 
-.descripcion {
-    color: #6b7280;
-    font-size: 14px;
-    margin-bottom: 25px;
+
+.panel-header h2 {
+
+    margin: 0;
+
+    font-size: 21px;
+
 }
 
-.formulario label {
-    display: block;
 
-    margin-top: 17px;
-    margin-bottom: 6px;
+.panel-header p {
 
-    font-size: 14px;
-    font-weight: 600;
+    margin:
+        6px 0 0;
+
+    color: var(--muted);
+
+    font-size: 13px;
+
 }
 
-.formulario input,
-.formulario textarea {
-    width: 100%;
 
-    border: 1px solid #d1d5db;
+/* =====================================================
+   FORM SECTIONS
+===================================================== */
+
+.form-section {
+
+    padding:
+        24px;
+
+    border-bottom:
+        1px solid var(--border);
+
+}
+
+
+.section-heading {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 11px;
+
+    margin-bottom: 20px;
+
+}
+
+
+.section-heading-actions {
+
+    justify-content: space-between;
+
+}
+
+
+.heading-left {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 11px;
+
+}
+
+
+.section-number {
+
+    width: 28px;
+
+    height: 28px;
+
+    flex-shrink: 0;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    background: #eff6ff;
+
+    color: var(--primary);
+
     border-radius: 7px;
 
-    padding: 11px 12px;
+    font-size: 12px;
 
-    font-size: 14px;
-    font-family: inherit;
+    font-weight: 800;
+
+}
+
+
+.section-heading h3 {
+
+    margin: 0;
+
+    font-size: 15px;
+
+}
+
+
+.section-heading p {
+
+    margin:
+        2px 0 0;
+
+    font-size: 11px;
+
+    color: var(--muted);
+
+}
+
+
+/* =====================================================
+   FORM FIELDS
+===================================================== */
+
+.field {
+
+    margin-top: 15px;
+
+}
+
+
+.field:first-child {
+
+    margin-top: 0;
+
+}
+
+
+.field label {
+
+    display: block;
+
+    margin-bottom: 6px;
+
+    font-size: 12px;
+
+    font-weight: 700;
+
+    color: #374151;
+
+}
+
+
+.field input,
+.field textarea {
+
+    width: 100%;
+
+    padding:
+        11px 12px;
+
+    border:
+        1px solid #d1d5db;
+
+    border-radius: 7px;
+
+    background: white;
+
+    color: var(--text);
 
     outline: none;
 
-    transition: border 0.2s;
-}
-
-.formulario input:focus,
-.formulario textarea:focus {
-    border-color: #2563eb;
-}
-
-.formulario textarea {
-    min-height: 110px;
-    resize: vertical;
-}
-
-
-/* =========================================
-   BOTÓN PRINCIPAL
-========================================= */
-
-.boton-principal {
-    width: 100%;
-
-    margin-top: 25px;
-
-    padding: 13px;
-
-    border: none;
-    border-radius: 7px;
-
-    background: #2563eb;
-    color: white;
-
-    font-size: 15px;
-    font-weight: bold;
-
-    cursor: pointer;
-
     transition:
-        background 0.2s,
-        transform 0.1s;
-}
+        border-color .2s,
+        box-shadow .2s;
 
-.boton-principal:hover {
-    background: #1d4ed8;
-}
-
-.boton-principal:active {
-    transform: scale(0.98);
 }
 
 
-/* =========================================
-   VISTA PREVIA
-========================================= */
+.field textarea {
 
-.vista-previa {
-    min-width: 0;
-}
+    resize: vertical;
 
-.barra-vista {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+    min-height: 100px;
 
-    margin-bottom: 15px;
-}
-
-.barra-vista h2 {
-    margin: 0;
 }
 
 
-/* =========================================
-   BOTÓN PDF
-========================================= */
+.field input:focus,
+.field textarea:focus {
 
-.boton-imprimir {
-    border: none;
-    border-radius: 7px;
-
-    padding: 10px 16px;
-
-    background: #111827;
-    color: white;
-
-    cursor: pointer;
-
-    font-weight: bold;
-}
-
-.boton-imprimir:hover {
-    background: #374151;
-}
-
-
-/* =========================================
-   CV
-========================================= */
-
-.cv {
-    width: 100%;
-    max-width: 850px;
-
-    min-height: 1100px;
-
-    margin: 0 auto;
-
-    background: white;
+    border-color:
+        var(--primary);
 
     box-shadow:
-        0 5px 25px rgba(0, 0, 0, 0.10);
+        0 0 0 3px rgba(37,99,235,.10);
+
 }
 
 
-/* =========================================
-   CABECERA DEL CV
-========================================= */
+.two-columns {
 
-.cv-cabecera {
-    padding: 45px 50px 30px;
+    display: grid;
 
-    border-bottom: 4px solid #2563eb;
-}
+    grid-template-columns:
+        1fr 1fr;
 
-.cv-cabecera h1 {
-    margin: 0;
+    gap: 12px;
 
-    font-size: 38px;
-    line-height: 1.1;
-
-    color: #111827;
-}
-
-.cv-cabecera h2 {
-    margin: 8px 0 18px;
-
-    font-size: 19px;
-    font-weight: normal;
-
-    color: #2563eb;
-}
-
-.cv-contacto {
-    font-size: 13px;
-    color: #6b7280;
 }
 
 
-/* =========================================
-   CUERPO DEL CV
-========================================= */
+/* =====================================================
+   BUTTONS
+===================================================== */
 
-.cv-cuerpo {
-    padding: 30px 50px 50px;
-}
+.small-button {
 
-.cv-seccion {
-    margin-bottom: 28px;
-}
+    border:
+        1px solid #bfdbfe;
 
-.cv-seccion h3 {
-    margin: 0 0 10px;
+    background:
+        #eff6ff;
 
-    padding-bottom: 6px;
+    color:
+        var(--primary);
 
-    border-bottom: 1px solid #e5e7eb;
+    padding:
+        7px 11px;
 
-    font-size: 16px;
-    text-transform: uppercase;
+    border-radius:
+        6px;
 
-    letter-spacing: 0.5px;
+    font-size:
+        12px;
 
-    color: #111827;
-}
+    font-weight:
+        700;
 
-.cv-seccion p {
-    margin: 0;
+    cursor:
+        pointer;
 
-    white-space: pre-line;
-
-    font-size: 14px;
-    line-height: 1.7;
-
-    color: #374151;
 }
 
 
-/* =========================================
-   PIE DE PÁGINA
-========================================= */
+.small-button:hover {
 
-footer {
-    text-align: center;
+    background:
+        #dbeafe;
 
-    padding: 30px;
-
-    color: #6b7280;
-
-    font-size: 13px;
 }
 
 
-/* =========================================
-   MÓVIL
-========================================= */
+.generate-button {
+
+    width: calc(100% - 48px);
+
+    margin:
+        24px;
+
+    padding:
+        14px;
+
+    border: none;
+
+    border-radius:
+        8px;
+
+    background:
+        var(--primary);
+
+    color: white;
+
+    font-weight:
+        800;
+
+    cursor:
+        pointer;
+
+}
+
+
+.generate-button:hover {
+
+    background:
+        var(--primary-dark);
+
+}
+
+
+/* =====================================================
+   EXPERIENCE / EDUCATION CARDS
+===================================================== */
+
+.repeatable-item {
+
+    padding:
+        16px;
+
+    margin-top:
+        14px;
+
+    background:
+        #f8fafc;
+
+    border:
+        1px solid #e2e8f0;
+
+    border-radius:
+        8px;
+
+}
+
+
+.repeatable-header {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    margin-bottom:
+        12px;
+
+}
+
+
+.repeatable-title {
+
+    font-size:
+        12px;
+
+    font-weight:
+        800;
+
+}
+
+
+.delete-button {
+
+    border: none;
+
+    background: transparent;
+
+    color:
+        var(--danger);
+
+    font-size:
+        11px;
+
+    font-weight:
+        700;
+
+    cursor:
+        pointer;
+
+}
+
+
+.delete-button:hover {
+
+    text-decoration:
+        underline;
+
+}
+
+
+/* =====================================================
+   TEMPLATE SELECTOR
+===================================================== */
+
+.template-grid {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(3, 1fr);
+
+    gap:
+        8px;
+
+}
+
+
+.template-option {
+
+    border:
+        1px solid #d1d5db;
+
+    background:
+        white;
+
+    border-radius:
+        8px;
+
+    padding:
+        8px;
+
+    cursor:
+        pointer;
+
+    color:
+        #374151;
+
+    font-size:
+        11px;
+
+    font-weight:
+        700;
+
+}
+
+
+.template-option.active {
+
+    border:
+        2px solid var(--primary);
+
+    padding:
+        7px;
+
+    color:
+        var(--primary);
+
+}
+
+
+.template-preview {
+
+    display:
+        block;
+
+    height:
+        55px;
+
+    margin-bottom:
+        7px;
+
+    border-radius:
+        4px;
+
+    border:
+        1px solid #e5e7eb;
+
+}
+
+
+.professional-preview {
+
+    background:
+        linear-gradient(
+            to bottom,
+            #2563eb 0 20%,
+            white 20% 100%
+        );
+
+}
+
+
+.minimal-preview {
+
+    background:
+        linear-gradient(
+            to bottom,
+            #111827 0 2px,
+            white 2px 100%
+        );
+
+}
+
+
+.modern-preview {
+
+    background:
+        linear-gradient(
+            90deg,
+            #111827 0 28%,
+            white 28% 100%
+        );
+
+}
+
+
+/* =====================================================
+   PRIVACY
+===================================================== */
+
+.privacy-note {
+
+    margin:
+        -10px 24px 24px;
+
+    text-align:
+        center;
+
+    color:
+        #9ca3af;
+
+    font-size:
+        10px;
+
+}
+
+
+/* =====================================================
+   PREVIEW
+===================================================== */
+
+.preview-panel {
+
+    min-width:
+        0;
+
+}
+
+
+.preview-toolbar {
+
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    justify-content:
+        space-between;
+
+    margin-bottom:
+        15px;
+
+}
+
+
+.preview-label {
+
+    font-size:
+        10px;
+
+    font-weight:
+        800;
+
+    color:
+        var(--primary);
+
+    letter-spacing:
+        .8px;
+
+}
+
+
+.preview-toolbar h2 {
+
+    margin:
+        2px 0 0;
+
+    font-size:
+        19px;
+
+}
+
+
+.download-button {
+
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    gap:
+        7px;
+
+    border:
+        none;
+
+    border-radius:
+        7px;
+
+    padding:
+        10px 15px;
+
+    background:
+        var(--dark);
+
+    color:
+        white;
+
+    font-weight:
+        700;
+
+    font-size:
+        12px;
+
+    cursor:
+        pointer;
+
+}
+
+
+.download-button:hover {
+
+    background:
+        #374151;
+
+}
+
+
+/* =====================================================
+   CV BASE
+===================================================== */
+
+.cv {
+
+    width:
+        100%;
+
+    max-width:
+        850px;
+
+    min-height:
+        1100px;
+
+    margin:
+        0 auto;
+
+    background:
+        white;
+
+    box-shadow:
+        0 8px 30px rgba(0,0,0,.10);
+
+}
+
+
+/* =====================================================
+   PROFESSIONAL TEMPLATE
+===================================================== */
+
+.template-professional .cv-header {
+
+    padding:
+        48px 55px 30px;
+
+    border-bottom:
+        4px solid var(--primary);
+
+}
+
+
+.template-professional .cv-header-main h1 {
+
+    margin:
+        0;
+
+    font-size:
+        39px;
+
+    line-height:
+        1.1;
+
+    color:
+        #111827;
+
+}
+
+
+.template-professional .cv-header-main h2 {
+
+    margin:
+        8px 0 17px;
+
+    color:
+        var(--primary);
+
+    font-size:
+        18px;
+
+    font-weight:
+        500;
+
+}
+
+
+.template-professional .cv-body {
+
+    padding:
+        30px 55px 55px;
+
+}
+
+
+/* =====================================================
+   MINIMAL TEMPLATE
+===================================================== */
+
+.template-minimal .cv-header {
+
+    padding:
+        50px 55px 25px;
+
+}
+
+
+.template-minimal .cv-header-main h1 {
+
+    margin:
+        0;
+
+    font-size:
+        40px;
+
+    font-weight:
+        500;
+
+}
+
+
+.template-minimal .cv-header-main h2 {
+
+    margin:
+        7px 0 15px;
+
+    font-size:
+        16px;
+
+    font-weight:
+        400;
+
+    color:
+        #6b7280;
+
+}
+
+
+.template-minimal .cv-body {
+
+    padding:
+        25px 55px 55px;
+
+}
+
+
+.template-minimal .cv-block h3 {
+
+    color:
+        #111827;
+
+    border-bottom:
+        1px solid #111827;
+
+}
+
+
+/* =====================================================
+   MODERN TEMPLATE
+===================================================== */
+
+.template-modern {
+
+    display:
+        grid;
+
+    grid-template-columns:
+        210px 1fr;
+
+}
+
+
+.template-modern .cv-header {
+
+    grid-column:
+        1;
+
+    grid-row:
+        1 / span 2;
+
+    padding:
+        40px 25px;
+
+    background:
+        #111827;
+
+    color:
+        white;
+
+}
+
+
+.template-modern .cv-header-main h1 {
+
+    margin:
+        0;
+
+    font-size:
+        30px;
+
+    line-height:
+        1.1;
+
+}
+
+
+.template-modern .cv-header-main h2 {
+
+    margin:
+        12px 0 25px;
+
+    color:
+        #93c5fd;
+
+    font-size:
+        15px;
+
+    font-weight:
+        500;
+
+}
+
+
+.template-modern .cv-contact {
+
+    display:
+        flex;
+
+    flex-direction:
+        column;
+
+    align-items:
+        flex-start;
+
+    gap:
+        8px;
+
+    color:
+        #d1d5db;
+
+}
+
+
+.template-modern .cv-body {
+
+    grid-column:
+        2;
+
+    padding:
+        40px;
+
+}
+
+
+.template-modern .cv-block h3 {
+
+    color:
+        #111827;
+
+}
+
+
+/* =====================================================
+   CV CONTENT
+===================================================== */
+
+.cv-contact {
+
+    display:
+        flex;
+
+    flex-wrap:
+        wrap;
+
+    gap:
+        7px 20px;
+
+    color:
+        #6b7280;
+
+    font-size:
+        12px;
+
+}
+
+
+.cv-block {
+
+    margin-bottom:
+        28px;
+
+}
+
+
+.cv-block h3 {
+
+    margin:
+        0 0 10px;
+
+    padding-bottom:
+        7px;
+
+    border-bottom:
+        1px solid #e5e7eb;
+
+    font-size:
+        14px;
+
+    text-transform:
+        uppercase;
+
+    letter-spacing:
+        .6px;
+
+}
+
+
+.cv-block p {
+
+    margin:
+        0;
+
+    font-size:
+        13px;
+
+    line-height:
+        1.7;
+
+    color:
+        #374151;
+
+}
+
+
+.multiline {
+
+    white-space:
+        pre-line;
+
+}
+
+
+.empty-cv {
+
+    color:
+        #9ca3af;
+
+    font-size:
+        13px;
+
+    font-style:
+        italic;
+
+}
+
+
+.cv-experience,
+.cv-education {
+
+    margin-bottom:
+        21px;
+
+}
+
+
+.cv-experience:last-child,
+.cv-education:last-child {
+
+    margin-bottom:
+        0;
+
+}
+
+
+.cv-experience h4,
+.cv-education h4 {
+
+    margin:
+        0 0 3px;
+
+    font-size:
+        15px;
+
+    color:
+        #111827;
+
+}
+
+
+.cv-meta {
+
+    margin-bottom:
+        6px;
+
+    color:
+        var(--primary);
+
+    font-size:
+        12px;
+
+    font-weight:
+        700;
+
+}
+
+
+.cv-experience p {
+
+    white-space:
+        pre-line;
+
+}
+
+
+/* =====================================================
+   FOOTER
+===================================================== */
+
+.site-footer {
+
+    padding:
+        30px;
+
+    text-align:
+        center;
+
+    color:
+        #9ca3af;
+
+    font-size:
+        11px;
+
+}
+
+
+/* =====================================================
+   RESPONSIVE
+===================================================== */
+
+@media (max-width: 1050px) {
+
+    .app-container {
+
+        grid-template-columns:
+            380px
+            minmax(0, 1fr);
+
+    }
+
+}
+
 
 @media (max-width: 900px) {
 
-    .contenedor {
-        grid-template-columns: 1fr;
+    .app-container {
+
+        grid-template-columns:
+            1fr;
+
     }
 
-    .cv {
-        max-width: 100%;
+    .preview-panel {
+
+        order:
+            2;
+
+    }
+
+    .editor-panel {
+
+        order:
+            1;
+
     }
 
 }
@@ -325,97 +1307,201 @@ footer {
 
 @media (max-width: 600px) {
 
-    .contenedor {
-        padding: 0 12px;
-        margin-top: 15px;
+    .header-inner {
+
+        padding:
+            16px;
+
     }
 
-    .formulario {
-        padding: 20px;
+    .header-badge {
+
+        display:
+            none;
+
     }
 
-    .cv-cabecera {
-        padding: 30px 25px 25px;
+    .app-container {
+
+        margin:
+            15px auto;
+
+        padding:
+            0 10px;
+
     }
 
-    .cv-cabecera h1 {
-        font-size: 30px;
+    .form-section {
+
+        padding:
+            20px;
+
     }
 
-    .cv-cuerpo {
-        padding: 25px;
+    .two-columns {
+
+        grid-template-columns:
+            1fr;
+
     }
 
-    .barra-vista {
-        flex-direction: column;
-        align-items: stretch;
-        gap: 10px;
+    .preview-toolbar {
+
+        flex-direction:
+            column;
+
+        align-items:
+            stretch;
+
+        gap:
+            12px;
+
     }
 
-    .boton-imprimir {
-        width: 100%;
-    }
+    .download-button {
 
-}
+        justify-content:
+            center;
 
-
-/* =========================================
-   IMPRESIÓN / PDF
-========================================= */
-/* =========================================
-   BLOQUES DEL FORMULARIO
-========================================= */
-
-.bloque-formulario {
-    margin-top: 30px;
-    padding-top: 20px;
-    border-top: 1px solid #e5e7eb;
-}
-
-.bloque-formulario h3 {
-    margin-top: 0;
-    margin-bottom: 15px;
-    font-size: 17px;
-}
-
-.fila {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 12px;
-}
-@media print {
-
-    body {
-        background: white;
-    }
-
-    .cabecera,
-    .formulario,
-    .barra-vista,
-    footer {
-        display: none !important;
-    }
-
-    .contenedor {
-        display: block;
-        margin: 0;
-        padding: 0;
-    }
-
-    .vista-previa {
-        width: 100%;
     }
 
     .cv {
-        width: 100%;
-        max-width: none;
 
-        min-height: auto;
+        min-height:
+            auto;
 
-        box-shadow: none;
     }
 
-    .cv-cabecera {
-        padding-top: 20px;
+    .template-professional .cv-header,
+    .template-minimal .cv-header {
+
+        padding:
+            32px 25px 25px;
+
     }
+
+    .template-professional .cv-header-main h1,
+    .template-minimal .cv-header-main h1 {
+
+        font-size:
+            30px;
+
+    }
+
+    .template-professional .cv-body,
+    .template-minimal .cv-body {
+
+        padding:
+            25px;
+
+    }
+
+    .template-modern {
+
+        display:
+            block;
+
+    }
+
+    .template-modern .cv-header {
+
+        padding:
+            32px 25px;
+
+    }
+
+    .template-modern .cv-body {
+
+        padding:
+            25px;
+
+    }
+
+    .template-grid {
+
+        grid-template-columns:
+            1fr;
+
+    }
+
+}
+
+
+/* =====================================================
+   PRINT / PDF
+===================================================== */
+
+@media print {
+
+    @page {
+
+        size:
+            A4;
+
+        margin:
+            0;
+
+    }
+
+
+    body {
+
+        background:
+            white;
+
+    }
+
+
+    .site-header,
+    .editor-panel,
+    .preview-toolbar,
+    .site-footer {
+
+        display:
+            none !important;
+
+    }
+
+
+    .app-container {
+
+        display:
+            block;
+
+        margin:
+            0;
+
+        padding:
+            0;
+
+    }
+
+
+    .preview-panel {
+
+        width:
+            100%;
+
+    }
+
+
+    .cv {
+
+        width:
+            210mm;
+
+        max-width:
+            none;
+
+        min-height:
+            297mm;
+
+        margin:
+            0;
+
+        box-shadow:
+            none;
+
+    }
+
 }
