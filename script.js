@@ -171,15 +171,22 @@ document.addEventListener("DOMContentLoaded", function () {
 
             <div class="field">
 
-                <label>
-                    Responsabilidades y logros
-                </label>
+            <label>
+    Responsabilidades y logros
+</label>
 
-                <textarea
-                    class="experience-description"
-                    rows="4"
-                    placeholder="Describe tus principales responsabilidades y logros..."
-                ></textarea>
+<textarea
+    class="experience-description"
+    rows="4"
+    placeholder="Describe tus principales responsabilidades y logros..."
+></textarea>
+
+<button
+    type="button"
+    class="ai-button"
+>
+    ✨ Mejorar con IA
+</button>
 
             </div>
 
