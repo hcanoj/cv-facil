@@ -208,6 +208,20 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
         experienceList.appendChild(item);
+       const aiButton =
+    item.querySelector(".ai-button");
+
+aiButton.addEventListener(
+    "click",
+    function () {
+
+        mejorarExperienciaConIA(
+            item,
+            aiButton
+        );
+
+    }
+);
 
 
         updateCV();
