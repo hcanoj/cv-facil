@@ -1503,5 +1503,46 @@ textarea {
             none;
 
     }
+   /* =====================================================
+   BOTÓN MEJORAR CON IA
+===================================================== */
+
+.ai-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    margin-top: 8px;
+    padding: 8px 12px;
+
+    border: 1px solid #c7d2fe;
+    border-radius: 7px;
+
+    background: #eef2ff;
+    color: #4338ca;
+
+    font-size: 11px;
+    font-weight: 800;
+
+    cursor: pointer;
+
+    transition:
+        background 0.2s ease,
+        transform 0.2s ease,
+        opacity 0.2s ease;
+}
+
+.ai-button:hover {
+    background: #e0e7ff;
+}
+
+.ai-button:active {
+    transform: scale(0.97);
+}
+
+.ai-button.loading {
+    opacity: 0.6;
+    cursor: wait;
+}
 
 }
