@@ -1,10 +1,4 @@
-/* =====================================================
-   CV FÁCIL
-   Aplicación principal
-===================================================== */
-
 document.addEventListener("DOMContentLoaded", function () {
-
 
     /* =================================================
        ELEMENTOS PRINCIPALES
@@ -33,12 +27,11 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
     let experienceCounter = 0;
-
     let educationCounter = 0;
 
 
     /* =================================================
-       UTILIDADES
+       UTILIDAD
     ================================================= */
 
     function getValue(id) {
@@ -68,23 +61,18 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
     /* =================================================
-       CREAR EXPERIENCIA
+       EXPERIENCIA
     ================================================= */
 
     function addExperience() {
 
         experienceCounter++;
 
-
         const item =
             document.createElement("div");
 
         item.className =
             "repeatable-item";
-
-
-        item.dataset.id =
-            experienceCounter;
 
 
         item.innerHTML = `
@@ -171,57 +159,71 @@ document.addEventListener("DOMContentLoaded", function () {
 
             <div class="field">
 
-            <label>
-    Responsabilidades y logros
-</label>
+                <label>
+                    Responsabilidades y logros
+                </label>
 
-<textarea
-    class="experience-description"
-    rows="4"
-    placeholder="Describe tus principales responsabilidades y logros..."
-></textarea>
+                <textarea
+                    class="experience-description"
+                    rows="4"
+                    placeholder="Describe tus principales responsabilidades y logros..."
+                ></textarea>
 
-<button
-    type="button"
-    class="ai-button"
->
-    ✨ Mejorar con IA
-</button>
+
+                <button
+                    type="button"
+                    class="ai-button"
+                >
+                    ✨ Mejorar con IA
+                </button>
 
             </div>
 
         `;
 
 
-        item
-            .querySelector(".delete-button")
-            .addEventListener(
-                "click",
-                function () {
+        /* BOTÓN ELIMINAR */
 
-                    item.remove();
-
-                    updateCV();
-
-                }
+        const deleteButton =
+            item.querySelector(
+                ".delete-button"
             );
 
 
-        experienceList.appendChild(item);
-       const aiButton =
-    item.querySelector(".ai-button");
+        deleteButton.addEventListener(
+            "click",
+            function () {
 
-aiButton.addEventListener(
-    "click",
-    function () {
+                item.remove();
 
-        mejorarExperienciaConIA(
-            item,
-            aiButton
+                updateCV();
+
+            }
         );
 
-    }
-);
+
+        /* BOTÓN IA */
+
+        const aiButton =
+            item.querySelector(
+                ".ai-button"
+            );
+
+
+        aiButton.addEventListener(
+            "click",
+            function () {
+
+                mejorarExperienciaConIA(
+                    item,
+                    aiButton
+                );
+
+            }
+        );
+
+
+        experienceList.appendChild(item);
 
 
         updateCV();
@@ -230,23 +232,18 @@ aiButton.addEventListener(
 
 
     /* =================================================
-       CREAR FORMACIÓN
+       FORMACIÓN
     ================================================= */
 
     function addEducation() {
 
         educationCounter++;
 
-
         const item =
             document.createElement("div");
 
         item.className =
             "repeatable-item";
-
-
-        item.dataset.id =
-            educationCounter;
 
 
         item.innerHTML = `
@@ -314,22 +311,25 @@ aiButton.addEventListener(
         `;
 
 
-        item
-            .querySelector(".delete-button")
-            .addEventListener(
-                "click",
-                function () {
-
-                    item.remove();
-
-                    updateCV();
-
-                }
+        const deleteButton =
+            item.querySelector(
+                ".delete-button"
             );
 
 
-        educationList.appendChild(item);
+        deleteButton.addEventListener(
+            "click",
+            function () {
 
+                item.remove();
+
+                updateCV();
+
+            }
+        );
+
+
+        educationList.appendChild(item);
 
         updateCV();
 
@@ -354,44 +354,29 @@ aiButton.addEventListener(
                 return {
 
                     position:
-                        item
-                            .querySelector(
-                                ".experience-position"
-                            )
-                            .value
-                            .trim(),
+                        item.querySelector(
+                            ".experience-position"
+                        ).value.trim(),
 
                     company:
-                        item
-                            .querySelector(
-                                ".experience-company"
-                            )
-                            .value
-                            .trim(),
+                        item.querySelector(
+                            ".experience-company"
+                        ).value.trim(),
 
                     start:
-                        item
-                            .querySelector(
-                                ".experience-start"
-                            )
-                            .value
-                            .trim(),
+                        item.querySelector(
+                            ".experience-start"
+                        ).value.trim(),
 
                     end:
-                        item
-                            .querySelector(
-                                ".experience-end"
-                            )
-                            .value
-                            .trim(),
+                        item.querySelector(
+                            ".experience-end"
+                        ).value.trim(),
 
                     description:
-                        item
-                            .querySelector(
-                                ".experience-description"
-                            )
-                            .value
-                            .trim()
+                        item.querySelector(
+                            ".experience-description"
+                        ).value.trim()
 
                 };
 
@@ -419,28 +404,19 @@ aiButton.addEventListener(
                 return {
 
                     title:
-                        item
-                            .querySelector(
-                                ".education-title"
-                            )
-                            .value
-                            .trim(),
+                        item.querySelector(
+                            ".education-title"
+                        ).value.trim(),
 
                     school:
-                        item
-                            .querySelector(
-                                ".education-school"
-                            )
-                            .value
-                            .trim(),
+                        item.querySelector(
+                            ".education-school"
+                        ).value.trim(),
 
                     date:
-                        item
-                            .querySelector(
-                                ".education-date"
-                            )
-                            .value
-                            .trim()
+                        item.querySelector(
+                            ".education-date"
+                        ).value.trim()
 
                 };
 
@@ -451,7 +427,7 @@ aiButton.addEventListener(
 
 
     /* =================================================
-       ACTUALIZAR DATOS PERSONALES
+       DATOS PERSONALES
     ================================================= */
 
     function updatePersonalData() {
@@ -502,14 +478,11 @@ aiButton.addEventListener(
         contact.innerHTML = "";
 
 
-        const contactValues = [
+        [
             email || "email@ejemplo.com",
             phone || "Teléfono",
             location || "Ubicación"
-        ];
-
-
-        contactValues.forEach(
+        ].forEach(
             function (value) {
 
                 const span =
@@ -548,7 +521,7 @@ aiButton.addEventListener(
 
 
     /* =================================================
-       ACTUALIZAR EXPERIENCIA
+       ACTUALIZAR EXPERIENCIAS EN EL CV
     ================================================= */
 
     function updateExperiences() {
@@ -569,11 +542,9 @@ aiButton.addEventListener(
         if (experiences.length === 0) {
 
             container.innerHTML = `
-
                 <div class="empty-cv">
                     Tu experiencia aparecerá aquí.
                 </div>
-
             `;
 
             return;
@@ -664,7 +635,7 @@ aiButton.addEventListener(
 
 
     /* =================================================
-       ACTUALIZAR FORMACIÓN
+       ACTUALIZAR FORMACIÓN EN EL CV
     ================================================= */
 
     function updateEducation() {
@@ -685,11 +656,9 @@ aiButton.addEventListener(
         if (education.length === 0) {
 
             container.innerHTML = `
-
                 <div class="empty-cv">
                     Tu formación aparecerá aquí.
                 </div>
-
             `;
 
             return;
@@ -698,7 +667,7 @@ aiButton.addEventListener(
 
 
         education.forEach(
-            function (itemData) {
+            function (data) {
 
                 const item =
                     document.createElement("div");
@@ -709,21 +678,21 @@ aiButton.addEventListener(
 
                 const title =
                     escapeHTML(
-                        itemData.title ||
+                        data.title ||
                         "Titulación"
                     );
 
 
                 const school =
                     escapeHTML(
-                        itemData.school ||
+                        data.school ||
                         "Centro educativo"
                     );
 
 
                 const date =
                     escapeHTML(
-                        itemData.date
+                        data.date
                     );
 
 
@@ -756,87 +725,9 @@ aiButton.addEventListener(
 
 
     /* =================================================
-       ACTUALIZAR TODO EL CV
+       ACTUALIZAR CV
     ================================================= */
-/* =================================================
-   MEJORAR EXPERIENCIA CON IA
-================================================= */
 
-async function mejorarExperienciaConIA(
-    item,
-    button
-) {
-
-    const description =
-        item
-            .querySelector(
-                ".experience-description"
-            )
-            .value
-            .trim();
-
-
-    if (!description) {
-
-        alert(
-            "Escribe primero una descripción de tu experiencia."
-        );
-
-        return;
-    }
-
-
-    button.classList.add("loading");
-
-    button.textContent =
-        "✨ Mejorando...";
-
-
-    try {
-
-        /*
-         * Todavía no conectamos ninguna API.
-         * Primero comprobamos que el sistema funciona.
-         */
-
-        await new Promise(
-            function (resolve) {
-
-                setTimeout(
-                    resolve,
-                    1200
-                );
-
-            }
-        );
-
-
-        alert(
-            "El botón de IA está funcionando. La conexión con la IA la añadiremos ahora."
-        );
-
-
-    } catch (error) {
-
-        console.error(error);
-
-        alert(
-            "Ha ocurrido un error."
-        );
-
-
-    } finally {
-
-        button.classList.remove(
-            "loading"
-        );
-
-        button.textContent =
-            "✨ Mejorar con IA";
-
-    }
-
-}
     function updateCV() {
 
         updatePersonalData();
@@ -849,7 +740,95 @@ async function mejorarExperienciaConIA(
 
 
     /* =================================================
-       CAMBIAR PLANTILLA
+       IA — PRUEBA
+    ================================================= */
+
+    async function mejorarExperienciaConIA(
+        item,
+        button
+    ) {
+
+        const description =
+            item
+                .querySelector(
+                    ".experience-description"
+                )
+                .value
+                .trim();
+
+
+        if (!description) {
+
+            alert(
+                "Escribe primero una descripción de tu experiencia."
+            );
+
+            return;
+
+        }
+
+
+        button.classList.add(
+            "loading"
+        );
+
+
+        button.textContent =
+            "✨ Mejorando...";
+
+
+        try {
+
+            /*
+             * Esta es solamente una prueba.
+             *
+             * TODAVÍA NO estamos enviando
+             * información a ninguna API.
+             */
+
+            await new Promise(
+                function (resolve) {
+
+                    setTimeout(
+                        resolve,
+                        1200
+                    );
+
+                }
+            );
+
+
+            alert(
+                "El botón de IA funciona correctamente. En el siguiente paso conectaremos la IA real."
+            );
+
+
+        } catch (error) {
+
+            console.error(error);
+
+
+            alert(
+                "Ha ocurrido un error."
+            );
+
+        } finally {
+
+            button.classList.remove(
+                "loading"
+            );
+
+
+            button.textContent =
+                "✨ Mejorar con IA";
+
+        }
+
+    }
+
+
+    /* =================================================
+       PLANTILLAS
     ================================================= */
 
     templateButtons.forEach(
@@ -860,9 +839,9 @@ async function mejorarExperienciaConIA(
                 function () {
 
                     templateButtons.forEach(
-                        function (otherButton) {
+                        function (other) {
 
-                            otherButton.classList.remove(
+                            other.classList.remove(
                                 "active"
                             );
 
@@ -893,7 +872,8 @@ async function mejorarExperienciaConIA(
 
 
                     cv.classList.add(
-                        "template-" + template
+                        "template-" +
+                        template
                     );
 
                 }
@@ -960,7 +940,7 @@ async function mejorarExperienciaConIA(
 
 
     /* =================================================
-       INICIO
+       INICIAR APLICACIÓN
     ================================================= */
 
     addExperience();
