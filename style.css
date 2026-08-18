@@ -1,0 +1,401 @@
+/* =========================================
+   CONFIGURACIÓN GENERAL
+========================================= */
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    background: #eef1f5;
+    color: #1f2937;
+}
+
+
+/* =========================================
+   CABECERA DE LA WEB
+========================================= */
+
+.cabecera {
+    background: #111827;
+    color: white;
+    padding: 28px 20px;
+}
+
+.cabecera-contenido {
+    max-width: 1200px;
+    margin: auto;
+}
+
+.cabecera h1 {
+    margin: 0;
+    font-size: 30px;
+}
+
+.cabecera p {
+    margin: 6px 0 0;
+    color: #d1d5db;
+}
+
+
+/* =========================================
+   CONTENEDOR PRINCIPAL
+========================================= */
+
+.contenedor {
+    max-width: 1400px;
+    margin: 30px auto;
+    padding: 0 25px;
+
+    display: grid;
+    grid-template-columns: 420px 1fr;
+    gap: 30px;
+
+    align-items: start;
+}
+
+
+/* =========================================
+   FORMULARIO
+========================================= */
+
+.formulario {
+    background: white;
+    padding: 28px;
+    border-radius: 12px;
+
+    box-shadow:
+        0 4px 15px rgba(0, 0, 0, 0.06);
+}
+
+.formulario h2 {
+    margin-top: 0;
+    margin-bottom: 8px;
+}
+
+.descripcion {
+    color: #6b7280;
+    font-size: 14px;
+    margin-bottom: 25px;
+}
+
+.formulario label {
+    display: block;
+
+    margin-top: 17px;
+    margin-bottom: 6px;
+
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.formulario input,
+.formulario textarea {
+    width: 100%;
+
+    border: 1px solid #d1d5db;
+    border-radius: 7px;
+
+    padding: 11px 12px;
+
+    font-size: 14px;
+    font-family: inherit;
+
+    outline: none;
+
+    transition: border 0.2s;
+}
+
+.formulario input:focus,
+.formulario textarea:focus {
+    border-color: #2563eb;
+}
+
+.formulario textarea {
+    min-height: 110px;
+    resize: vertical;
+}
+
+
+/* =========================================
+   BOTÓN PRINCIPAL
+========================================= */
+
+.boton-principal {
+    width: 100%;
+
+    margin-top: 25px;
+
+    padding: 13px;
+
+    border: none;
+    border-radius: 7px;
+
+    background: #2563eb;
+    color: white;
+
+    font-size: 15px;
+    font-weight: bold;
+
+    cursor: pointer;
+
+    transition:
+        background 0.2s,
+        transform 0.1s;
+}
+
+.boton-principal:hover {
+    background: #1d4ed8;
+}
+
+.boton-principal:active {
+    transform: scale(0.98);
+}
+
+
+/* =========================================
+   VISTA PREVIA
+========================================= */
+
+.vista-previa {
+    min-width: 0;
+}
+
+.barra-vista {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    margin-bottom: 15px;
+}
+
+.barra-vista h2 {
+    margin: 0;
+}
+
+
+/* =========================================
+   BOTÓN PDF
+========================================= */
+
+.boton-imprimir {
+    border: none;
+    border-radius: 7px;
+
+    padding: 10px 16px;
+
+    background: #111827;
+    color: white;
+
+    cursor: pointer;
+
+    font-weight: bold;
+}
+
+.boton-imprimir:hover {
+    background: #374151;
+}
+
+
+/* =========================================
+   CV
+========================================= */
+
+.cv {
+    width: 100%;
+    max-width: 850px;
+
+    min-height: 1100px;
+
+    margin: 0 auto;
+
+    background: white;
+
+    box-shadow:
+        0 5px 25px rgba(0, 0, 0, 0.10);
+}
+
+
+/* =========================================
+   CABECERA DEL CV
+========================================= */
+
+.cv-cabecera {
+    padding: 45px 50px 30px;
+
+    border-bottom: 4px solid #2563eb;
+}
+
+.cv-cabecera h1 {
+    margin: 0;
+
+    font-size: 38px;
+    line-height: 1.1;
+
+    color: #111827;
+}
+
+.cv-cabecera h2 {
+    margin: 8px 0 18px;
+
+    font-size: 19px;
+    font-weight: normal;
+
+    color: #2563eb;
+}
+
+.cv-contacto {
+    font-size: 13px;
+    color: #6b7280;
+}
+
+
+/* =========================================
+   CUERPO DEL CV
+========================================= */
+
+.cv-cuerpo {
+    padding: 30px 50px 50px;
+}
+
+.cv-seccion {
+    margin-bottom: 28px;
+}
+
+.cv-seccion h3 {
+    margin: 0 0 10px;
+
+    padding-bottom: 6px;
+
+    border-bottom: 1px solid #e5e7eb;
+
+    font-size: 16px;
+    text-transform: uppercase;
+
+    letter-spacing: 0.5px;
+
+    color: #111827;
+}
+
+.cv-seccion p {
+    margin: 0;
+
+    white-space: pre-line;
+
+    font-size: 14px;
+    line-height: 1.7;
+
+    color: #374151;
+}
+
+
+/* =========================================
+   PIE DE PÁGINA
+========================================= */
+
+footer {
+    text-align: center;
+
+    padding: 30px;
+
+    color: #6b7280;
+
+    font-size: 13px;
+}
+
+
+/* =========================================
+   MÓVIL
+========================================= */
+
+@media (max-width: 900px) {
+
+    .contenedor {
+        grid-template-columns: 1fr;
+    }
+
+    .cv {
+        max-width: 100%;
+    }
+
+}
+
+
+@media (max-width: 600px) {
+
+    .contenedor {
+        padding: 0 12px;
+        margin-top: 15px;
+    }
+
+    .formulario {
+        padding: 20px;
+    }
+
+    .cv-cabecera {
+        padding: 30px 25px 25px;
+    }
+
+    .cv-cabecera h1 {
+        font-size: 30px;
+    }
+
+    .cv-cuerpo {
+        padding: 25px;
+    }
+
+    .barra-vista {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 10px;
+    }
+
+    .boton-imprimir {
+        width: 100%;
+    }
+
+}
+
+
+/* =========================================
+   IMPRESIÓN / PDF
+========================================= */
+
+@media print {
+
+    body {
+        background: white;
+    }
+
+    .cabecera,
+    .formulario,
+    .barra-vista,
+    footer {
+        display: none !important;
+    }
+
+    .contenedor {
+        display: block;
+        margin: 0;
+        padding: 0;
+    }
+
+    .vista-previa {
+        width: 100%;
+    }
+
+    .cv {
+        width: 100%;
+        max-width: none;
+
+        min-height: auto;
+
+        box-shadow: none;
+    }
+
+    .cv-cabecera {
+        padding-top: 20px;
+    }
+}
