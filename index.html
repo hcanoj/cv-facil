@@ -152,7 +152,7 @@
         <textarea id="habilidades"
             placeholder="Ej: Photoshop, Excel, ventas, liderazgo..."></textarea>
 
-        <button onclick="generarCV()">
+        <button id="generarCV">
             Generar CV
         </button>
 
@@ -219,41 +219,48 @@
 
 
 <script>
+document.addEventListener("DOMContentLoaded", function () {
 
-function generarCV() {
+    const boton = document.getElementById("generarCV");
 
-    const nombre = document.getElementById("nombre").value;
-    const profesion = document.getElementById("profesion").value;
-    const email = document.getElementById("email").value;
-    const telefono = document.getElementById("telefono").value;
-    const ubicacion = document.getElementById("ubicacion").value;
-    const perfil = document.getElementById("perfil").value;
-    const experiencia = document.getElementById("experiencia").value;
-    const formacion = document.getElementById("formacion").value;
-    const habilidades = document.getElementById("habilidades").value;
+    boton.addEventListener("click", function () {
 
-    document.getElementById("cvNombre").textContent =
-        nombre || "Tu nombre";
+        document.getElementById("cvNombre").textContent =
+            document.getElementById("nombre").value || "Tu nombre";
 
-    document.getElementById("cvProfesion").textContent =
-        profesion || "Tu profesión";
+        document.getElementById("cvProfesion").textContent =
+            document.getElementById("profesion").value || "Tu profesión";
 
-    document.getElementById("cvContacto").textContent =
-        `${email || "email@ejemplo.com"} · ${telefono || "Teléfono"} · ${ubicacion || "Ubicación"}`;
+        const email =
+            document.getElementById("email").value || "email@ejemplo.com";
 
-    document.getElementById("cvPerfil").textContent =
-        perfil || "Tu perfil profesional aparecerá aquí.";
+        const telefono =
+            document.getElementById("telefono").value || "Teléfono";
 
-    document.getElementById("cvExperiencia").textContent =
-        experiencia || "Tu experiencia aparecerá aquí.";
+        const ubicacion =
+            document.getElementById("ubicacion").value || "Ubicación";
 
-    document.getElementById("cvFormacion").textContent =
-        formacion || "Tu formación aparecerá aquí.";
+        document.getElementById("cvContacto").textContent =
+            email + " · " + telefono + " · " + ubicacion;
 
-    document.getElementById("cvHabilidades").textContent =
-        habilidades || "Tus habilidades aparecerán aquí.";
-}
+        document.getElementById("cvPerfil").textContent =
+            document.getElementById("perfil").value ||
+            "Tu perfil profesional aparecerá aquí.";
 
+        document.getElementById("cvExperiencia").textContent =
+            document.getElementById("experiencia").value ||
+            "Tu experiencia aparecerá aquí.";
+
+        document.getElementById("cvFormacion").textContent =
+            document.getElementById("formacion").value ||
+            "Tu formación aparecerá aquí.";
+
+        document.getElementById("cvHabilidades").textContent =
+            document.getElementById("habilidades").value ||
+            "Tus habilidades aparecerán aquí.";
+    });
+
+});
 </script>
 
 </body>
