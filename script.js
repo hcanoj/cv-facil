@@ -35,7 +35,7 @@ document.addEventListener("DOMContentLoaded", function () {
     ================================================= */
 
     const AI_BACKEND_URL =
-        "https://bitter-band-b917.hectorcanojimenez.workers.dev/";
+        "https://bitter-band-b917.hectorcanojimenez.workers.dev";
 
 
     /* =================================================
@@ -852,6 +852,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
         try {
+            console.log("BOTÓN IA: iniciando petición");
+console.log("URL DEL WORKER:", AI_BACKEND_URL);
 
             const response =
                 await fetch(
