@@ -1,6 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+
     <url>
         <loc>https://hcanoj.github.io/cv-facil/</loc>
     </url>
+
+    <url>
+        <loc>https://hcanoj.github.io/cv-facil/cv-profesional.html</loc>
+    </url>
+
+    <url>
+        <loc>https://hcanoj.github.io/cv-facil/hacer-curriculum.html</loc>
+    </url>
+
+    <url>
+        <loc>https://hcanoj.github.io/cv-facil/plantillas-curriculum.html</loc>
+    </url>
+
+    <url>
+        <loc>https://hcanoj.github.io/cv-facil/curriculum-sin-experiencia.html</loc>
+    </url>
+
 </urlset>
