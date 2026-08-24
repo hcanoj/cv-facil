@@ -1176,6 +1176,60 @@ document.addEventListener("DOMContentLoaded", () => {
         );
 
     }
+    /* =================================================
+   IA - PERFIL
+================================================= */
+
+const improveProfileButton =
+    document.getElementById("improveProfile");
+
+if (improveProfileButton) {
+
+    improveProfileButton.addEventListener(
+        "click",
+        function () {
+
+            const textarea =
+                document.getElementById("perfil");
+
+            mejorarTextoConIA(
+                textarea,
+                improveProfileButton,
+                "Escribe primero tu perfil profesional."
+            );
+
+        }
+    );
+
+}
+
+
+/* =================================================
+   IA - HABILIDADES
+================================================= */
+
+const improveSkillsButton =
+    document.getElementById("improveSkills");
+
+if (improveSkillsButton) {
+
+    improveSkillsButton.addEventListener(
+        "click",
+        function () {
+
+            const textarea =
+                document.getElementById("skills");
+
+            mejorarTextoConIA(
+                textarea,
+                improveSkillsButton,
+                "Escribe primero tus habilidades."
+            );
+
+        }
+    );
+
+}
 
 
     /* =====================================================
@@ -1371,27 +1425,24 @@ document.addEventListener("DOMContentLoaded", () => {
        BOTÓN PDF
     ===================================================== */
 
-    if (printButton) {
+if (printButton) {
 
-        printButton.addEventListener(
-            "click",
-            () => {
+    printButton.addEventListener(
+        "click",
+        function () {
 
-                if (!validateCV()) {
-                    return;
-                }
+            updateCV();
 
-
-                updateCV();
-
-                saveData();
+            setTimeout(function () {
 
                 window.print();
 
-            }
-        );
+            }, 100);
 
-    }
+        }
+    );
+
+}
 
 
     /* =====================================================
