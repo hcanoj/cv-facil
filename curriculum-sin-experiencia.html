@@ -1,0 +1,899 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta
+        name="description"
+        content="Aprende cómo hacer un currículum sin experiencia laboral. Descubre qué poner en tu CV, cómo destacar tus estudios, habilidades y crear un CV profesional gratis."
+    >
+
+    <meta
+        name="robots"
+        content="index, follow"
+    >
+
+    <meta
+        name="theme-color"
+        content="#0f172a"
+    >
+
+    <link
+        rel="canonical"
+        href="https://hcanoj.github.io/cv-facil/curriculum-sin-experiencia.html"
+    >
+
+    <title>Cómo hacer un CV sin experiencia laboral | CV Fácil</title>
+
+    <link
+        rel="stylesheet"
+        href="./style.css"
+    >
+
+    <style>
+
+        /* =====================================================
+           PÁGINA CV SIN EXPERIENCIA
+        ===================================================== */
+
+        .no-experience-page {
+            background: #f8fafc;
+            min-height: 100vh;
+        }
+
+        .no-experience-hero {
+            background:
+                linear-gradient(
+                    135deg,
+                    #0f172a 0%,
+                    #1e293b 55%,
+                    #334155 100%
+                );
+
+            color: white;
+            padding: 90px 24px 85px;
+        }
+
+        .no-experience-hero-inner {
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .no-experience-tag {
+            display: inline-flex;
+            align-items: center;
+            padding: 7px 12px;
+            border: 1px solid rgba(255,255,255,.18);
+            border-radius: 999px;
+            color: #cbd5e1;
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: .4px;
+            margin-bottom: 22px;
+        }
+
+        .no-experience-hero h1 {
+            max-width: 800px;
+            margin: 0;
+            font-size: clamp(38px, 6vw, 68px);
+            line-height: 1.02;
+            letter-spacing: -2px;
+        }
+
+        .no-experience-hero p {
+            max-width: 700px;
+            margin: 24px 0 0;
+            color: #cbd5e1;
+            font-size: 18px;
+            line-height: 1.7;
+        }
+
+        .no-experience-hero-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-top: 32px;
+        }
+
+        .hero-primary-button,
+        .hero-secondary-button {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 48px;
+            padding: 0 20px;
+            border-radius: 9px;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 800;
+        }
+
+        .hero-primary-button {
+            background: #2563eb;
+            color: white;
+        }
+
+        .hero-primary-button:hover {
+            background: #1d4ed8;
+        }
+
+        .hero-secondary-button {
+            border: 1px solid #475569;
+            color: white;
+            background: rgba(255,255,255,.04);
+        }
+
+        .no-experience-content {
+            max-width: 1050px;
+            margin: -35px auto 0;
+            padding: 0 20px 70px;
+            position: relative;
+        }
+
+        .intro-card {
+            background: white;
+            border: 1px solid #e2e8f0;
+            border-radius: 16px;
+            padding: 32px;
+            box-shadow: 0 15px 40px rgba(15,23,42,.08);
+        }
+
+        .intro-card h2 {
+            margin: 0 0 12px;
+            color: #0f172a;
+            font-size: 26px;
+        }
+
+        .intro-card p {
+            margin: 0;
+            color: #475569;
+            line-height: 1.8;
+        }
+
+        .steps-section {
+            padding-top: 60px;
+        }
+
+        .section-title {
+            max-width: 700px;
+            margin-bottom: 28px;
+        }
+
+        .section-title span {
+            color: #2563eb;
+            font-size: 11px;
+            font-weight: 900;
+            letter-spacing: 1px;
+        }
+
+        .section-title h2 {
+            margin: 7px 0 10px;
+            color: #0f172a;
+            font-size: 34px;
+            line-height: 1.15;
+        }
+
+        .section-title p {
+            margin: 0;
+            color: #64748b;
+            line-height: 1.7;
+        }
+
+        .steps-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 18px;
+        }
+
+        .step-card {
+            background: white;
+            border: 1px solid #e2e8f0;
+            border-radius: 14px;
+            padding: 25px;
+        }
+
+        .step-number {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 36px;
+            height: 36px;
+            border-radius: 9px;
+            background: #eff6ff;
+            color: #2563eb;
+            font-size: 13px;
+            font-weight: 900;
+            margin-bottom: 18px;
+        }
+
+        .step-card h3 {
+            margin: 0 0 9px;
+            color: #0f172a;
+            font-size: 17px;
+        }
+
+        .step-card p {
+            margin: 0;
+            color: #64748b;
+            font-size: 14px;
+            line-height: 1.7;
+        }
+
+        .content-grid {
+            display: grid;
+            grid-template-columns: 1.1fr .9fr;
+            gap: 24px;
+            margin-top: 60px;
+        }
+
+        .content-card {
+            background: white;
+            border: 1px solid #e2e8f0;
+            border-radius: 14px;
+            padding: 30px;
+        }
+
+        .content-card h2 {
+            margin: 0 0 20px;
+            color: #0f172a;
+            font-size: 23px;
+        }
+
+        .content-card h3 {
+            margin: 24px 0 8px;
+            color: #1e293b;
+            font-size: 16px;
+        }
+
+        .content-card h3:first-of-type {
+            margin-top: 0;
+        }
+
+        .content-card p {
+            margin: 0;
+            color: #64748b;
+            line-height: 1.75;
+            font-size: 14px;
+        }
+
+        .content-card ul {
+            margin: 0;
+            padding-left: 20px;
+            color: #475569;
+        }
+
+        .content-card li {
+            margin-bottom: 11px;
+            line-height: 1.6;
+            font-size: 14px;
+        }
+
+        .highlight-box {
+            margin-top: 24px;
+            padding: 20px;
+            border-left: 4px solid #2563eb;
+            background: #eff6ff;
+            border-radius: 8px;
+        }
+
+        .highlight-box strong {
+            display: block;
+            margin-bottom: 5px;
+            color: #1e3a8a;
+            font-size: 14px;
+        }
+
+        .highlight-box p {
+            color: #1e40af;
+            font-size: 13px;
+        }
+
+        .mistakes {
+            margin-top: 60px;
+        }
+
+        .mistakes-list {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 14px;
+        }
+
+        .mistake {
+            display: flex;
+            gap: 12px;
+            padding: 18px;
+            background: white;
+            border: 1px solid #e2e8f0;
+            border-radius: 11px;
+        }
+
+        .mistake-icon {
+            flex-shrink: 0;
+            color: #dc2626;
+            font-weight: 900;
+        }
+
+        .mistake strong {
+            display: block;
+            color: #1e293b;
+            margin-bottom: 4px;
+            font-size: 14px;
+        }
+
+        .mistake span {
+            color: #64748b;
+            font-size: 13px;
+            line-height: 1.6;
+        }
+
+        .final-cta {
+            margin-top: 70px;
+            padding: 45px 30px;
+            border-radius: 16px;
+            background: #0f172a;
+            text-align: center;
+        }
+
+        .final-cta h2 {
+            margin: 0;
+            color: white;
+            font-size: 30px;
+        }
+
+        .final-cta p {
+            max-width: 620px;
+            margin: 12px auto 24px;
+            color: #cbd5e1;
+            line-height: 1.7;
+        }
+
+        .site-footer-simple {
+            padding: 30px 20px;
+            background: #0f172a;
+            color: #94a3b8;
+            text-align: center;
+            font-size: 12px;
+        }
+
+        @media (max-width: 800px) {
+
+            .steps-grid,
+            .content-grid,
+            .mistakes-list {
+                grid-template-columns: 1fr;
+            }
+
+            .no-experience-hero {
+                padding: 65px 20px 70px;
+            }
+
+            .no-experience-hero h1 {
+                letter-spacing: -1px;
+            }
+
+            .intro-card {
+                padding: 25px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body class="no-experience-page">
+
+
+    <!-- =====================================================
+         HEADER
+    ====================================================== -->
+
+    <header class="site-header">
+
+        <div class="header-inner">
+
+            <a
+                href="./index.html"
+                class="brand"
+                style="text-decoration:none;color:inherit;"
+            >
+
+                <div class="brand-icon">
+                    CV
+                </div>
+
+                <div>
+                    <h1>CV Fácil</h1>
+
+                    <span>
+                        Crea tu CV profesional con IA
+                    </span>
+                </div>
+
+            </a>
+
+
+            <div class="header-actions">
+
+                <div class="header-badge">
+                    Gratis · Sin registro
+                </div>
+
+            </div>
+
+        </div>
+
+    </header>
+
+
+    <!-- =====================================================
+         HERO
+    ====================================================== -->
+
+    <section class="no-experience-hero">
+
+        <div class="no-experience-hero-inner">
+
+            <span class="no-experience-tag">
+                GUÍA PARA PRINCIPIANTES
+            </span>
+
+            <h1>
+                Cómo hacer un CV sin experiencia laboral
+            </h1>
+
+            <p>
+                No tener experiencia no significa que no tengas
+                nada que aportar. Aprende qué poner en tu
+                currículum, cómo presentar tus estudios y
+                habilidades y cómo crear un CV que transmita
+                profesionalidad.
+            </p>
+
+
+            <div class="no-experience-hero-actions">
+
+                <a
+                    href="./index.html"
+                    class="hero-primary-button"
+                >
+                    Crear mi CV gratis
+                </a>
+
+                <a
+                    href="./hacer-curriculum.html"
+                    class="hero-secondary-button"
+                >
+                    Ver guía para hacer un CV
+                </a>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =====================================================
+         CONTENIDO
+    ====================================================== -->
+
+    <main class="no-experience-content">
+
+
+        <section class="intro-card">
+
+            <h2>
+                ¿Se puede hacer un buen CV sin experiencia?
+            </h2>
+
+            <p>
+                Sí. Un currículum no tiene que estar lleno de
+                años de experiencia para resultar interesante.
+                Cuando estás empezando, puedes destacar tu
+                formación, habilidades, proyectos, prácticas,
+                idiomas, cursos y cualquier actividad que
+                demuestre tus capacidades.
+            </p>
+
+        </section>
+
+
+        <!-- =================================================
+             PASOS
+        ================================================== -->
+
+        <section class="steps-section">
+
+            <div class="section-title">
+
+                <span>
+                    PASO A PASO
+                </span>
+
+                <h2>
+                    Qué poner en tu CV si no tienes experiencia
+                </h2>
+
+                <p>
+                    Organiza la información para que el
+                    reclutador pueda identificar rápidamente
+                    lo que puedes aportar.
+                </p>
+
+            </div>
+
+
+            <div class="steps-grid">
+
+
+                <article class="step-card">
+
+                    <div class="step-number">
+                        01
+                    </div>
+
+                    <h3>
+                        Presenta tu perfil
+                    </h3>
+
+                    <p>
+                        Escribe unas líneas sobre quién eres,
+                        qué estás buscando y cuáles son tus
+                        principales fortalezas profesionales.
+                    </p>
+
+                </article>
+
+
+                <article class="step-card">
+
+                    <div class="step-number">
+                        02
+                    </div>
+
+                    <h3>
+                        Destaca tu formación
+                    </h3>
+
+                    <p>
+                        Incluye tus estudios, formación
+                        profesional, cursos y certificaciones
+                        que sean relevantes para el puesto.
+                    </p>
+
+                </article>
+
+
+                <article class="step-card">
+
+                    <div class="step-number">
+                        03
+                    </div>
+
+                    <h3>
+                        Muestra tus habilidades
+                    </h3>
+
+                    <p>
+                        Enumera las competencias técnicas y
+                        personales que puedan ayudarte a
+                        desempeñar el trabajo.
+                    </p>
+
+                </article>
+
+
+            </div>
+
+        </section>
+
+
+        <!-- =================================================
+             CONTENIDO PRINCIPAL
+        ================================================== -->
+
+        <section class="content-grid">
+
+
+            <article class="content-card">
+
+                <h2>
+                    Qué puedes incluir aunque no hayas trabajado
+                </h2>
+
+
+                <h3>
+                    Estudios
+                </h3>
+
+                <p>
+                    Indica tu formación académica, especialmente
+                    cuando esté relacionada con el puesto al que
+                    quieres acceder.
+                </p>
+
+
+                <h3>
+                    Cursos y certificaciones
+                </h3>
+
+                <p>
+                    Los cursos pueden demostrar iniciativa y
+                    conocimiento en determinadas áreas.
+                </p>
+
+
+                <h3>
+                    Proyectos personales
+                </h3>
+
+                <p>
+                    Si has creado proyectos por tu cuenta,
+                    trabajos académicos, páginas web,
+                    diseños o cualquier otro trabajo relevante,
+                    puedes incorporarlos al CV.
+                </p>
+
+
+                <h3>
+                    Prácticas o voluntariado
+                </h3>
+
+                <p>
+                    Aunque no sean empleos tradicionales,
+                    pueden demostrar responsabilidad,
+                    colaboración y experiencia práctica.
+                </p>
+
+
+                <div class="highlight-box">
+
+                    <strong>
+                        Consejo importante
+                    </strong>
+
+                    <p>
+                        No inventes experiencia. Es mejor
+                        presentar correctamente tus capacidades
+                        reales que incluir información que no
+                        puedas demostrar.
+                    </p>
+
+                </div>
+
+            </article>
+
+
+            <aside class="content-card">
+
+                <h2>
+                    Habilidades que puedes destacar
+                </h2>
+
+                <ul>
+
+                    <li>
+                        Comunicación
+                    </li>
+
+                    <li>
+                        Trabajo en equipo
+                    </li>
+
+                    <li>
+                        Organización
+                    </li>
+
+                    <li>
+                        Atención al detalle
+                    </li>
+
+                    <li>
+                        Resolución de problemas
+                    </li>
+
+                    <li>
+                        Manejo de herramientas digitales
+                    </li>
+
+                    <li>
+                        Idiomas
+                    </li>
+
+                    <li>
+                        Adaptabilidad
+                    </li>
+
+                </ul>
+
+
+                <div class="highlight-box">
+
+                    <strong>
+                        Mejor que una lista genérica
+                    </strong>
+
+                    <p>
+                        Siempre que sea posible, relaciona
+                        tus habilidades con el puesto que
+                        estás buscando.
+                    </p>
+
+                </div>
+
+            </aside>
+
+
+        </section>
+
+
+        <!-- =================================================
+             ERRORES
+        ================================================== -->
+
+        <section class="mistakes">
+
+            <div class="section-title">
+
+                <span>
+                    EVITA ESTOS ERRORES
+                </span>
+
+                <h2>
+                    Lo que no deberías hacer
+                </h2>
+
+                <p>
+                    Un CV sencillo puede funcionar muy bien si
+                    está bien organizado y no contiene errores
+                    innecesarios.
+                </p>
+
+            </div>
+
+
+            <div class="mistakes-list">
+
+
+                <div class="mistake">
+
+                    <div class="mistake-icon">
+                        ×
+                    </div>
+
+                    <div>
+
+                        <strong>
+                            Inventar experiencia
+                        </strong>
+
+                        <span>
+                            No añadas trabajos o responsabilidades
+                            que realmente no hayas realizado.
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+                <div class="mistake">
+
+                    <div class="mistake-icon">
+                        ×
+                    </div>
+
+                    <div>
+
+                        <strong>
+                            Escribir demasiado
+                        </strong>
+
+                        <span>
+                            Prioriza la información relevante
+                            y utiliza textos claros y directos.
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+                <div class="mistake">
+
+                    <div class="mistake-icon">
+                        ×
+                    </div>
+
+                    <div>
+
+                        <strong>
+                            Descuidar la presentación
+                        </strong>
+
+                        <span>
+                            Un diseño limpio facilita que el
+                            reclutador encuentre la información.
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+                <div class="mistake">
+
+                    <div class="mistake-icon">
+                        ×
+                    </div>
+
+                    <div>
+
+                        <strong>
+                            Utilizar el mismo CV para todo
+                        </strong>
+
+                        <span>
+                            Adapta tu perfil y habilidades al
+                            tipo de puesto al que te presentes.
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+            </div>
+
+        </section>
+
+
+        <!-- =================================================
+             CTA
+        ================================================== -->
+
+        <section class="final-cta">
+
+            <h2>
+                Crea tu CV aunque estés empezando
+            </h2>
+
+            <p>
+                CV Fácil te permite crear un currículum
+                profesional, mejorar tus textos con IA,
+                añadir tu fotografía y descargar el resultado
+                en PDF.
+            </p>
+
+            <a
+                href="./index.html"
+                class="hero-primary-button"
+            >
+                Crear mi CV gratis
+            </a>
+
+        </section>
+
+
+    </main>
+
+
+    <!-- =====================================================
+         FOOTER
+    ====================================================== -->
+
+    <footer class="site-footer-simple">
+
+        CV Fácil · Generador de currículum profesional
+
+    </footer>
+
+
+</body>
+
+</html>
