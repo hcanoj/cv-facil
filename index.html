@@ -2,31 +2,38 @@
 <html lang="es">
 
 <head>
+
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
 
     <meta
         name="description"
-        content="Crea un CV profesional gratis en pocos minutos con ayuda de inteligencia artificial."
+        content="CV Fácil: crea un currículum profesional gratis con ayuda de inteligencia artificial."
     >
 
     <meta
-        name="keywords"
-        content="crear CV, currículum, CV gratis, currículum profesional, CV con IA"
+        name="theme-color"
+        content="#111827"
     >
 
-    <meta name="author" content="CV Fácil">
-
-    <title>CV Fácil | Crea tu CV profesional gratis con IA</title>
+    <title>
+        CV Fácil | Crea tu CV profesional gratis con IA
+    </title>
 
     <link rel="stylesheet" href="style.css">
+
 </head>
+
 
 <body>
 
-    <!-- =========================================
+    <!-- =================================================
          CABECERA
-    ========================================== -->
+    ================================================== -->
 
     <header class="site-header">
 
@@ -39,40 +46,53 @@
                 </div>
 
                 <div>
-                    <h1>CV Fácil</h1>
-                    <span>Crea tu CV profesional con IA</span>
+
+                    <h1>
+                        CV Fácil
+                    </h1>
+
+                    <span>
+                        Crea tu CV profesional
+                    </span>
+
                 </div>
 
             </div>
 
-            <div class="header-badge">
-                Gratis · Sin registro
+
+            <div class="header-actions">
+
+                <div class="header-badge">
+                    Gratis · Sin registro
+                </div>
+
+                <button
+                    type="button"
+                    id="themeToggle"
+                    class="theme-toggle"
+                    aria-label="Cambiar modo de color"
+                    title="Cambiar modo de color"
+                >
+                    🌙
+                </button>
+
             </div>
-            <button
-    type="button"
-    id="themeToggle"
-    class="theme-toggle"
-    aria-label="Cambiar entre modo claro y oscuro"
-    title="Cambiar tema"
->
-    <span id="themeIcon">🌙</span>
-</button>
 
         </div>
 
     </header>
 
 
-    <!-- =========================================
-         CONTENIDO PRINCIPAL
-    ========================================== -->
+    <!-- =================================================
+         CONTENIDO
+    ================================================== -->
 
     <main class="app-container">
 
 
-        <!-- =====================================
-             PANEL IZQUIERDO
-        ====================================== -->
+        <!-- =================================================
+             EDITOR
+        ================================================== -->
 
         <aside class="editor-panel">
 
@@ -80,7 +100,9 @@
 
                 <div>
 
-                    <h2>Crear mi CV</h2>
+                    <h2>
+                        Crear mi CV
+                    </h2>
 
                     <p>
                         Completa tus datos y mira el resultado
@@ -92,9 +114,7 @@
             </div>
 
 
-            <!-- =====================================
-                 DATOS PERSONALES
-            ====================================== -->
+            <!-- DATOS PERSONALES -->
 
             <section class="form-section">
 
@@ -200,12 +220,31 @@
 
                 </div>
 
+
+                <!-- FOTO -->
+
+                <div class="field">
+
+                    <label for="photoInput">
+                        Foto del CV
+                    </label>
+
+                    <input
+                        type="file"
+                        id="photoInput"
+                        accept="image/*"
+                    >
+
+                    <p class="field-help">
+                        Opcional. Recomendamos una foto profesional tipo carnet.
+                    </p>
+
+                </div>
+
             </section>
 
 
-            <!-- =====================================
-                 PERFIL PROFESIONAL
-            ====================================== -->
+            <!-- PERFIL -->
 
             <section class="form-section">
 
@@ -239,12 +278,10 @@
                     ></textarea>
 
 
-                    <!-- BOTÓN IA PERFIL -->
-
                     <button
                         type="button"
-                        id="improveProfile"
                         class="ai-button"
+                        id="improveProfile"
                     >
                         ✨ Mejorar con IA
                     </button>
@@ -254,9 +291,7 @@
             </section>
 
 
-            <!-- =====================================
-                 EXPERIENCIA
-            ====================================== -->
+            <!-- EXPERIENCIA -->
 
             <section class="form-section">
 
@@ -299,9 +334,7 @@
             </section>
 
 
-            <!-- =====================================
-                 FORMACIÓN
-            ====================================== -->
+            <!-- FORMACIÓN -->
 
             <section class="form-section">
 
@@ -344,9 +377,7 @@
             </section>
 
 
-            <!-- =====================================
-                 HABILIDADES
-            ====================================== -->
+            <!-- HABILIDADES -->
 
             <section class="form-section">
 
@@ -384,12 +415,10 @@
                     ></textarea>
 
 
-                    <!-- BOTÓN IA HABILIDADES -->
-
                     <button
                         type="button"
-                        id="improveSkills"
                         class="ai-button"
+                        id="improveSkills"
                     >
                         ✨ Mejorar con IA
                     </button>
@@ -399,9 +428,7 @@
             </section>
 
 
-            <!-- =====================================
-                 IDIOMAS
-            ====================================== -->
+            <!-- IDIOMAS -->
 
             <section class="form-section">
 
@@ -443,9 +470,7 @@
             </section>
 
 
-            <!-- =====================================
-                 PLANTILLAS
-            ====================================== -->
+            <!-- DISEÑO -->
 
             <section class="form-section">
 
@@ -472,18 +497,13 @@
 
                 <div class="template-grid">
 
-
-                    <!-- PROFESIONAL -->
-
                     <button
                         type="button"
                         class="template-option active"
                         data-template="professional"
                     >
 
-                        <span
-                            class="template-preview professional-preview"
-                        ></span>
+                        <span class="template-preview professional-preview"></span>
 
                         <span>
                             Profesional
@@ -492,17 +512,13 @@
                     </button>
 
 
-                    <!-- MINIMALISTA -->
-
                     <button
                         type="button"
                         class="template-option"
                         data-template="minimal"
                     >
 
-                        <span
-                            class="template-preview minimal-preview"
-                        ></span>
+                        <span class="template-preview minimal-preview"></span>
 
                         <span>
                             Minimalista
@@ -511,17 +527,13 @@
                     </button>
 
 
-                    <!-- MODERNO -->
-
                     <button
                         type="button"
                         class="template-option"
                         data-template="modern"
                     >
 
-                        <span
-                            class="template-preview modern-preview"
-                        ></span>
+                        <span class="template-preview modern-preview"></span>
 
                         <span>
                             Moderno
@@ -534,10 +546,6 @@
             </section>
 
 
-            <!-- =====================================
-                 BOTÓN ACTUALIZAR
-            ====================================== -->
-
             <button
                 type="button"
                 id="generateButton"
@@ -548,23 +556,18 @@
 
 
             <p class="privacy-note">
-
                 Tus datos se procesan localmente en tu navegador
                 en esta versión. No necesitas crear una cuenta.
-
             </p>
 
         </aside>
 
 
-        <!-- =====================================
-             PANEL DERECHO
-        ====================================== -->
+        <!-- =================================================
+             PREVISUALIZACIÓN
+        ================================================== -->
 
         <section class="preview-panel">
-
-
-            <!-- BARRA DE PREVISUALIZACIÓN -->
 
             <div class="preview-toolbar">
 
@@ -581,31 +584,29 @@
                 </div>
 
 
-        <button
-    type="button"
-    id="printButton"
-    class="download-button"
->
-    <span>↓</span>
-    Guardar CV en PDF
-</button>
+                <button
+                    type="button"
+                    id="printButton"
+                    class="download-button"
+                >
+                    <span>
+                        ↓
+                    </span>
+
+                    Descargar PDF
+                </button>
 
             </div>
 
 
-            <!-- =================================
+            <!-- =================================================
                  CV
-            ================================== -->
+            ================================================== -->
 
             <article
                 id="cv"
                 class="cv template-professional"
             >
-
-
-                <!-- =================================
-                     CABECERA DEL CV
-                ================================== -->
 
                 <header class="cv-header">
 
@@ -619,6 +620,16 @@
                             Tu profesión
                         </h2>
 
+                    </div>
+
+
+                    <div
+                        id="cvPhoto"
+                        class="cv-photo"
+                    >
+                        <span>
+                            Foto
+                        </span>
                     </div>
 
 
@@ -644,12 +655,7 @@
                 </header>
 
 
-                <!-- =================================
-                     CUERPO DEL CV
-                ================================== -->
-
                 <div class="cv-body">
-
 
                     <!-- PERFIL -->
 
@@ -736,7 +742,6 @@
 
                     </section>
 
-
                 </div>
 
             </article>
@@ -746,10 +751,6 @@
     </main>
 
 
-    <!-- =========================================
-         FOOTER
-    ========================================== -->
-
     <footer class="site-footer">
 
         <p>
@@ -758,10 +759,6 @@
 
     </footer>
 
-
-    <!-- =========================================
-         JAVASCRIPT
-    ========================================== -->
 
     <script src="script.js"></script>
 
