@@ -1,5 +1,75 @@
 document.addEventListener("DOMContentLoaded", function () {
+    /* =================================================
+       MODO CLARO / OSCURO
+    ================================================= */
 
+    const themeToggle =
+        document.getElementById("themeToggle");
+
+    const themeIcon =
+        document.getElementById("themeIcon");
+
+
+    function applyTheme(theme) {
+
+        if (theme === "dark") {
+
+            document.body.classList.add("dark-mode");
+
+            if (themeIcon) {
+                themeIcon.textContent = "☀️";
+            }
+
+        } else {
+
+            document.body.classList.remove("dark-mode");
+
+            if (themeIcon) {
+                themeIcon.textContent = "🌙";
+            }
+
+        }
+
+    }
+
+
+    const savedTheme =
+        localStorage.getItem("cvfacil-theme");
+
+    if (savedTheme === "dark") {
+
+        applyTheme("dark");
+
+    } else {
+
+        applyTheme("light");
+
+    }
+
+
+    if (themeToggle) {
+
+        themeToggle.addEventListener(
+            "click",
+            function () {
+
+                const isDark =
+                    document.body.classList.contains("dark-mode");
+
+                const newTheme =
+                    isDark ? "light" : "dark";
+
+                applyTheme(newTheme);
+
+                localStorage.setItem(
+                    "cvfacil-theme",
+                    newTheme
+                );
+
+            }
+        );
+
+    }
     /* =====================================================
        ELEMENTOS PRINCIPALES
     ===================================================== */
