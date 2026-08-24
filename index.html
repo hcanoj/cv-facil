@@ -1,767 +1,1347 @@
-<!DOCTYPE html>
-<html lang="es">
+document.addEventListener("DOMContentLoaded", function () {
 
-<head>
+    /* =================================================
+       ELEMENTOS PRINCIPALES
+    ================================================= */
 
-    <meta charset="UTF-8">
+    const generateButton =
+        document.getElementById("generateButton");
 
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0"
-    >
+    const printButton =
+        document.getElementById("printButton");
 
-    <meta
-        name="description"
-        content="CV Fácil: crea un currículum profesional gratis con ayuda de inteligencia artificial."
-    >
+    const addExperienceButton =
+        document.getElementById("addExperience");
 
-    <meta
-        name="theme-color"
-        content="#111827"
-    >
+    const addEducationButton =
+        document.getElementById("addEducation");
 
-    <title>
-        CV Fácil | Crea tu CV profesional gratis con IA
-    </title>
+    const experienceList =
+        document.getElementById("experienceList");
 
-    <link rel="stylesheet" href="style.css">
+    const educationList =
+        document.getElementById("educationList");
 
-</head>
+    const templateButtons =
+        document.querySelectorAll(".template-option");
 
+    const themeToggle =
+        document.getElementById("themeToggle");
 
-<body>
+    const profileButton =
+        document.getElementById("improveProfile");
 
-    <!-- =================================================
-         CABECERA
-    ================================================== -->
+    const skillsButton =
+        document.getElementById("improveSkills");
 
-    <header class="site-header">
+    const photoInput =
+        document.getElementById("photoInput");
 
-        <div class="header-inner">
-
-            <div class="brand">
-
-                <div class="brand-icon">
-                    CV
-                </div>
-
-                <div>
-
-                    <h1>
-                        CV Fácil
-                    </h1>
-
-                    <span>
-                        Crea tu CV profesional
-                    </span>
-
-                </div>
-
-            </div>
+    const cvPhoto =
+        document.getElementById("cvPhoto");
 
 
-            <div class="header-actions">
+    let experienceCounter = 0;
 
-                <div class="header-badge">
-                    Gratis · Sin registro
-                </div>
+    let educationCounter = 0;
+
+
+    /* =================================================
+       URL DEL WORKER
+    ================================================= */
+
+    const AI_BACKEND_URL =
+        "https://bitter-band-b917.hectorcanojimenez.workers.dev";
+
+
+    /* =================================================
+       MODO CLARO / OSCURO
+    ================================================= */
+
+    function setTheme(theme) {
+
+        if (theme === "dark") {
+
+            document.body.classList.add("dark-mode");
+
+            if (themeToggle) {
+                themeToggle.textContent = "☀️";
+            }
+
+        } else {
+
+            document.body.classList.remove("dark-mode");
+
+            if (themeToggle) {
+                themeToggle.textContent = "🌙";
+            }
+
+        }
+
+        localStorage.setItem(
+            "cvfacil-theme",
+            theme
+        );
+    }
+
+
+    const savedTheme =
+        localStorage.getItem("cvfacil-theme");
+
+
+    if (savedTheme === "dark") {
+
+        setTheme("dark");
+
+    } else {
+
+        setTheme("light");
+
+    }
+
+
+    if (themeToggle) {
+
+        themeToggle.addEventListener(
+            "click",
+            function () {
+
+                const isDark =
+                    document.body.classList.contains(
+                        "dark-mode"
+                    );
+
+                setTheme(
+                    isDark
+                        ? "light"
+                        : "dark"
+                );
+
+            }
+        );
+
+    }
+
+
+    /* =================================================
+       UTILIDADES
+    ================================================= */
+
+    function getValue(id) {
+
+        const element =
+            document.getElementById(id);
+
+        if (!element) {
+            return "";
+        }
+
+        return element.value.trim();
+    }
+
+
+    function escapeHTML(text) {
+
+        const div =
+            document.createElement("div");
+
+        div.textContent = text;
+
+        return div.innerHTML;
+    }
+
+
+    /* =================================================
+       FOTO
+    ================================================= */
+
+    if (photoInput) {
+
+        photoInput.addEventListener(
+            "change",
+            function () {
+
+                const file =
+                    photoInput.files[0];
+
+                if (!file) {
+
+                    cvPhoto.innerHTML =
+                        "<span>Foto</span>";
+
+                    return;
+                }
+
+
+                if (!file.type.startsWith("image/")) {
+
+                    alert(
+                        "Selecciona una imagen válida."
+                    );
+
+                    photoInput.value = "";
+
+                    return;
+                }
+
+
+                const reader =
+                    new FileReader();
+
+
+                reader.onload =
+                    function (event) {
+
+                        cvPhoto.innerHTML = "";
+
+                        const img =
+                            document.createElement(
+                                "img"
+                            );
+
+                        img.src =
+                            event.target.result;
+
+                        img.alt =
+                            "Foto del candidato";
+
+                        cvPhoto.appendChild(
+                            img
+                        );
+                    };
+
+
+                reader.readAsDataURL(file);
+
+            }
+        );
+
+    }
+
+
+    /* =================================================
+       EXPERIENCIA
+    ================================================= */
+
+    function addExperience() {
+
+        experienceCounter++;
+
+
+        const item =
+            document.createElement("div");
+
+        item.className =
+            "repeatable-item";
+
+
+        item.innerHTML = `
+
+            <div class="repeatable-header">
+
+                <span class="repeatable-title">
+                    Experiencia ${experienceCounter}
+                </span>
 
                 <button
                     type="button"
-                    id="themeToggle"
-                    class="theme-toggle"
-                    aria-label="Cambiar modo de color"
-                    title="Cambiar modo de color"
+                    class="delete-button"
                 >
-                    🌙
+                    Eliminar
                 </button>
 
             </div>
 
-        </div>
 
-    </header>
+            <div class="field">
+
+                <label>
+                    Puesto
+                </label>
+
+                <input
+                    type="text"
+                    class="experience-position"
+                    placeholder="Ej: Diseñador gráfico"
+                >
+
+            </div>
 
 
-    <!-- =================================================
-         CONTENIDO
-    ================================================== -->
+            <div class="field">
 
-    <main class="app-container">
+                <label>
+                    Empresa
+                </label>
+
+                <input
+                    type="text"
+                    class="experience-company"
+                    placeholder="Ej: Agencia Creativa"
+                >
+
+            </div>
 
 
-        <!-- =================================================
-             EDITOR
-        ================================================== -->
+            <div class="two-columns">
 
-        <aside class="editor-panel">
+                <div class="field">
 
-            <div class="panel-header">
+                    <label>
+                        Fecha de inicio
+                    </label>
 
-                <div>
+                    <input
+                        type="text"
+                        class="experience-start"
+                        placeholder="2022"
+                    >
 
-                    <h2>
-                        Crear mi CV
-                    </h2>
+                </div>
+
+
+                <div class="field">
+
+                    <label>
+                        Fecha de finalización
+                    </label>
+
+                    <input
+                        type="text"
+                        class="experience-end"
+                        placeholder="Actualidad"
+                    >
+
+                </div>
+
+            </div>
+
+
+            <div class="field">
+
+                <label>
+                    Responsabilidades y logros
+                </label>
+
+                <textarea
+                    class="experience-description"
+                    rows="4"
+                    placeholder="Describe tus principales responsabilidades y logros..."
+                ></textarea>
+
+
+                <button
+                    type="button"
+                    class="ai-button"
+                >
+                    ✨ Mejorar con IA
+                </button>
+
+            </div>
+
+        `;
+
+
+        const deleteButton =
+            item.querySelector(
+                ".delete-button"
+            );
+
+
+        deleteButton.addEventListener(
+            "click",
+            function () {
+
+                item.remove();
+
+                updateCV();
+
+            }
+        );
+
+
+        const aiButton =
+            item.querySelector(
+                ".ai-button"
+            );
+
+
+        aiButton.addEventListener(
+            "click",
+            function () {
+
+                mejorarExperienciaConIA(
+                    item,
+                    aiButton
+                );
+
+            }
+        );
+
+
+        experienceList.appendChild(
+            item
+        );
+
+        updateCV();
+    }
+
+
+    /* =================================================
+       FORMACIÓN
+    ================================================= */
+
+    function addEducation() {
+
+        educationCounter++;
+
+
+        const item =
+            document.createElement("div");
+
+        item.className =
+            "repeatable-item";
+
+
+        item.innerHTML = `
+
+            <div class="repeatable-header">
+
+                <span class="repeatable-title">
+                    Formación ${educationCounter}
+                </span>
+
+                <button
+                    type="button"
+                    class="delete-button"
+                >
+                    Eliminar
+                </button>
+
+            </div>
+
+
+            <div class="field">
+
+                <label>
+                    Titulación
+                </label>
+
+                <input
+                    type="text"
+                    class="education-title"
+                    placeholder="Ej: Grado en Diseño Gráfico"
+                >
+
+            </div>
+
+
+            <div class="field">
+
+                <label>
+                    Centro educativo
+                </label>
+
+                <input
+                    type="text"
+                    class="education-school"
+                    placeholder="Ej: Universidad de Madrid"
+                >
+
+            </div>
+
+
+            <div class="field">
+
+                <label>
+                    Año
+                </label>
+
+                <input
+                    type="text"
+                    class="education-date"
+                    placeholder="2020"
+                >
+
+            </div>
+
+        `;
+
+
+        const deleteButton =
+            item.querySelector(
+                ".delete-button"
+            );
+
+
+        deleteButton.addEventListener(
+            "click",
+            function () {
+
+                item.remove();
+
+                updateCV();
+
+            }
+        );
+
+
+        educationList.appendChild(
+            item
+        );
+
+        updateCV();
+    }
+
+
+    /* =================================================
+       OBTENER EXPERIENCIAS
+    ================================================= */
+
+    function getExperiences() {
+
+        const items =
+            experienceList.querySelectorAll(
+                ".repeatable-item"
+            );
+
+
+        return Array.from(items).map(
+            function (item) {
+
+                return {
+
+                    position:
+                        item.querySelector(
+                            ".experience-position"
+                        ).value.trim(),
+
+                    company:
+                        item.querySelector(
+                            ".experience-company"
+                        ).value.trim(),
+
+                    start:
+                        item.querySelector(
+                            ".experience-start"
+                        ).value.trim(),
+
+                    end:
+                        item.querySelector(
+                            ".experience-end"
+                        ).value.trim(),
+
+                    description:
+                        item.querySelector(
+                            ".experience-description"
+                        ).value.trim()
+
+                };
+
+            }
+        );
+    }
+
+
+    /* =================================================
+       OBTENER FORMACIÓN
+    ================================================= */
+
+    function getEducation() {
+
+        const items =
+            educationList.querySelectorAll(
+                ".repeatable-item"
+            );
+
+
+        return Array.from(items).map(
+            function (item) {
+
+                return {
+
+                    title:
+                        item.querySelector(
+                            ".education-title"
+                        ).value.trim(),
+
+                    school:
+                        item.querySelector(
+                            ".education-school"
+                        ).value.trim(),
+
+                    date:
+                        item.querySelector(
+                            ".education-date"
+                        ).value.trim()
+
+                };
+
+            }
+        );
+    }
+
+
+    /* =================================================
+       DATOS PERSONALES
+    ================================================= */
+
+    function updatePersonalData() {
+
+        const name =
+            getValue("nombre");
+
+        const job =
+            getValue("profesion");
+
+        const email =
+            getValue("email");
+
+        const phone =
+            getValue("telefono");
+
+        const location =
+            getValue("ubicacion");
+
+        const profile =
+            getValue("perfil");
+
+        const skills =
+            getValue("skills");
+
+        const languages =
+            getValue("languages");
+
+
+        const cvName =
+            document.getElementById("cvName");
+
+        if (cvName) {
+
+            cvName.textContent =
+                name || "Tu nombre";
+        }
+
+
+        const cvJob =
+            document.getElementById("cvJob");
+
+        if (cvJob) {
+
+            cvJob.textContent =
+                job || "Tu profesión";
+        }
+
+
+        const contact =
+            document.getElementById(
+                "cvContact"
+            );
+
+
+        if (contact) {
+
+            contact.innerHTML = "";
+
+
+            [
+                email || "email@ejemplo.com",
+                phone || "Teléfono",
+                location || "Ubicación"
+            ].forEach(
+                function (value) {
+
+                    const span =
+                        document.createElement(
+                            "span"
+                        );
+
+                    span.textContent =
+                        value;
+
+                    contact.appendChild(
+                        span
+                    );
+
+                }
+            );
+
+        }
+
+
+        const cvProfile =
+            document.getElementById(
+                "cvProfile"
+            );
+
+
+        if (cvProfile) {
+
+            cvProfile.textContent =
+                profile ||
+                "Tu perfil profesional aparecerá aquí.";
+
+        }
+
+
+        const cvSkills =
+            document.getElementById(
+                "cvSkills"
+            );
+
+
+        if (cvSkills) {
+
+            cvSkills.textContent =
+                skills ||
+                "Tus habilidades aparecerán aquí.";
+
+        }
+
+
+        const cvLanguages =
+            document.getElementById(
+                "cvLanguages"
+            );
+
+
+        if (cvLanguages) {
+
+            cvLanguages.textContent =
+                languages ||
+                "Tus idiomas aparecerán aquí.";
+
+        }
+
+    }
+
+
+    /* =================================================
+       EXPERIENCIAS EN CV
+    ================================================= */
+
+    function updateExperiences() {
+
+        const container =
+            document.getElementById(
+                "cvExperienceList"
+            );
+
+
+        if (!container) {
+            return;
+        }
+
+
+        const experiences =
+            getExperiences();
+
+
+        container.innerHTML = "";
+
+
+        if (experiences.length === 0) {
+
+            container.innerHTML = `
+
+                <div class="empty-cv">
+                    Tu experiencia aparecerá aquí.
+                </div>
+
+            `;
+
+            return;
+        }
+
+
+        experiences.forEach(
+            function (experience) {
+
+                const item =
+                    document.createElement(
+                        "div"
+                    );
+
+
+                item.className =
+                    "cv-experience";
+
+
+                const position =
+                    escapeHTML(
+                        experience.position ||
+                        "Puesto"
+                    );
+
+
+                const company =
+                    escapeHTML(
+                        experience.company ||
+                        "Empresa"
+                    );
+
+
+                const start =
+                    escapeHTML(
+                        experience.start
+                    );
+
+
+                const end =
+                    escapeHTML(
+                        experience.end
+                    );
+
+
+                const description =
+                    escapeHTML(
+                        experience.description ||
+                        "Descripción de la experiencia."
+                    );
+
+
+                let dates = "";
+
+
+                if (start || end) {
+
+                    dates =
+                        " · " +
+                        (start || "") +
+                        " - " +
+                        (end || "");
+
+                }
+
+
+                item.innerHTML = `
+
+                    <h4>
+                        ${position}
+                    </h4>
+
+                    <div class="cv-meta">
+                        ${company}${dates}
+                    </div>
 
                     <p>
-                        Completa tus datos y mira el resultado
-                        en tiempo real.
+                        ${description}
                     </p>
 
+                `;
+
+
+                container.appendChild(
+                    item
+                );
+
+            }
+        );
+
+    }
+
+
+    /* =================================================
+       FORMACIÓN EN CV
+    ================================================= */
+
+    function updateEducation() {
+
+        const container =
+            document.getElementById(
+                "cvEducationList"
+            );
+
+
+        if (!container) {
+            return;
+        }
+
+
+        const education =
+            getEducation();
+
+
+        container.innerHTML = "";
+
+
+        if (education.length === 0) {
+
+            container.innerHTML = `
+
+                <div class="empty-cv">
+                    Tu formación aparecerá aquí.
                 </div>
 
-            </div>
+            `;
+
+            return;
+        }
 
 
-            <!-- DATOS PERSONALES -->
+        education.forEach(
+            function (data) {
 
-            <section class="form-section">
+                const item =
+                    document.createElement(
+                        "div"
+                    );
 
-                <div class="section-heading">
 
-                    <span class="section-number">
-                        1
-                    </span>
+                item.className =
+                    "cv-education";
 
-                    <div>
 
-                        <h3>
-                            Datos personales
-                        </h3>
+                const title =
+                    escapeHTML(
+                        data.title ||
+                        "Titulación"
+                    );
 
-                        <p>
-                            Información básica de contacto.
-                        </p>
+
+                const school =
+                    escapeHTML(
+                        data.school ||
+                        "Centro educativo"
+                    );
+
+
+                const date =
+                    escapeHTML(
+                        data.date
+                    );
+
+
+                item.innerHTML = `
+
+                    <h4>
+                        ${title}
+                    </h4>
+
+                    <div class="cv-meta">
+
+                        ${school}
+
+                        ${
+                            date
+                                ? " · " + date
+                                : ""
+                        }
 
                     </div>
 
-                </div>
+                `;
 
 
-                <div class="field">
+                container.appendChild(
+                    item
+                );
 
-                    <label for="nombre">
-                        Nombre completo
-                    </label>
+            }
+        );
 
-                    <input
-                        type="text"
-                        id="nombre"
-                        placeholder="Ej: Carlos Martínez"
-                        autocomplete="name"
-                    >
+    }
 
-                </div>
 
+    /* =================================================
+       ACTUALIZAR CV
+    ================================================= */
 
-                <div class="field">
+    function updateCV() {
 
-                    <label for="profesion">
-                        Profesión o puesto
-                    </label>
+        updatePersonalData();
 
-                    <input
-                        type="text"
-                        id="profesion"
-                        placeholder="Ej: Diseñador gráfico"
-                    >
+        updateExperiences();
 
-                </div>
+        updateEducation();
 
+    }
 
-                <div class="two-columns">
 
-                    <div class="field">
+    /* =================================================
+       IA GENERAL
+    ================================================= */
 
-                        <label for="email">
-                            Email
-                        </label>
+    async function mejorarTextoConIA(
+        textarea,
+        button,
+        type,
+        mensajeVacio
+    ) {
 
-                        <input
-                            type="email"
-                            id="email"
-                            placeholder="correo@ejemplo.com"
-                            autocomplete="email"
-                        >
+        if (!textarea) {
+            return;
+        }
 
-                    </div>
 
+        const originalText =
+            textarea.value.trim();
 
-                    <div class="field">
 
-                        <label for="telefono">
-                            Teléfono
-                        </label>
+        if (!originalText) {
 
-                        <input
-                            type="tel"
-                            id="telefono"
-                            placeholder="600 123 456"
-                            autocomplete="tel"
-                        >
+            alert(
+                mensajeVacio ||
+                "Escribe primero un texto."
+            );
 
-                    </div>
+            return;
+        }
 
-                </div>
 
+        button.disabled = true;
 
-                <div class="field">
+        button.classList.add(
+            "loading"
+        );
 
-                    <label for="ubicacion">
-                        Ubicación
-                    </label>
+        button.textContent =
+            "✨ Mejorando...";
 
-                    <input
-                        type="text"
-                        id="ubicacion"
-                        placeholder="Madrid, España"
-                    >
 
-                </div>
+        try {
 
+            const response =
+                await fetch(
+                    AI_BACKEND_URL,
+                    {
+                        method: "POST",
 
-                <!-- FOTO -->
+                        headers: {
+                            "Content-Type":
+                                "application/json"
+                        },
 
-                <div class="field">
+                        body: JSON.stringify({
 
-                    <label for="photoInput">
-                        Foto del CV
-                    </label>
+                            type: type,
 
-                    <input
-                        type="file"
-                        id="photoInput"
-                        accept="image/*"
-                    >
+                            description:
+                                originalText
 
-                    <p class="field-help">
-                        Opcional. Recomendamos una foto profesional tipo carnet.
-                    </p>
+                        })
+                    }
+                );
 
-                </div>
 
-            </section>
+            let data;
 
 
-            <!-- PERFIL -->
+            try {
 
-            <section class="form-section">
+                data =
+                    await response.json();
 
-                <div class="section-heading">
+            } catch {
 
-                    <span class="section-number">
-                        2
-                    </span>
+                throw new Error(
+                    "El servidor no devolvió una respuesta válida."
+                );
 
-                    <div>
+            }
 
-                        <h3>
-                            Perfil profesional
-                        </h3>
 
-                        <p>
-                            Una breve presentación profesional.
-                        </p>
+            if (!response.ok) {
 
-                    </div>
+                throw new Error(
+                    data.error ||
+                    "El servidor ha rechazado la petición."
+                );
 
-                </div>
+            }
 
 
-                <div class="field">
+            if (
+                !data.text ||
+                typeof data.text !== "string" ||
+                !data.text.trim()
+            ) {
 
-                    <textarea
-                        id="perfil"
-                        rows="5"
-                        placeholder="Ej: Diseñador gráfico con 5 años de experiencia especializado en branding y diseño digital..."
-                    ></textarea>
+                throw new Error(
+                    "La IA no devolvió ningún texto."
+                );
 
+            }
 
-                    <button
-                        type="button"
-                        class="ai-button"
-                        id="improveProfile"
-                    >
-                        ✨ Mejorar con IA
-                    </button>
 
-                </div>
+            textarea.value =
+                data.text.trim();
 
-            </section>
 
+            updateCV();
 
-            <!-- EXPERIENCIA -->
 
-            <section class="form-section">
+        } catch (error) {
 
-                <div class="section-heading section-heading-actions">
+            console.error(
+                "Error IA:",
+                error
+            );
 
-                    <div class="heading-left">
 
-                        <span class="section-number">
-                            3
-                        </span>
+            alert(
+                error.message ||
+                "No se ha podido mejorar el texto."
+            );
 
-                        <div>
 
-                            <h3>
-                                Experiencia
-                            </h3>
+        } finally {
 
-                            <p>
-                                Añade tus puestos anteriores.
-                            </p>
+            button.disabled =
+                false;
 
-                        </div>
+            button.classList.remove(
+                "loading"
+            );
 
-                    </div>
+            button.textContent =
+                "✨ Mejorar con IA";
 
+        }
 
-                    <button
-                        type="button"
-                        id="addExperience"
-                        class="small-button"
-                    >
-                        + Añadir
-                    </button>
+    }
 
-                </div>
 
+    /* =================================================
+       IA EXPERIENCIA
+    ================================================= */
 
-                <div id="experienceList"></div>
+    async function mejorarExperienciaConIA(
+        item,
+        button
+    ) {
 
-            </section>
+        const textarea =
+            item.querySelector(
+                ".experience-description"
+            );
 
 
-            <!-- FORMACIÓN -->
+        await mejorarTextoConIA(
+            textarea,
+            button,
+            "experience",
+            "Escribe primero una descripción de tu experiencia."
+        );
 
-            <section class="form-section">
+    }
 
-                <div class="section-heading section-heading-actions">
 
-                    <div class="heading-left">
+    /* =================================================
+       IA PERFIL
+    ================================================= */
 
-                        <span class="section-number">
-                            4
-                        </span>
+    if (profileButton) {
 
-                        <div>
+        profileButton.addEventListener(
+            "click",
+            function () {
 
-                            <h3>
-                                Formación
-                            </h3>
+                mejorarTextoConIA(
 
-                            <p>
-                                Estudios y certificaciones.
-                            </p>
+                    document.getElementById(
+                        "perfil"
+                    ),
 
-                        </div>
+                    profileButton,
 
-                    </div>
+                    "profile",
 
+                    "Escribe primero tu perfil profesional."
 
-                    <button
-                        type="button"
-                        id="addEducation"
-                        class="small-button"
-                    >
-                        + Añadir
-                    </button>
+                );
 
-                </div>
+            }
+        );
 
+    }
 
-                <div id="educationList"></div>
 
-            </section>
+    /* =================================================
+       IA HABILIDADES
+    ================================================= */
 
+    if (skillsButton) {
 
-            <!-- HABILIDADES -->
+        skillsButton.addEventListener(
+            "click",
+            function () {
 
-            <section class="form-section">
+                mejorarTextoConIA(
 
-                <div class="section-heading">
+                    document.getElementById(
+                        "skills"
+                    ),
 
-                    <span class="section-number">
-                        5
-                    </span>
+                    skillsButton,
 
-                    <div>
+                    "skills",
 
-                        <h3>
-                            Habilidades
-                        </h3>
+                    "Escribe primero tus habilidades."
 
-                        <p>
-                            Tus principales competencias.
-                        </p>
+                );
 
-                    </div>
+            }
+        );
 
-                </div>
+    }
 
 
-                <div class="field">
+    /* =================================================
+       PLANTILLAS
+    ================================================= */
 
-                    <label for="skills">
-                        Habilidades
-                    </label>
+    templateButtons.forEach(
+        function (button) {
 
-                    <textarea
-                        id="skills"
-                        rows="4"
-                        placeholder="Ej: Photoshop, Excel, ventas, liderazgo, comunicación..."
-                    ></textarea>
+            button.addEventListener(
+                "click",
+                function () {
 
+                    templateButtons.forEach(
+                        function (other) {
 
-                    <button
-                        type="button"
-                        class="ai-button"
-                        id="improveSkills"
-                    >
-                        ✨ Mejorar con IA
-                    </button>
+                            other.classList.remove(
+                                "active"
+                            );
 
-                </div>
+                        }
+                    );
 
-            </section>
 
+                    button.classList.add(
+                        "active"
+                    );
 
-            <!-- IDIOMAS -->
 
-            <section class="form-section">
+                    const template =
+                        button.dataset.template;
 
-                <div class="section-heading">
 
-                    <span class="section-number">
-                        6
-                    </span>
+                    const cv =
+                        document.getElementById(
+                            "cv"
+                        );
 
-                    <div>
 
-                        <h3>
-                            Idiomas
-                        </h3>
+                    if (!cv) {
+                        return;
+                    }
 
-                        <p>
-                            Indica los idiomas que dominas.
-                        </p>
 
-                    </div>
+                    cv.classList.remove(
+                        "template-professional",
+                        "template-minimal",
+                        "template-modern"
+                    );
 
-                </div>
 
+                    cv.classList.add(
+                        "template-" +
+                        template
+                    );
 
-                <div class="field">
+                }
+            );
 
-                    <label for="languages">
-                        Idiomas
-                    </label>
+        }
+    );
 
-                    <textarea
-                        id="languages"
-                        rows="3"
-                        placeholder="Ej: Español — Nativo&#10;Inglés — B2&#10;Francés — A2"
-                    ></textarea>
 
-                </div>
+    /* =================================================
+       BOTONES
+    ================================================= */
 
-            </section>
+    if (addExperienceButton) {
 
+        addExperienceButton.addEventListener(
+            "click",
+            addExperience
+        );
 
-            <!-- DISEÑO -->
+    }
 
-            <section class="form-section">
 
-                <div class="section-heading">
+    if (addEducationButton) {
 
-                    <span class="section-number">
-                        7
-                    </span>
+        addEducationButton.addEventListener(
+            "click",
+            addEducation
+        );
 
-                    <div>
+    }
 
-                        <h3>
-                            Diseño
-                        </h3>
 
-                        <p>
-                            Elige el estilo de tu CV.
-                        </p>
+    if (generateButton) {
 
-                    </div>
+        generateButton.addEventListener(
+            "click",
+            updateCV
+        );
 
-                </div>
+    }
 
 
-                <div class="template-grid">
+    /* =================================================
+       DESCARGAR PDF
+    ================================================= */
 
-                    <button
-                        type="button"
-                        class="template-option active"
-                        data-template="professional"
-                    >
+    if (printButton) {
 
-                        <span class="template-preview professional-preview"></span>
+        printButton.addEventListener(
+            "click",
+            function () {
 
-                        <span>
-                            Profesional
-                        </span>
+                updateCV();
 
-                    </button>
+                window.print();
 
+            }
+        );
 
-                    <button
-                        type="button"
-                        class="template-option"
-                        data-template="minimal"
-                    >
+    }
 
-                        <span class="template-preview minimal-preview"></span>
 
-                        <span>
-                            Minimalista
-                        </span>
+    /* =================================================
+       ACTUALIZACIÓN AUTOMÁTICA
+    ================================================= */
 
-                    </button>
+    document.addEventListener(
+        "input",
+        function (event) {
 
+            if (
+                event.target.matches(
+                    "input, textarea"
+                )
+            ) {
 
-                    <button
-                        type="button"
-                        class="template-option"
-                        data-template="modern"
-                    >
+                updateCV();
 
-                        <span class="template-preview modern-preview"></span>
+            }
 
-                        <span>
-                            Moderno
-                        </span>
+        }
+    );
 
-                    </button>
 
-                </div>
+    /* =================================================
+       INICIAR
+    ================================================= */
 
-            </section>
+    if (experienceList) {
 
+        addExperience();
 
-            <button
-                type="button"
-                id="generateButton"
-                class="generate-button"
-            >
-                Actualizar CV
-            </button>
+    }
 
 
-            <p class="privacy-note">
-                Tus datos se procesan localmente en tu navegador
-                en esta versión. No necesitas crear una cuenta.
-            </p>
+    if (educationList) {
 
-        </aside>
+        addEducation();
 
+    }
 
-        <!-- =================================================
-             PREVISUALIZACIÓN
-        ================================================== -->
 
-        <section class="preview-panel">
+    updateCV();
 
-            <div class="preview-toolbar">
-
-                <div>
-
-                    <span class="preview-label">
-                        VISTA PREVIA
-                    </span>
-
-                    <h2>
-                        Tu CV
-                    </h2>
-
-                </div>
-
-
-                <button
-                    type="button"
-                    id="printButton"
-                    class="download-button"
-                >
-                    <span>
-                        ↓
-                    </span>
-
-                    Descargar PDF
-                </button>
-
-            </div>
-
-
-            <!-- =================================================
-                 CV
-            ================================================== -->
-
-            <article
-                id="cv"
-                class="cv template-professional"
-            >
-
-                <header class="cv-header">
-
-                    <div class="cv-header-main">
-
-                        <h1 id="cvName">
-                            Tu nombre
-                        </h1>
-
-                        <h2 id="cvJob">
-                            Tu profesión
-                        </h2>
-
-                    </div>
-
-
-                    <div
-                        id="cvPhoto"
-                        class="cv-photo"
-                    >
-                        <span>
-                            Foto
-                        </span>
-                    </div>
-
-
-                    <div
-                        id="cvContact"
-                        class="cv-contact"
-                    >
-
-                        <span>
-                            email@ejemplo.com
-                        </span>
-
-                        <span>
-                            Teléfono
-                        </span>
-
-                        <span>
-                            Ubicación
-                        </span>
-
-                    </div>
-
-                </header>
-
-
-                <div class="cv-body">
-
-                    <!-- PERFIL -->
-
-                    <section class="cv-block">
-
-                        <h3>
-                            Perfil profesional
-                        </h3>
-
-                        <p id="cvProfile">
-                            Tu perfil profesional aparecerá aquí.
-                        </p>
-
-                    </section>
-
-
-                    <!-- EXPERIENCIA -->
-
-                    <section class="cv-block">
-
-                        <h3>
-                            Experiencia profesional
-                        </h3>
-
-                        <div id="cvExperienceList">
-
-                            <div class="empty-cv">
-                                Tu experiencia aparecerá aquí.
-                            </div>
-
-                        </div>
-
-                    </section>
-
-
-                    <!-- FORMACIÓN -->
-
-                    <section class="cv-block">
-
-                        <h3>
-                            Formación
-                        </h3>
-
-                        <div id="cvEducationList">
-
-                            <div class="empty-cv">
-                                Tu formación aparecerá aquí.
-                            </div>
-
-                        </div>
-
-                    </section>
-
-
-                    <!-- HABILIDADES -->
-
-                    <section class="cv-block">
-
-                        <h3>
-                            Habilidades
-                        </h3>
-
-                        <p id="cvSkills">
-                            Tus habilidades aparecerán aquí.
-                        </p>
-
-                    </section>
-
-
-                    <!-- IDIOMAS -->
-
-                    <section class="cv-block">
-
-                        <h3>
-                            Idiomas
-                        </h3>
-
-                        <p
-                            id="cvLanguages"
-                            class="multiline"
-                        >
-                            Tus idiomas aparecerán aquí.
-                        </p>
-
-                    </section>
-
-                </div>
-
-            </article>
-
-        </section>
-
-    </main>
-
-
-    <footer class="site-footer">
-
-        <p>
-            CV Fácil · Generador de CV profesional
-        </p>
-
-    </footer>
-
-
-    <script src="script.js"></script>
-
-</body>
-
-</html>
+});
