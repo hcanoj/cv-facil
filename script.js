@@ -1648,3 +1648,5 @@ document.addEventListener("DOMContentLoaded", () => {
     updateCV();
 
 });
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5829758548724314"
+     crossorigin="anonymous"></script>
