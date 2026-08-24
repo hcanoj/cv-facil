@@ -1,21 +1,22 @@
-document.addEventListener("DOMContentLoaded", function () {
 
-    /* =================================================
+document.addEventListener("DOMContentLoaded", () => {
+
+    /* =====================================================
        CONFIGURACIÓN
-    ================================================= */
+    ===================================================== */
 
     const AI_BACKEND_URL =
         "https://bitter-band-b917.hectorcanojimenez.workers.dev";
 
-    const STORAGE_KEY =
-        "cv-facil-datos-v1";
+    const STORAGE_KEY = "cv-facil-datos";
 
-    const MAX_AI_TEXT_LENGTH = 3000;
+    let experienceCounter = 0;
+    let educationCounter = 0;
 
 
-    /* =================================================
-       ELEMENTOS PRINCIPALES
-    ================================================= */
+    /* =====================================================
+       ELEMENTOS
+    ===================================================== */
 
     const generateButton =
         document.getElementById("generateButton");
@@ -39,243 +40,97 @@ document.addEventListener("DOMContentLoaded", function () {
         document.querySelectorAll(".template-option");
 
 
-    let experienceCounter = 0;
-    let educationCounter = 0;
-
-
-    /* =================================================
+    /* =====================================================
        UTILIDADES
-    ================================================= */
+    ===================================================== */
 
     function getValue(id) {
 
-        const element =
-            document.getElementById(id);
+        const element = document.getElementById(id);
 
         if (!element) {
             return "";
         }
 
         return element.value.trim();
-
     }
 
 
     function setValue(id, value) {
 
-        const element =
-            document.getElementById(id);
+        const element = document.getElementById(id);
 
         if (!element) {
             return;
         }
 
         element.value = value || "";
-
     }
 
 
     function escapeHTML(text) {
 
-        const div =
-            document.createElement("div");
+        const div = document.createElement("div");
 
-        div.textContent = text;
+        div.textContent = text || "";
 
         return div.innerHTML;
-
     }
 
 
     function showMessage(message) {
 
         alert(message);
-
     }
 
 
-    /* =================================================
-       DATOS PERSONALES
-    ================================================= */
+    /* =====================================================
+       GUARDADO AUTOMÁTICO
+    ===================================================== */
 
-    function getPersonalData() {
+    function collectData() {
 
         return {
 
-            nombre:
-                getValue("nombre"),
+            personal: {
 
-            profesion:
-                getValue("profesion"),
+                nombre: getValue("nombre"),
 
-            email:
-                getValue("email"),
+                profesion: getValue("profesion"),
 
-            telefono:
-                getValue("telefono"),
+                email: getValue("email"),
 
-            ubicacion:
-                getValue("ubicacion"),
+                telefono: getValue("telefono"),
 
-            perfil:
-                getValue("perfil"),
+                ubicacion: getValue("ubicacion"),
 
-            skills:
-                getValue("skills"),
+                perfil: getValue("perfil"),
 
-            languages:
-                getValue("languages")
+                skills: getValue("skills"),
+
+                languages: getValue("languages")
+
+            },
+
+            experiences: getExperiences(),
+
+            education: getEducation(),
+
+            template:
+                document.querySelector(
+                    ".template-option.active"
+                )?.dataset.template || "professional"
 
         };
 
     }
 
 
-    /* =================================================
-       EXPERIENCIA
-    ================================================= */
-
-    function getExperiences() {
-
-        if (!experienceList) {
-            return [];
-        }
-
-
-        const items =
-            experienceList.querySelectorAll(
-                ".repeatable-item"
-            );
-
-
-        return Array.from(items).map(
-            function (item) {
-
-                return {
-
-                    position:
-                        item.querySelector(
-                            ".experience-position"
-                        )?.value.trim() || "",
-
-                    company:
-                        item.querySelector(
-                            ".experience-company"
-                        )?.value.trim() || "",
-
-                    start:
-                        item.querySelector(
-                            ".experience-start"
-                        )?.value.trim() || "",
-
-                    end:
-                        item.querySelector(
-                            ".experience-end"
-                        )?.value.trim() || "",
-
-                    description:
-                        item.querySelector(
-                            ".experience-description"
-                        )?.value.trim() || ""
-
-                };
-
-            }
-        );
-
-    }
-
-
-    /* =================================================
-       FORMACIÓN
-    ================================================= */
-
-    function getEducation() {
-
-        if (!educationList) {
-            return [];
-        }
-
-
-        const items =
-            educationList.querySelectorAll(
-                ".repeatable-item"
-            );
-
-
-        return Array.from(items).map(
-            function (item) {
-
-                return {
-
-                    title:
-                        item.querySelector(
-                            ".education-title"
-                        )?.value.trim() || "",
-
-                    school:
-                        item.querySelector(
-                            ".education-school"
-                        )?.value.trim() || "",
-
-                    date:
-                        item.querySelector(
-                            ".education-date"
-                        )?.value.trim() || ""
-
-                };
-
-            }
-        );
-
-    }
-
-
-    /* =================================================
-       OBTENER TODO EL CV
-    ================================================= */
-
-    function getCVData() {
-
-        const data =
-            getPersonalData();
-
-
-        data.experiences =
-            getExperiences();
-
-
-        data.education =
-            getEducation();
-
-
-        const activeTemplate =
-            document.querySelector(
-                ".template-option.active"
-            );
-
-
-        data.template =
-            activeTemplate?.dataset.template ||
-            "professional";
-
-
-        return data;
-
-    }
-
-
-    /* =================================================
-       GUARDAR AUTOMÁTICAMENTE
-    ================================================= */
-
-    function saveCV() {
+    function saveData() {
 
         try {
 
-            const data =
-                getCVData();
-
+            const data = collectData();
 
             localStorage.setItem(
                 STORAGE_KEY,
@@ -285,7 +140,7 @@ document.addEventListener("DOMContentLoaded", function () {
         } catch (error) {
 
             console.error(
-                "No se pudo guardar el CV:",
+                "No se pudieron guardar los datos:",
                 error
             );
 
@@ -294,82 +149,47 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
 
-    /* =================================================
-       CARGAR CV GUARDADO
-    ================================================= */
-
-    function loadCV() {
+    function loadData() {
 
         try {
 
             const saved =
-                localStorage.getItem(
-                    STORAGE_KEY
-                );
-
+                localStorage.getItem(STORAGE_KEY);
 
             if (!saved) {
-                return false;
+                return;
+            }
+
+            const data = JSON.parse(saved);
+
+            if (!data) {
+                return;
             }
 
 
-            const data =
-                JSON.parse(saved);
+            /* DATOS PERSONALES */
 
+            if (data.personal) {
 
-            if (!data || typeof data !== "object") {
-                return false;
+                Object.entries(data.personal).forEach(
+                    ([key, value]) => {
+
+                        setValue(key, value);
+
+                    }
+                );
+
             }
 
 
-            setValue(
-                "nombre",
-                data.nombre
-            );
-
-            setValue(
-                "profesion",
-                data.profesion
-            );
-
-            setValue(
-                "email",
-                data.email
-            );
-
-            setValue(
-                "telefono",
-                data.telefono
-            );
-
-            setValue(
-                "ubicacion",
-                data.ubicacion
-            );
-
-            setValue(
-                "perfil",
-                data.perfil
-            );
-
-            setValue(
-                "skills",
-                data.skills
-            );
-
-            setValue(
-                "languages",
-                data.languages
-            );
-
+            /* EXPERIENCIA */
 
             if (
-                Array.isArray(data.experiences) &&
-                data.experiences.length > 0
+                Array.isArray(data.experiences)
             ) {
 
                 data.experiences.forEach(
-                    function (experience) {
+                    experience => {
 
                         addExperience(
                             experience
@@ -381,13 +201,14 @@ document.addEventListener("DOMContentLoaded", function () {
             }
 
 
+            /* FORMACIÓN */
+
             if (
-                Array.isArray(data.education) &&
-                data.education.length > 0
+                Array.isArray(data.education)
             ) {
 
                 data.education.forEach(
-                    function (education) {
+                    education => {
 
                         addEducation(
                             education
@@ -399,70 +220,41 @@ document.addEventListener("DOMContentLoaded", function () {
             }
 
 
+            /* PLANTILLA */
+
             if (data.template) {
 
-                setTemplate(
+                selectTemplate(
                     data.template
                 );
 
             }
 
 
-            return true;
+            updateCV();
 
         } catch (error) {
 
             console.error(
-                "No se pudo cargar el CV guardado:",
+                "No se pudieron recuperar los datos:",
                 error
             );
 
-            return false;
-
         }
 
     }
 
 
-    /* =================================================
-       BORRAR CV
-    ================================================= */
-
-    function clearCV() {
-
-        const confirmed =
-            confirm(
-                "¿Seguro que quieres empezar un CV nuevo? Se borrarán los datos guardados en este navegador."
-            );
-
-
-        if (!confirmed) {
-            return;
-        }
-
-
-        localStorage.removeItem(
-            STORAGE_KEY
-        );
-
-
-        window.location.reload();
-
-    }
-
-
-    /* =================================================
+    /* =====================================================
        EXPERIENCIA
-    ================================================= */
+    ===================================================== */
 
-    function addExperience(data = null) {
+    function addExperience(data = {}) {
 
         experienceCounter++;
 
-
         const item =
             document.createElement("div");
-
 
         item.className =
             "repeatable-item";
@@ -496,6 +288,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     type="text"
                     class="experience-position"
                     placeholder="Ej: Diseñador gráfico"
+                    value="${escapeHTML(data.position || "")}"
                 >
 
             </div>
@@ -511,6 +304,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     type="text"
                     class="experience-company"
                     placeholder="Ej: Agencia Creativa"
+                    value="${escapeHTML(data.company || "")}"
                 >
 
             </div>
@@ -528,6 +322,7 @@ document.addEventListener("DOMContentLoaded", function () {
                         type="text"
                         class="experience-start"
                         placeholder="2022"
+                        value="${escapeHTML(data.start || "")}"
                     >
 
                 </div>
@@ -543,6 +338,7 @@ document.addEventListener("DOMContentLoaded", function () {
                         type="text"
                         class="experience-end"
                         placeholder="Actualidad"
+                        value="${escapeHTML(data.end || "")}"
                     >
 
                 </div>
@@ -559,9 +355,8 @@ document.addEventListener("DOMContentLoaded", function () {
                 <textarea
                     class="experience-description"
                     rows="4"
-                    maxlength="${MAX_AI_TEXT_LENGTH}"
                     placeholder="Describe tus principales responsabilidades y logros..."
-                ></textarea>
+                >${escapeHTML(data.description || "")}</textarea>
 
 
                 <button
@@ -576,51 +371,7 @@ document.addEventListener("DOMContentLoaded", function () {
         `;
 
 
-        const positionInput =
-            item.querySelector(
-                ".experience-position"
-            );
-
-        const companyInput =
-            item.querySelector(
-                ".experience-company"
-            );
-
-        const startInput =
-            item.querySelector(
-                ".experience-start"
-            );
-
-        const endInput =
-            item.querySelector(
-                ".experience-end"
-            );
-
-        const descriptionInput =
-            item.querySelector(
-                ".experience-description"
-            );
-
-
-        if (data) {
-
-            positionInput.value =
-                data.position || "";
-
-            companyInput.value =
-                data.company || "";
-
-            startInput.value =
-                data.start || "";
-
-            endInput.value =
-                data.end || "";
-
-            descriptionInput.value =
-                data.description || "";
-
-        }
-
+        /* ELIMINAR */
 
         const deleteButton =
             item.querySelector(
@@ -630,17 +381,19 @@ document.addEventListener("DOMContentLoaded", function () {
 
         deleteButton.addEventListener(
             "click",
-            function () {
+            () => {
 
                 item.remove();
 
                 updateCV();
 
-                saveCV();
+                saveData();
 
             }
         );
 
+
+        /* IA */
 
         const aiButton =
             item.querySelector(
@@ -650,7 +403,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
         aiButton.addEventListener(
             "click",
-            function () {
+            () => {
 
                 mejorarExperienciaConIA(
                     item,
@@ -663,24 +416,21 @@ document.addEventListener("DOMContentLoaded", function () {
 
         experienceList.appendChild(item);
 
-
         updateCV();
 
     }
 
 
-    /* =================================================
+    /* =====================================================
        FORMACIÓN
-    ================================================= */
+    ===================================================== */
 
-    function addEducation(data = null) {
+    function addEducation(data = {}) {
 
         educationCounter++;
 
-
         const item =
             document.createElement("div");
-
 
         item.className =
             "repeatable-item";
@@ -714,6 +464,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     type="text"
                     class="education-title"
                     placeholder="Ej: Grado en Diseño Gráfico"
+                    value="${escapeHTML(data.title || "")}"
                 >
 
             </div>
@@ -729,6 +480,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     type="text"
                     class="education-school"
                     placeholder="Ej: Universidad de Madrid"
+                    value="${escapeHTML(data.school || "")}"
                 >
 
             </div>
@@ -744,33 +496,12 @@ document.addEventListener("DOMContentLoaded", function () {
                     type="text"
                     class="education-date"
                     placeholder="2020"
+                    value="${escapeHTML(data.date || "")}"
                 >
 
             </div>
 
         `;
-
-
-        if (data) {
-
-            item.querySelector(
-                ".education-title"
-            ).value =
-                data.title || "";
-
-
-            item.querySelector(
-                ".education-school"
-            ).value =
-                data.school || "";
-
-
-            item.querySelector(
-                ".education-date"
-            ).value =
-                data.date || "";
-
-        }
 
 
         const deleteButton =
@@ -781,13 +512,13 @@ document.addEventListener("DOMContentLoaded", function () {
 
         deleteButton.addEventListener(
             "click",
-            function () {
+            () => {
 
                 item.remove();
 
                 updateCV();
 
-                saveCV();
+                saveData();
 
             }
         );
@@ -795,31 +526,131 @@ document.addEventListener("DOMContentLoaded", function () {
 
         educationList.appendChild(item);
 
-
         updateCV();
 
     }
 
 
-    /* =================================================
-       DATOS PERSONALES → CV
-    ================================================= */
+    /* =====================================================
+       OBTENER EXPERIENCIAS
+    ===================================================== */
+
+    function getExperiences() {
+
+        const items =
+            experienceList.querySelectorAll(
+                ".repeatable-item"
+            );
+
+
+        return Array.from(items).map(
+            item => ({
+
+                position:
+                    item.querySelector(
+                        ".experience-position"
+                    )?.value.trim() || "",
+
+                company:
+                    item.querySelector(
+                        ".experience-company"
+                    )?.value.trim() || "",
+
+                start:
+                    item.querySelector(
+                        ".experience-start"
+                    )?.value.trim() || "",
+
+                end:
+                    item.querySelector(
+                        ".experience-end"
+                    )?.value.trim() || "",
+
+                description:
+                    item.querySelector(
+                        ".experience-description"
+                    )?.value.trim() || ""
+
+            })
+        );
+
+    }
+
+
+    /* =====================================================
+       OBTENER FORMACIÓN
+    ===================================================== */
+
+    function getEducation() {
+
+        const items =
+            educationList.querySelectorAll(
+                ".repeatable-item"
+            );
+
+
+        return Array.from(items).map(
+            item => ({
+
+                title:
+                    item.querySelector(
+                        ".education-title"
+                    )?.value.trim() || "",
+
+                school:
+                    item.querySelector(
+                        ".education-school"
+                    )?.value.trim() || "",
+
+                date:
+                    item.querySelector(
+                        ".education-date"
+                    )?.value.trim() || ""
+
+            })
+        );
+
+    }
+
+
+    /* =====================================================
+       DATOS PERSONALES
+    ===================================================== */
 
     function updatePersonalData() {
 
-        const data =
-            getPersonalData();
+        const name =
+            getValue("nombre");
+
+        const job =
+            getValue("profesion");
+
+        const email =
+            getValue("email");
+
+        const phone =
+            getValue("telefono");
+
+        const location =
+            getValue("ubicacion");
+
+        const profile =
+            getValue("perfil");
+
+        const skills =
+            getValue("skills");
+
+        const languages =
+            getValue("languages");
 
 
         const cvName =
             document.getElementById("cvName");
 
-
         if (cvName) {
 
             cvName.textContent =
-                data.nombre ||
-                "Tu nombre";
+                name || "Tu nombre";
 
         }
 
@@ -827,20 +658,16 @@ document.addEventListener("DOMContentLoaded", function () {
         const cvJob =
             document.getElementById("cvJob");
 
-
         if (cvJob) {
 
             cvJob.textContent =
-                data.profesion ||
-                "Tu profesión";
+                job || "Tu profesión";
 
         }
 
 
         const contact =
-            document.getElementById(
-                "cvContact"
-            );
+            document.getElementById("cvContact");
 
 
         if (contact) {
@@ -849,26 +676,21 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
             [
-                data.email || "email@ejemplo.com",
-                data.telefono || "Teléfono",
-                data.ubicacion || "Ubicación"
-            ].forEach(
-                function (value) {
+                email || "email@ejemplo.com",
+                phone || "Teléfono",
+                location || "Ubicación"
+            ].forEach(value => {
 
-                    const span =
-                        document.createElement(
-                            "span"
-                        );
-
-                    span.textContent =
-                        value;
-
-                    contact.appendChild(
-                        span
+                const span =
+                    document.createElement(
+                        "span"
                     );
 
-                }
-            );
+                span.textContent = value;
+
+                contact.appendChild(span);
+
+            });
 
         }
 
@@ -882,7 +704,7 @@ document.addEventListener("DOMContentLoaded", function () {
         if (cvProfile) {
 
             cvProfile.textContent =
-                data.perfil ||
+                profile ||
                 "Tu perfil profesional aparecerá aquí.";
 
         }
@@ -897,7 +719,7 @@ document.addEventListener("DOMContentLoaded", function () {
         if (cvSkills) {
 
             cvSkills.textContent =
-                data.skills ||
+                skills ||
                 "Tus habilidades aparecerán aquí.";
 
         }
@@ -912,7 +734,7 @@ document.addEventListener("DOMContentLoaded", function () {
         if (cvLanguages) {
 
             cvLanguages.textContent =
-                data.languages ||
+                languages ||
                 "Tus idiomas aparecerán aquí.";
 
         }
@@ -920,9 +742,9 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
 
-    /* =================================================
-       ACTUALIZAR EXPERIENCIAS EN CV
-    ================================================= */
+    /* =====================================================
+       ACTUALIZAR EXPERIENCIAS
+    ===================================================== */
 
     function updateExperiences() {
 
@@ -947,9 +769,11 @@ document.addEventListener("DOMContentLoaded", function () {
         if (experiences.length === 0) {
 
             container.innerHTML = `
+
                 <div class="empty-cv">
                     Tu experiencia aparecerá aquí.
                 </div>
+
             `;
 
             return;
@@ -958,7 +782,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
         experiences.forEach(
-            function (experience) {
+            experience => {
 
                 const item =
                     document.createElement(
@@ -1042,9 +866,9 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
 
-    /* =================================================
-       ACTUALIZAR FORMACIÓN EN CV
-    ================================================= */
+    /* =====================================================
+       ACTUALIZAR FORMACIÓN
+    ===================================================== */
 
     function updateEducation() {
 
@@ -1069,9 +893,11 @@ document.addEventListener("DOMContentLoaded", function () {
         if (education.length === 0) {
 
             container.innerHTML = `
+
                 <div class="empty-cv">
                     Tu formación aparecerá aquí.
                 </div>
+
             `;
 
             return;
@@ -1080,7 +906,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
         education.forEach(
-            function (data) {
+            data => {
 
                 const item =
                     document.createElement(
@@ -1119,12 +945,15 @@ document.addEventListener("DOMContentLoaded", function () {
                     </h4>
 
                     <div class="cv-meta">
+
                         ${school}
+
                         ${
                             date
                                 ? " · " + date
                                 : ""
                         }
+
                     </div>
 
                 `;
@@ -1138,88 +967,9 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
 
-    /* =================================================
-       PLANTILLAS
-    ================================================= */
-
-    function setTemplate(template) {
-
-        const validTemplates = [
-            "professional",
-            "minimal",
-            "modern"
-        ];
-
-
-        if (
-            !validTemplates.includes(template)
-        ) {
-
-            template =
-                "professional";
-
-        }
-
-
-        const cv =
-            document.getElementById("cv");
-
-
-        if (!cv) {
-            return;
-        }
-
-
-        cv.classList.remove(
-            "template-professional",
-            "template-minimal",
-            "template-modern"
-        );
-
-
-        cv.classList.add(
-            "template-" + template
-        );
-
-
-        templateButtons.forEach(
-            function (button) {
-
-                button.classList.toggle(
-                    "active",
-                    button.dataset.template ===
-                    template
-                );
-
-            }
-        );
-
-    }
-
-
-    templateButtons.forEach(
-        function (button) {
-
-            button.addEventListener(
-                "click",
-                function () {
-
-                    setTemplate(
-                        button.dataset.template
-                    );
-
-                    saveCV();
-
-                }
-            );
-
-        }
-    );
-
-
-    /* =================================================
+    /* =====================================================
        ACTUALIZAR CV
-    ================================================= */
+    ===================================================== */
 
     function updateCV() {
 
@@ -1232,89 +982,56 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
 
-    /* =================================================
-       VALIDAR TEXTO PARA IA
-    ================================================= */
-
-    function validateAIText(textarea) {
-
-        if (!textarea) {
-
-            return {
-                valid: false,
-                message: "No se encontró el campo de texto."
-            };
-
-        }
-
-
-        const text =
-            textarea.value.trim();
-
-
-        if (!text) {
-
-            return {
-                valid: false,
-                message: "Escribe primero un texto."
-            };
-
-        }
-
-
-        if (text.length < 10) {
-
-            return {
-                valid: false,
-                message:
-                    "Escribe un poco más de información para que la IA pueda ayudarte."
-            };
-
-        }
-
-
-        if (
-            text.length >
-            MAX_AI_TEXT_LENGTH
-        ) {
-
-            return {
-                valid: false,
-                message:
-                    `El texto es demasiado largo. Máximo ${MAX_AI_TEXT_LENGTH} caracteres.`
-            };
-
-        }
-
-
-        return {
-            valid: true,
-            text: text
-        };
-
-    }
-
-
-    /* =================================================
-       IA - FUNCIÓN GENERAL
-    ================================================= */
+    /* =====================================================
+       IA
+    ===================================================== */
 
     async function mejorarTextoConIA(
         textarea,
         button,
-        tipo,
         mensajeVacio
     ) {
 
-        const validation =
-            validateAIText(textarea);
+        if (!textarea || !button) {
+            return;
+        }
 
 
-        if (!validation.valid) {
+        const originalText =
+            textarea.value.trim();
+
+
+        if (!originalText) {
 
             showMessage(
                 mensajeVacio ||
-                validation.message
+                "Escribe primero un texto."
+            );
+
+            textarea.focus();
+
+            return;
+
+        }
+
+
+        if (originalText.length < 10) {
+
+            showMessage(
+                "Escribe un poco más de información para que la IA pueda mejorarla."
+            );
+
+            textarea.focus();
+
+            return;
+
+        }
+
+
+        if (originalText.length > 5000) {
+
+            showMessage(
+                "El texto es demasiado largo. Intenta reducirlo."
             );
 
             return;
@@ -1322,19 +1039,9 @@ document.addEventListener("DOMContentLoaded", function () {
         }
 
 
-        const originalText =
-            validation.text;
-
-
-        const originalButtonText =
-            button.textContent;
-
-
         button.disabled = true;
 
-        button.classList.add(
-            "loading"
-        );
+        button.classList.add("loading");
 
         button.textContent =
             "✨ Mejorando...";
@@ -1342,68 +1049,11 @@ document.addEventListener("DOMContentLoaded", function () {
 
         try {
 
-            let instruction;
-
-
-            if (tipo === "perfil") {
-
-                instruction = `
-Mejora este perfil profesional para un currículum.
-
-Debe sonar profesional, natural, claro y atractivo.
-Resume la experiencia y fortalezas de la persona.
-Utiliza verbos de acción.
-No inventes información.
-No inventes años, cifras, empresas, cargos, habilidades ni resultados.
-Mantén exactamente el significado de la información proporcionada.
-Devuelve únicamente el texto mejorado, sin comillas ni explicaciones.
-`;
-
-            } else if (tipo === "habilidades") {
-
-                instruction = `
-Mejora y organiza estas habilidades para un currículum profesional.
-
-Corrige la redacción y elimina repeticiones.
-Organiza las habilidades de forma clara.
-No inventes habilidades que no aparezcan en el texto original.
-No añadas conocimientos que la persona no haya indicado.
-Devuelve únicamente el resultado final, sin explicaciones.
-`;
-
-            } else {
-
-                instruction = `
-Mejora esta descripción de experiencia laboral para un currículum profesional.
-
-Utiliza español profesional.
-Sé claro, natural y conciso.
-Utiliza verbos de acción.
-Destaca responsabilidades y logros únicamente cuando aparezcan en el texto original.
-No inventes cifras.
-No inventes resultados.
-No inventes responsabilidades.
-No inventes empresas.
-No inventes cargos.
-Mantén el significado original.
-Devuelve únicamente el texto mejorado, sin comillas ni explicaciones.
-`;
-
-            }
-
-
-            const prompt =
-                `${instruction}
-
-Texto original:
-
-${originalText}`;
-
-
             const response =
                 await fetch(
                     AI_BACKEND_URL,
                     {
+
                         method: "POST",
 
                         headers: {
@@ -1414,7 +1064,7 @@ ${originalText}`;
                         body: JSON.stringify({
 
                             description:
-                                prompt
+                                originalText
 
                         })
 
@@ -1422,7 +1072,7 @@ ${originalText}`;
                 );
 
 
-            let data;
+            let data = null;
 
 
             try {
@@ -1441,15 +1091,9 @@ ${originalText}`;
 
             if (!response.ok) {
 
-                console.error(
-                    "Error del Worker:",
-                    data
-                );
-
-
                 throw new Error(
                     data?.error ||
-                    "No se pudo conectar con la inteligencia artificial."
+                    "No se pudo utilizar la IA."
                 );
 
             }
@@ -1467,32 +1111,19 @@ ${originalText}`;
             }
 
 
-            const improvedText =
-                data.text.trim();
-
-
-            if (!improvedText) {
-
-                throw new Error(
-                    "La IA devolvió una respuesta vacía."
-                );
-
-            }
-
-
             textarea.value =
-                improvedText;
+                data.text.trim();
 
 
             updateCV();
 
-            saveCV();
+            saveData();
 
 
         } catch (error) {
 
             console.error(
-                "Error IA:",
+                "Error de IA:",
                 error
             );
 
@@ -1512,16 +1143,16 @@ ${originalText}`;
             );
 
             button.textContent =
-                originalButtonText;
+                "✨ Mejorar con IA";
 
         }
 
     }
 
 
-    /* =================================================
-       IA - EXPERIENCIA
-    ================================================= */
+    /* =====================================================
+       IA EXPERIENCIA
+    ===================================================== */
 
     async function mejorarExperienciaConIA(
         item,
@@ -1535,159 +1166,200 @@ ${originalText}`;
 
 
         await mejorarTextoConIA(
+
             textarea,
+
             button,
-            "experiencia",
+
             "Escribe primero una descripción de tu experiencia."
+
         );
 
     }
 
 
-    /* =================================================
-       IA - PERFIL
-    ================================================= */
+    /* =====================================================
+       PLANTILLAS
+    ===================================================== */
 
-    async function mejorarPerfilConIA() {
+    function selectTemplate(template) {
 
-        const textarea =
-            document.getElementById(
-                "perfil"
-            );
-
-        const button =
-            document.getElementById(
-                "improveProfile"
-            );
+        const cv =
+            document.getElementById("cv");
 
 
-        if (!button) {
+        if (!cv) {
             return;
         }
 
 
-        await mejorarTextoConIA(
-            textarea,
-            button,
-            "perfil",
-            "Escribe primero tu perfil profesional."
-        );
-
-    }
+        const validTemplates = [
+            "professional",
+            "minimal",
+            "modern"
+        ];
 
 
-    /* =================================================
-       IA - HABILIDADES
-    ================================================= */
+        if (
+            !validTemplates.includes(template)
+        ) {
 
-    async function mejorarHabilidadesConIA() {
+            template = "professional";
 
-        const textarea =
-            document.getElementById(
-                "skills"
-            );
-
-        const button =
-            document.getElementById(
-                "improveSkills"
-            );
-
-
-        if (!button) {
-            return;
         }
 
 
-        await mejorarTextoConIA(
-            textarea,
-            button,
-            "habilidades",
-            "Escribe primero tus habilidades."
+        cv.classList.remove(
+            "template-professional",
+            "template-minimal",
+            "template-modern"
+        );
+
+
+        cv.classList.add(
+            "template-" + template
+        );
+
+
+        templateButtons.forEach(
+            button => {
+
+                button.classList.toggle(
+                    "active",
+                    button.dataset.template ===
+                    template
+                );
+
+            }
         );
 
     }
 
 
-    /* =================================================
-       BOTONES IA
-    ================================================= */
+    templateButtons.forEach(
+        button => {
 
-    const improveProfileButton =
-        document.getElementById(
-            "improveProfile"
-        );
+            button.addEventListener(
+                "click",
+                () => {
 
-    const improveSkillsButton =
-        document.getElementById(
-            "improveSkills"
-        );
+                    selectTemplate(
+                        button.dataset.template
+                    );
+
+                    saveData();
+
+                }
+            );
+
+        }
+    );
 
 
-    if (improveProfileButton) {
+    /* =====================================================
+       VALIDACIÓN
+    ===================================================== */
 
-        improveProfileButton.addEventListener(
-            "click",
-            mejorarPerfilConIA
-        );
+    function validateCV() {
+
+        const name =
+            getValue("nombre");
+
+        const email =
+            getValue("email");
+
+
+        if (!name) {
+
+            showMessage(
+                "Escribe tu nombre completo antes de descargar el CV."
+            );
+
+            document
+                .getElementById("nombre")
+                ?.focus();
+
+            return false;
+
+        }
+
+
+        if (
+            email &&
+            !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)
+        ) {
+
+            showMessage(
+                "El email no parece válido. Revísalo antes de descargar el CV."
+            );
+
+            document
+                .getElementById("email")
+                ?.focus();
+
+            return false;
+
+        }
+
+
+        return true;
 
     }
 
 
-    if (improveSkillsButton) {
-
-        improveSkillsButton.addEventListener(
-            "click",
-            mejorarHabilidadesConIA
-        );
-
-    }
-
-
-    /* =================================================
-       BOTONES PRINCIPALES
-    ================================================= */
+    /* =====================================================
+       BOTÓN EXPERIENCIA
+    ===================================================== */
 
     if (addExperienceButton) {
 
         addExperienceButton.addEventListener(
             "click",
-            function () {
+            () => {
 
                 addExperience();
 
-                saveCV();
+                saveData();
 
             }
         );
 
     }
 
+
+    /* =====================================================
+       BOTÓN FORMACIÓN
+    ===================================================== */
 
     if (addEducationButton) {
 
         addEducationButton.addEventListener(
             "click",
-            function () {
+            () => {
 
                 addEducation();
 
-                saveCV();
+                saveData();
 
             }
         );
 
     }
 
+
+    /* =====================================================
+       BOTÓN ACTUALIZAR
+    ===================================================== */
 
     if (generateButton) {
 
         generateButton.addEventListener(
             "click",
-            function () {
+            () => {
 
                 updateCV();
 
-                saveCV();
+                saveData();
 
             }
         );
@@ -1695,15 +1367,24 @@ ${originalText}`;
     }
 
 
+    /* =====================================================
+       BOTÓN PDF
+    ===================================================== */
+
     if (printButton) {
 
         printButton.addEventListener(
             "click",
-            function () {
+            () => {
+
+                if (!validateCV()) {
+                    return;
+                }
+
 
                 updateCV();
 
-                saveCV();
+                saveData();
 
                 window.print();
 
@@ -1713,16 +1394,13 @@ ${originalText}`;
     }
 
 
-    /* =================================================
-       GUARDADO AUTOMÁTICO
-    ================================================= */
-
-    let saveTimeout;
-
+    /* =====================================================
+       ACTUALIZACIÓN AUTOMÁTICA
+    ===================================================== */
 
     document.addEventListener(
         "input",
-        function (event) {
+        event => {
 
             if (
                 event.target.matches(
@@ -1732,17 +1410,7 @@ ${originalText}`;
 
                 updateCV();
 
-
-                clearTimeout(
-                    saveTimeout
-                );
-
-
-                saveTimeout =
-                    setTimeout(
-                        saveCV,
-                        500
-                    );
+                saveData();
 
             }
 
@@ -1750,50 +1418,38 @@ ${originalText}`;
     );
 
 
-    /* =================================================
-       BOTÓN NUEVO CV
-    ================================================= */
+    /* =====================================================
+       INICIALIZACIÓN
+    ===================================================== */
 
-    const newCVButton =
-        document.getElementById(
-            "newCVButton"
-        );
+    loadData();
 
 
-    if (newCVButton) {
+    /*
+       Si no había datos guardados,
+       añadimos un ejemplo vacío.
+    */
 
-        newCVButton.addEventListener(
-            "click",
-            clearCV
-        );
+    if (
+        experienceList &&
+        experienceList.children.length === 0
+    ) {
+
+        addExperience();
 
     }
 
 
-    /* =================================================
-       INICIAR
-    ================================================= */
+    if (
+        educationList &&
+        educationList.children.length === 0
+    ) {
 
-    const loaded =
-        loadCV();
-
-
-    if (!loaded) {
-
-        if (experienceList) {
-            addExperience();
-        }
-
-
-        if (educationList) {
-            addEducation();
-        }
+        addEducation();
 
     }
 
 
     updateCV();
-
-    saveCV();
 
 });
