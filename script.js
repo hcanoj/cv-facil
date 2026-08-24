@@ -1,8 +1,8 @@
 document.addEventListener("DOMContentLoaded", function () {
 
-    /* =================================================
+    /* =====================================================
        ELEMENTOS PRINCIPALES
-    ================================================= */
+    ===================================================== */
 
     const generateButton =
         document.getElementById("generateButton");
@@ -25,32 +25,25 @@ document.addEventListener("DOMContentLoaded", function () {
     const templateButtons =
         document.querySelectorAll(".template-option");
 
-    const improveProfileButton =
-        document.getElementById("improveProfile");
 
-    const improveSkillsButton =
-        document.getElementById("improveSkills");
+    /* =====================================================
+       CONFIGURACIÓN
+    ===================================================== */
 
+    const AI_BACKEND_URL =
+        "https://bitter-band-b917.hectorcanojimenez.workers.dev";
 
-    /* =================================================
-       CONTADORES
-    ================================================= */
+    const STORAGE_KEY =
+        "cv_facil_data_v1";
+
 
     let experienceCounter = 0;
     let educationCounter = 0;
 
 
-    /* =================================================
-       CONFIGURACIÓN IA
-    ================================================= */
-
-    const AI_BACKEND_URL =
-        "https://bitter-band-b917.hectorcanojimenez.workers.dev";
-
-
-    /* =================================================
+    /* =====================================================
        UTILIDADES
-    ================================================= */
+    ===================================================== */
 
     function getValue(id) {
 
@@ -62,6 +55,19 @@ document.addEventListener("DOMContentLoaded", function () {
         }
 
         return element.value.trim();
+
+    }
+
+
+    function setValue(id, value) {
+
+        const element =
+            document.getElementById(id);
+
+        if (element) {
+            element.value = value || "";
+        }
+
     }
 
 
@@ -70,15 +76,17 @@ document.addEventListener("DOMContentLoaded", function () {
         const div =
             document.createElement("div");
 
-        div.textContent = text;
+        div.textContent =
+            text || "";
 
         return div.innerHTML;
+
     }
 
 
-    /* =================================================
+    /* =====================================================
        GUARDADO AUTOMÁTICO
-    ================================================= */
+    ===================================================== */
 
     function saveData() {
 
@@ -117,12 +125,13 @@ document.addEventListener("DOMContentLoaded", function () {
                     getEducation(),
 
                 template:
-                    getCurrentTemplate()
+                    document.getElementById("cv")
+                        ?.className || ""
 
             };
 
             localStorage.setItem(
-                "cvFacilData",
+                STORAGE_KEY,
                 JSON.stringify(data)
             );
 
@@ -134,45 +143,13 @@ document.addEventListener("DOMContentLoaded", function () {
             );
 
         }
+
     }
 
 
-    /* =================================================
-       OBTENER PLANTILLA ACTUAL
-    ================================================= */
-
-    function getCurrentTemplate() {
-
-        const cv =
-            document.getElementById("cv");
-
-        if (!cv) {
-            return "professional";
-        }
-
-        if (
-            cv.classList.contains(
-                "template-minimal"
-            )
-        ) {
-            return "minimal";
-        }
-
-        if (
-            cv.classList.contains(
-                "template-modern"
-            )
-        ) {
-            return "modern";
-        }
-
-        return "professional";
-    }
-
-
-    /* =================================================
-       CARGAR DATOS GUARDADOS
-    ================================================= */
+    /* =====================================================
+       CARGAR DATOS
+    ===================================================== */
 
     function loadData() {
 
@@ -180,18 +157,16 @@ document.addEventListener("DOMContentLoaded", function () {
 
             const saved =
                 localStorage.getItem(
-                    "cvFacilData"
+                    STORAGE_KEY
                 );
 
             if (!saved) {
-                return;
+                return false;
             }
 
             const data =
                 JSON.parse(saved);
 
-
-            /* DATOS PERSONALES */
 
             setValue(
                 "nombre",
@@ -234,12 +209,13 @@ document.addEventListener("DOMContentLoaded", function () {
             );
 
 
-            /* EXPERIENCIA */
+            /* =============================================
+               EXPERIENCIAS
+            ============================================= */
 
             if (
-                Array.isArray(
-                    data.experiences
-                )
+                Array.isArray(data.experiences) &&
+                data.experiences.length > 0
             ) {
 
                 data.experiences.forEach(
@@ -255,12 +231,13 @@ document.addEventListener("DOMContentLoaded", function () {
             }
 
 
-            /* FORMACIÓN */
+            /* =============================================
+               FORMACIÓN
+            ============================================= */
 
             if (
-                Array.isArray(
-                    data.education
-                )
+                Array.isArray(data.education) &&
+                data.education.length > 0
             ) {
 
                 data.education.forEach(
@@ -276,46 +253,72 @@ document.addEventListener("DOMContentLoaded", function () {
             }
 
 
-            /* PLANTILLA */
+            /* =============================================
+               PLANTILLA
+            ============================================= */
 
             if (data.template) {
 
-                setTemplate(
-                    data.template
-                );
+                const cv =
+                    document.getElementById("cv");
+
+                const template =
+                    data.template.match(
+                        /template-(professional|minimal|modern)/
+                    );
+
+                if (
+                    cv &&
+                    template
+                ) {
+
+                    cv.classList.remove(
+                        "template-professional",
+                        "template-minimal",
+                        "template-modern"
+                    );
+
+                    cv.classList.add(
+                        template[0]
+                    );
+
+
+                    templateButtons.forEach(
+                        function (button) {
+
+                            button.classList.toggle(
+                                "active",
+                                button.dataset.template ===
+                                template[1]
+                            );
+
+                        }
+                    );
+
+                }
 
             }
+
+
+            return true;
 
         } catch (error) {
 
             console.error(
-                "No se pudieron cargar los datos guardados:",
+                "Error cargando datos:",
                 error
             );
 
+            return false;
+
         }
+
     }
 
 
-    function setValue(id, value) {
-
-        const element =
-            document.getElementById(id);
-
-        if (!element) {
-            return;
-        }
-
-        element.value =
-            typeof value === "string"
-                ? value
-                : "";
-    }
-
-
-    /* =================================================
+    /* =====================================================
        EXPERIENCIA
-    ================================================= */
+    ===================================================== */
 
     function addExperience(data = {}) {
 
@@ -357,9 +360,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     type="text"
                     class="experience-position"
                     placeholder="Ej: Diseñador gráfico"
-                    value="${escapeHTML(
-                        data.position || ""
-                    )}"
+                    value="${escapeHTML(data.position || "")}"
                 >
 
             </div>
@@ -375,9 +376,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     type="text"
                     class="experience-company"
                     placeholder="Ej: Agencia Creativa"
-                    value="${escapeHTML(
-                        data.company || ""
-                    )}"
+                    value="${escapeHTML(data.company || "")}"
                 >
 
             </div>
@@ -395,9 +394,7 @@ document.addEventListener("DOMContentLoaded", function () {
                         type="text"
                         class="experience-start"
                         placeholder="2022"
-                        value="${escapeHTML(
-                            data.start || ""
-                        )}"
+                        value="${escapeHTML(data.start || "")}"
                     >
 
                 </div>
@@ -413,9 +410,7 @@ document.addEventListener("DOMContentLoaded", function () {
                         type="text"
                         class="experience-end"
                         placeholder="Actualidad"
-                        value="${escapeHTML(
-                            data.end || ""
-                        )}"
+                        value="${escapeHTML(data.end || "")}"
                     >
 
                 </div>
@@ -433,9 +428,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     class="experience-description"
                     rows="4"
                     placeholder="Describe tus principales responsabilidades y logros..."
-                >${escapeHTML(
-                    data.description || ""
-                )}</textarea>
+                >${escapeHTML(data.description || "")}</textarea>
 
 
                 <button
@@ -450,7 +443,9 @@ document.addEventListener("DOMContentLoaded", function () {
         `;
 
 
-        /* ELIMINAR */
+        /* =============================================
+           ELIMINAR
+        ============================================= */
 
         const deleteButton =
             item.querySelector(
@@ -472,7 +467,9 @@ document.addEventListener("DOMContentLoaded", function () {
         );
 
 
-        /* IA */
+        /* =============================================
+           IA EXPERIENCIA
+        ============================================= */
 
         const aiButton =
             item.querySelector(
@@ -484,9 +481,13 @@ document.addEventListener("DOMContentLoaded", function () {
             "click",
             function () {
 
-                mejorarExperienciaConIA(
-                    item,
-                    aiButton
+                mejorarTextoConIA(
+                    item.querySelector(
+                        ".experience-description"
+                    ),
+                    aiButton,
+                    "experience",
+                    "Escribe primero una descripción de tu experiencia."
                 );
 
             }
@@ -495,14 +496,14 @@ document.addEventListener("DOMContentLoaded", function () {
 
         experienceList.appendChild(item);
 
-
         updateCV();
+
     }
 
 
-    /* =================================================
+    /* =====================================================
        FORMACIÓN
-    ================================================= */
+    ===================================================== */
 
     function addEducation(data = {}) {
 
@@ -544,9 +545,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     type="text"
                     class="education-title"
                     placeholder="Ej: Grado en Diseño Gráfico"
-                    value="${escapeHTML(
-                        data.title || ""
-                    )}"
+                    value="${escapeHTML(data.title || "")}"
                 >
 
             </div>
@@ -562,9 +561,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     type="text"
                     class="education-school"
                     placeholder="Ej: Universidad de Madrid"
-                    value="${escapeHTML(
-                        data.school || ""
-                    )}"
+                    value="${escapeHTML(data.school || "")}"
                 >
 
             </div>
@@ -580,9 +577,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     type="text"
                     class="education-date"
                     placeholder="2020"
-                    value="${escapeHTML(
-                        data.date || ""
-                    )}"
+                    value="${escapeHTML(data.date || "")}"
                 >
 
             </div>
@@ -612,14 +607,14 @@ document.addEventListener("DOMContentLoaded", function () {
 
         educationList.appendChild(item);
 
-
         updateCV();
+
     }
 
 
-    /* =================================================
+    /* =====================================================
        OBTENER EXPERIENCIAS
-    ================================================= */
+    ===================================================== */
 
     function getExperiences() {
 
@@ -668,12 +663,13 @@ document.addEventListener("DOMContentLoaded", function () {
 
             }
         );
+
     }
 
 
-    /* =================================================
+    /* =====================================================
        OBTENER FORMACIÓN
-    ================================================= */
+    ===================================================== */
 
     function getEducation() {
 
@@ -712,12 +708,13 @@ document.addEventListener("DOMContentLoaded", function () {
 
             }
         );
+
     }
 
 
-    /* =================================================
+    /* =====================================================
        DATOS PERSONALES
-    ================================================= */
+    ===================================================== */
 
     function updatePersonalData() {
 
@@ -746,12 +743,8 @@ document.addEventListener("DOMContentLoaded", function () {
             getValue("languages");
 
 
-        /* NOMBRE */
-
         const cvName =
-            document.getElementById(
-                "cvName"
-            );
+            document.getElementById("cvName");
 
         if (cvName) {
 
@@ -761,12 +754,8 @@ document.addEventListener("DOMContentLoaded", function () {
         }
 
 
-        /* PROFESIÓN */
-
         const cvJob =
-            document.getElementById(
-                "cvJob"
-            );
+            document.getElementById("cvJob");
 
         if (cvJob) {
 
@@ -775,8 +764,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
         }
 
-
-        /* CONTACTO */
 
         const contact =
             document.getElementById(
@@ -793,7 +780,6 @@ document.addEventListener("DOMContentLoaded", function () {
                 email || "email@ejemplo.com",
                 phone || "Teléfono",
                 location || "Ubicación"
-
             ].forEach(
                 function (value) {
 
@@ -811,10 +797,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
                 }
             );
+
         }
 
-
-        /* PERFIL */
 
         const cvProfile =
             document.getElementById(
@@ -831,8 +816,6 @@ document.addEventListener("DOMContentLoaded", function () {
         }
 
 
-        /* HABILIDADES */
-
         const cvSkills =
             document.getElementById(
                 "cvSkills"
@@ -847,8 +830,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
         }
 
-
-        /* IDIOMAS */
 
         const cvLanguages =
             document.getElementById(
@@ -867,9 +848,9 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
 
-    /* =================================================
-       EXPERIENCIAS EN EL CV
-    ================================================= */
+    /* =====================================================
+       EXPERIENCIAS EN CV
+    ===================================================== */
 
     function updateExperiences() {
 
@@ -894,14 +875,13 @@ document.addEventListener("DOMContentLoaded", function () {
         if (experiences.length === 0) {
 
             container.innerHTML = `
-
                 <div class="empty-cv">
                     Tu experiencia aparecerá aquí.
                 </div>
-
             `;
 
             return;
+
         }
 
 
@@ -988,12 +968,13 @@ document.addEventListener("DOMContentLoaded", function () {
 
             }
         );
+
     }
 
 
-    /* =================================================
-       FORMACIÓN EN EL CV
-    ================================================= */
+    /* =====================================================
+       FORMACIÓN EN CV
+    ===================================================== */
 
     function updateEducation() {
 
@@ -1018,14 +999,13 @@ document.addEventListener("DOMContentLoaded", function () {
         if (education.length === 0) {
 
             container.innerHTML = `
-
                 <div class="empty-cv">
                     Tu formación aparecerá aquí.
                 </div>
-
             `;
 
             return;
+
         }
 
 
@@ -1089,12 +1069,13 @@ document.addEventListener("DOMContentLoaded", function () {
 
             }
         );
+
     }
 
 
-    /* =================================================
+    /* =====================================================
        ACTUALIZAR CV
-    ================================================= */
+    ===================================================== */
 
     function updateCV() {
 
@@ -1107,18 +1088,18 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
 
-    /* =================================================
+    /* =====================================================
        IA - FUNCIÓN GENERAL
-    ================================================= */
+    ===================================================== */
 
     async function mejorarTextoConIA(
         textarea,
         button,
-        tipo = "experiencia",
-        mensajeVacio = "Escribe primero un texto."
+        type,
+        mensajeVacio
     ) {
 
-        if (!textarea || !button) {
+        if (!textarea) {
             return;
         }
 
@@ -1129,28 +1110,25 @@ document.addEventListener("DOMContentLoaded", function () {
 
         if (!originalText) {
 
-            alert(mensajeVacio);
-
-            textarea.focus();
+            alert(
+                mensajeVacio ||
+                "Escribe primero un texto."
+            );
 
             return;
+
         }
 
-
-        /* LÍMITE DE SEGURIDAD */
 
         if (originalText.length > 5000) {
 
             alert(
-                "El texto es demasiado largo. Utiliza un máximo de 5000 caracteres."
+                "El texto es demasiado largo. Reduce el contenido antes de utilizar la IA."
             );
 
             return;
+
         }
-
-
-        const textoOriginal =
-            button.textContent;
 
 
         button.disabled = true;
@@ -1165,11 +1143,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
         try {
 
-            console.log(
-                "IA: enviando petición..."
-            );
-
-
             const response =
                 await fetch(
                     AI_BACKEND_URL,
@@ -1181,15 +1154,17 @@ document.addEventListener("DOMContentLoaded", function () {
                                 "application/json"
                         },
 
-                        body: JSON.stringify({
+                        body:
+                            JSON.stringify({
 
-                            description:
-                                originalText,
+                                type:
+                                    type,
 
-                            type:
-                                tipo
+                                text:
+                                    originalText
 
-                        })
+                            })
+
                     }
                 );
 
@@ -1214,15 +1189,16 @@ document.addEventListener("DOMContentLoaded", function () {
             if (!response.ok) {
 
                 console.error(
-                    "Respuesta del Worker:",
+                    "Error del Worker:",
                     data
                 );
 
 
                 throw new Error(
-                    data?.error ||
+                    data.error ||
                     "El servidor ha rechazado la petición."
                 );
+
             }
 
 
@@ -1271,141 +1247,148 @@ document.addEventListener("DOMContentLoaded", function () {
             );
 
             button.textContent =
-                textoOriginal;
+                "✨ Mejorar con IA";
 
         }
 
     }
 
 
-    /* =================================================
-       IA - EXPERIENCIA
-    ================================================= */
+    /* =====================================================
+       CREAR BOTÓN IA PARA PERFIL
+    ===================================================== */
 
-    async function mejorarExperienciaConIA(
-        item,
-        button
-    ) {
+    function createProfileAIButton() {
 
         const textarea =
-            item.querySelector(
-                ".experience-description"
+            document.getElementById(
+                "perfil"
             );
 
 
-        await mejorarTextoConIA(
-            textarea,
-            button,
-            "experiencia",
-            "Escribe primero una descripción de tu experiencia."
-        );
-
-    }
+        if (!textarea) {
+            return;
+        }
 
 
-    /* =================================================
-       IA - PERFIL
-    ================================================= */
+        if (
+            textarea.parentElement.querySelector(
+                ".ai-profile-button"
+            )
+        ) {
 
-    if (improveProfileButton) {
+            return;
 
-        improveProfileButton.addEventListener(
+        }
+
+
+        const button =
+            document.createElement(
+                "button"
+            );
+
+
+        button.type =
+            "button";
+
+        button.className =
+            "ai-button ai-profile-button";
+
+        button.textContent =
+            "✨ Mejorar con IA";
+
+
+        button.addEventListener(
             "click",
             function () {
 
-                const textarea =
-                    document.getElementById(
-                        "perfil"
-                    );
-
-
                 mejorarTextoConIA(
                     textarea,
-                    improveProfileButton,
-                    "perfil",
+                    button,
+                    "profile",
                     "Escribe primero tu perfil profesional."
                 );
 
             }
         );
 
+
+        textarea.parentElement.appendChild(
+            button
+        );
+
     }
 
 
-    /* =================================================
-       IA - HABILIDADES
-    ================================================= */
+    /* =====================================================
+       CREAR BOTÓN IA PARA HABILIDADES
+    ===================================================== */
 
-    if (improveSkillsButton) {
+    function createSkillsAIButton() {
 
-        improveSkillsButton.addEventListener(
+        const textarea =
+            document.getElementById(
+                "skills"
+            );
+
+
+        if (!textarea) {
+            return;
+        }
+
+
+        if (
+            textarea.parentElement.querySelector(
+                ".ai-skills-button"
+            )
+        ) {
+
+            return;
+
+        }
+
+
+        const button =
+            document.createElement(
+                "button"
+            );
+
+
+        button.type =
+            "button";
+
+        button.className =
+            "ai-button ai-skills-button";
+
+        button.textContent =
+            "✨ Mejorar con IA";
+
+
+        button.addEventListener(
             "click",
             function () {
 
-                const textarea =
-                    document.getElementById(
-                        "skills"
-                    );
-
-
                 mejorarTextoConIA(
                     textarea,
-                    improveSkillsButton,
-                    "habilidades",
+                    button,
+                    "skills",
                     "Escribe primero tus habilidades."
                 );
 
             }
         );
 
+
+        textarea.parentElement.appendChild(
+            button
+        );
+
     }
 
 
-    /* =================================================
+    /* =====================================================
        PLANTILLAS
-    ================================================= */
-
-    function setTemplate(template) {
-
-        const cv =
-            document.getElementById(
-                "cv"
-            );
-
-
-        if (!cv) {
-            return;
-        }
-
-
-        cv.classList.remove(
-            "template-professional",
-            "template-minimal",
-            "template-modern"
-        );
-
-
-        cv.classList.add(
-            "template-" + template
-        );
-
-
-        templateButtons.forEach(
-            function (button) {
-
-                button.classList.toggle(
-                    "active",
-                    button.dataset.template ===
-                    template
-                );
-
-            }
-        );
-
-
-        saveData();
-    }
-
+    ===================================================== */
 
     templateButtons.forEach(
         function (button) {
@@ -1414,9 +1397,51 @@ document.addEventListener("DOMContentLoaded", function () {
                 "click",
                 function () {
 
-                    setTemplate(
-                        button.dataset.template
+                    templateButtons.forEach(
+                        function (other) {
+
+                            other.classList.remove(
+                                "active"
+                            );
+
+                        }
                     );
+
+
+                    button.classList.add(
+                        "active"
+                    );
+
+
+                    const template =
+                        button.dataset.template;
+
+
+                    const cv =
+                        document.getElementById(
+                            "cv"
+                        );
+
+
+                    if (!cv) {
+                        return;
+                    }
+
+
+                    cv.classList.remove(
+                        "template-professional",
+                        "template-minimal",
+                        "template-modern"
+                    );
+
+
+                    cv.classList.add(
+                        "template-" +
+                        template
+                    );
+
+
+                    saveData();
 
                 }
             );
@@ -1425,9 +1450,9 @@ document.addEventListener("DOMContentLoaded", function () {
     );
 
 
-    /* =================================================
+    /* =====================================================
        BOTÓN AÑADIR EXPERIENCIA
-    ================================================= */
+    ===================================================== */
 
     if (addExperienceButton) {
 
@@ -1445,9 +1470,9 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
 
-    /* =================================================
+    /* =====================================================
        BOTÓN AÑADIR FORMACIÓN
-    ================================================= */
+    ===================================================== */
 
     if (addEducationButton) {
 
@@ -1465,9 +1490,9 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
 
-    /* =================================================
-       BOTÓN ACTUALIZAR
-    ================================================= */
+    /* =====================================================
+       BOTÓN ACTUALIZAR CV
+    ===================================================== */
 
     if (generateButton) {
 
@@ -1485,9 +1510,9 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
 
-    /* =================================================
-       GUARDAR / IMPRIMIR PDF
-    ================================================= */
+    /* =====================================================
+       BOTÓN DESCARGAR PDF
+    ===================================================== */
 
     if (printButton) {
 
@@ -1499,15 +1524,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
                 saveData();
 
-
-                setTimeout(
-                    function () {
-
-                        window.print();
-
-                    },
-                    100
-                );
+                window.print();
 
             }
         );
@@ -1515,9 +1532,9 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
 
-    /* =================================================
+    /* =====================================================
        ACTUALIZACIÓN AUTOMÁTICA
-    ================================================= */
+    ===================================================== */
 
     document.addEventListener(
         "input",
@@ -1539,22 +1556,31 @@ document.addEventListener("DOMContentLoaded", function () {
     );
 
 
-    /* =================================================
-       INICIAR APLICACIÓN
-    ================================================= */
+    /* =====================================================
+       CARGAR DATOS GUARDADOS
+    ===================================================== */
 
-    loadData();
+    const hasSavedData =
+        loadData();
 
 
-    /*
-       Si no existen datos guardados,
-       añadimos una experiencia y una formación
-       de ejemplo vacías.
-    */
+    /* =====================================================
+       CREAR BOTONES IA
+    ===================================================== */
+
+    createProfileAIButton();
+
+    createSkillsAIButton();
+
+
+    /* =====================================================
+       SI NO HAY DATOS GUARDADOS,
+       CREAR CAMPOS INICIALES
+    ===================================================== */
 
     if (
-        experienceList &&
-        experienceList.children.length === 0
+        !hasSavedData &&
+        experienceList
     ) {
 
         addExperience();
@@ -1563,14 +1589,18 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
     if (
-        educationList &&
-        educationList.children.length === 0
+        !hasSavedData &&
+        educationList
     ) {
 
         addEducation();
 
     }
 
+
+    /* =====================================================
+       ACTUALIZACIÓN INICIAL
+    ===================================================== */
 
     updateCV();
 
