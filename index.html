@@ -2,6 +2,7 @@
 <html lang="es">
 
 <head>
+
     <meta charset="UTF-8">
 
     <meta
@@ -9,65 +10,159 @@
         content="width=device-width, initial-scale=1.0"
     >
 
-  <meta
-    name="description"
-    content="Crea tu currículum profesional gratis con IA. Diseña tu CV, mejora tu perfil, experiencia y habilidades con inteligencia artificial, añade tu foto y descarga tu CV en PDF."
->
+    <!-- =====================================================
+         SEO PRINCIPAL
+    ====================================================== -->
+
+    <title>
+        CV Fácil | Crea tu CV profesional gratis con IA
+    </title>
+
+    <meta
+        name="description"
+        content="Crea tu CV profesional gratis con IA. Diseña tu currículum, mejora tu perfil y experiencia con inteligencia artificial, añade tu foto y descarga tu CV en PDF."
+    >
+
+    <meta
+        name="robots"
+        content="index, follow"
+    >
+
+    <link
+        rel="canonical"
+        href="https://hcanoj.github.io/cv-facil/"
+    >
+
+
+    <!-- =====================================================
+         INFORMACIÓN DEL SITIO
+    ====================================================== -->
+
+    <meta
+        name="author"
+        content="CV Fácil"
+    >
+
+    <meta
+        name="application-name"
+        content="CV Fácil"
+    >
 
     <meta
         name="theme-color"
         content="#111827"
     >
 
-   <title>Crear CV Profesional Gratis con IA | CV Fácil</title><meta
-    name="robots"
-    content="index, follow"
->
+    <meta
+        name="color-scheme"
+        content="light dark"
+    >
 
-<meta
-    name="author"
-    content="CV Fácil"
->
 
-<link
-    rel="canonical"
-    href="https://hcanoj.github.io/cv-facil/"
->
+    <!-- =====================================================
+         OPEN GRAPH
+    ====================================================== -->
 
-<meta
-    property="og:type"
-    content="website"
->
+    <meta
+        property="og:type"
+        content="website"
+    >
 
-<meta
-    property="og:locale"
-    content="es_ES"
->
+    <meta
+        property="og:locale"
+        content="es_ES"
+    >
 
-<meta
-    property="og:title"
-    content="Crear CV Profesional Gratis con IA | CV Fácil"
->
+    <meta
+        property="og:site_name"
+        content="CV Fácil"
+    >
 
-<meta
-    property="og:description"
-    content="Crea tu currículum profesional gratis con IA, mejora tus textos y descarga tu CV en PDF."
->
+    <meta
+        property="og:title"
+        content="CV Fácil | Crea tu CV profesional gratis con IA"
+    >
 
-<meta
-    property="og:url"
-    content="https://hcanoj.github.io/cv-facil/"
->
+    <meta
+        property="og:description"
+        content="Crea tu currículum profesional con IA, elige tu diseño, añade tu foto y descarga tu CV en PDF."
+    >
 
-<meta
-    property="og:site_name"
-    content="CV Fácil"
->
+    <meta
+        property="og:url"
+        content="https://hcanoj.github.io/cv-facil/"
+    >
 
-    <link rel="stylesheet" href="./style.css">
+
+    <!-- =====================================================
+         TWITTER / X
+    ====================================================== -->
+
+    <meta
+        name="twitter:card"
+        content="summary"
+    >
+
+    <meta
+        name="twitter:title"
+        content="CV Fácil | Crea tu CV profesional gratis con IA"
+    >
+
+    <meta
+        name="twitter:description"
+        content="Crea tu CV profesional con IA, añade tu foto y descarga tu currículum en PDF."
+    >
+
+
+    <!-- =====================================================
+         DATOS ESTRUCTURADOS PARA GOOGLE
+    ====================================================== -->
+
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "CV Fácil",
+        "url": "https://hcanoj.github.io/cv-facil/",
+        "description": "Aplicación web gratuita para crear currículums profesionales con ayuda de inteligencia artificial.",
+        "applicationCategory": "BusinessApplication",
+        "operatingSystem": "Web",
+        "browserRequirements": "Requiere un navegador web moderno con JavaScript activado.",
+        "inLanguage": "es",
+        "isAccessibleForFree": true,
+        "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "EUR"
+        },
+        "featureList": [
+            "Crear currículums profesionales",
+            "Mejorar el perfil profesional con inteligencia artificial",
+            "Mejorar la experiencia laboral con inteligencia artificial",
+            "Mejorar las habilidades con inteligencia artificial",
+            "Añadir fotografía al currículum",
+            "Elegir diferentes diseños de CV",
+            "Descargar el CV en PDF",
+            "Guardar los datos localmente en el dispositivo"
+        ]
+    }
+    </script>
+
+
+    <!-- =====================================================
+         ESTILOS
+    ====================================================== -->
+
+    <link
+        rel="stylesheet"
+        href="./style.css"
+    >
+
 </head>
 
+
 <body>
+
 
     <!-- =====================================================
          CABECERA
@@ -79,16 +174,23 @@
 
             <div class="brand">
 
-                <div class="brand-icon">
+                <div
+                    class="brand-icon"
+                    aria-hidden="true"
+                >
                     CV
                 </div>
 
                 <div>
-                    <h1>CV Fácil</h1>
+
+                    <h1>
+                        CV Fácil
+                    </h1>
 
                     <span>
                         Crea tu CV profesional con IA
                     </span>
+
                 </div>
 
             </div>
@@ -100,15 +202,26 @@
                     Gratis · Sin registro
                 </div>
 
+
                 <button
                     type="button"
                     id="themeToggle"
                     class="theme-toggle"
-                    aria-label="Cambiar tema"
+                    aria-label="Cambiar entre modo claro y oscuro"
                     title="Cambiar entre modo claro y oscuro"
                 >
-                    <span id="themeIcon">☾</span>
-                    <span id="themeText">Oscuro</span>
+
+                    <span
+                        id="themeIcon"
+                        aria-hidden="true"
+                    >
+                        ☾
+                    </span>
+
+                    <span id="themeText">
+                        Oscuro
+                    </span>
+
                 </button>
 
             </div>
@@ -118,23 +231,11 @@
     </header>
 
 
+
     <!-- =====================================================
          CONTENIDO PRINCIPAL
     ====================================================== -->
-<section class="seo-intro">
 
-    <h2>
-        Crea tu CV profesional gratis con IA
-    </h2>
-
-    <p>
-        CV Fácil es un creador de currículums online que te permite
-        crear un CV profesional gratis, mejorar tus textos con
-        inteligencia artificial, elegir diferentes diseños y
-        descargar tu currículum en PDF.
-    </p>
-
-</section>
     <main class="app-container">
 
 
@@ -142,7 +243,10 @@
              EDITOR
         ================================================== -->
 
-        <aside class="editor-panel">
+        <aside
+            class="editor-panel"
+            aria-label="Editor de currículum"
+        >
 
 
             <div class="panel-header">
@@ -158,13 +262,15 @@
                     </h2>
 
                     <p>
-                        Completa tus datos y visualiza
-                        el resultado en tiempo real.
+                        Crea un currículum profesional gratis,
+                        personalízalo y visualiza el resultado
+                        en tiempo real.
                     </p>
 
                 </div>
 
             </div>
+
 
 
             <!-- =================================================
@@ -175,7 +281,10 @@
 
                 <div class="section-heading">
 
-                    <span class="section-number">
+                    <span
+                        class="section-number"
+                        aria-hidden="true"
+                    >
                         1
                     </span>
 
@@ -203,17 +312,23 @@
                         hidden
                     >
 
+
                     <label
                         for="photoInput"
                         class="photo-upload-button"
                     >
-                        <span class="photo-upload-icon">
+
+                        <span
+                            class="photo-upload-icon"
+                            aria-hidden="true"
+                        >
                             +
                         </span>
 
                         <span>
                             Añadir fotografía
                         </span>
+
                     </label>
 
 
@@ -226,14 +341,16 @@
                         Eliminar fotografía
                     </button>
 
+
                     <p class="photo-help">
-                        JPG, PNG o WEBP. Recomendamos una foto
-                        tipo carnet con fondo limpio.
+                        JPG, PNG o WEBP. Recomendamos una
+                        fotografía tipo carnet con fondo limpio.
                     </p>
 
                 </div>
 
             </section>
+
 
 
             <!-- =================================================
@@ -244,7 +361,10 @@
 
                 <div class="section-heading">
 
-                    <span class="section-number">
+                    <span
+                        class="section-number"
+                        aria-hidden="true"
+                    >
                         2
                     </span>
 
@@ -274,6 +394,7 @@
                         id="nombre"
                         placeholder="Ej: Carlos Martínez"
                         autocomplete="name"
+                        maxlength="100"
                     >
 
                 </div>
@@ -289,6 +410,7 @@
                         type="text"
                         id="profesion"
                         placeholder="Ej: Diseñador gráfico"
+                        maxlength="100"
                     >
 
                 </div>
@@ -307,6 +429,7 @@
                             id="email"
                             placeholder="correo@ejemplo.com"
                             autocomplete="email"
+                            maxlength="150"
                         >
 
                     </div>
@@ -323,6 +446,7 @@
                             id="telefono"
                             placeholder="600 123 456"
                             autocomplete="tel"
+                            maxlength="30"
                         >
 
                     </div>
@@ -340,6 +464,8 @@
                         type="text"
                         id="ubicacion"
                         placeholder="Madrid, España"
+                        autocomplete="address-level2"
+                        maxlength="100"
                     >
 
                 </div>
@@ -347,15 +473,19 @@
             </section>
 
 
+
             <!-- =================================================
-                 PERFIL
+                 PERFIL PROFESIONAL
             ================================================== -->
 
             <section class="form-section">
 
                 <div class="section-heading">
 
-                    <span class="section-number">
+                    <span
+                        class="section-number"
+                        aria-hidden="true"
+                    >
                         3
                     </span>
 
@@ -383,6 +513,7 @@
                     <textarea
                         id="perfil"
                         rows="5"
+                        maxlength="2000"
                         placeholder="Ej: Profesional con 5 años de experiencia especializado en..."
                     ></textarea>
 
@@ -391,6 +522,7 @@
                         type="button"
                         class="ai-button"
                         data-ai-target="perfil"
+                        aria-label="Mejorar perfil profesional con inteligencia artificial"
                     >
                         ✨ Mejorar con IA
                     </button>
@@ -400,24 +532,30 @@
             </section>
 
 
+
             <!-- =================================================
                  EXPERIENCIA
             ================================================== -->
 
             <section class="form-section">
 
-                <div class="section-heading section-heading-actions">
+                <div
+                    class="section-heading section-heading-actions"
+                >
 
                     <div class="heading-left">
 
-                        <span class="section-number">
+                        <span
+                            class="section-number"
+                            aria-hidden="true"
+                        >
                             4
                         </span>
 
                         <div>
 
                             <h3>
-                                Experiencia
+                                Experiencia profesional
                             </h3>
 
                             <p>
@@ -445,17 +583,23 @@
             </section>
 
 
+
             <!-- =================================================
                  FORMACIÓN
             ================================================== -->
 
             <section class="form-section">
 
-                <div class="section-heading section-heading-actions">
+                <div
+                    class="section-heading section-heading-actions"
+                >
 
                     <div class="heading-left">
 
-                        <span class="section-number">
+                        <span
+                            class="section-number"
+                            aria-hidden="true"
+                        >
                             5
                         </span>
 
@@ -490,6 +634,7 @@
             </section>
 
 
+
             <!-- =================================================
                  HABILIDADES
             ================================================== -->
@@ -498,7 +643,10 @@
 
                 <div class="section-heading">
 
-                    <span class="section-number">
+                    <span
+                        class="section-number"
+                        aria-hidden="true"
+                    >
                         6
                     </span>
 
@@ -526,6 +674,7 @@
                     <textarea
                         id="skills"
                         rows="4"
+                        maxlength="1500"
                         placeholder="Ej: Photoshop, Excel, ventas, liderazgo, comunicación..."
                     ></textarea>
 
@@ -534,6 +683,7 @@
                         type="button"
                         class="ai-button"
                         data-ai-target="skills"
+                        aria-label="Mejorar habilidades con inteligencia artificial"
                     >
                         ✨ Mejorar con IA
                     </button>
@@ -541,6 +691,7 @@
                 </div>
 
             </section>
+
 
 
             <!-- =================================================
@@ -551,7 +702,10 @@
 
                 <div class="section-heading">
 
-                    <span class="section-number">
+                    <span
+                        class="section-number"
+                        aria-hidden="true"
+                    >
                         7
                     </span>
 
@@ -579,12 +733,14 @@
                     <textarea
                         id="languages"
                         rows="3"
+                        maxlength="500"
                         placeholder="Ej: Español — Nativo&#10;Inglés — B2&#10;Francés — A2"
                     ></textarea>
 
                 </div>
 
             </section>
+
 
 
             <!-- =================================================
@@ -595,7 +751,10 @@
 
                 <div class="section-heading">
 
-                    <span class="section-number">
+                    <span
+                        class="section-number"
+                        aria-hidden="true"
+                    >
                         8
                     </span>
 
@@ -606,7 +765,7 @@
                         </h3>
 
                         <p>
-                            Elige el estilo de tu CV.
+                            Elige el estilo de tu currículum.
                         </p>
 
                     </div>
@@ -621,10 +780,12 @@
                         type="button"
                         class="template-option active"
                         data-template="professional"
+                        aria-label="Seleccionar diseño profesional"
                     >
 
                         <span
                             class="template-preview professional-preview"
+                            aria-hidden="true"
                         ></span>
 
                         <span>
@@ -638,10 +799,12 @@
                         type="button"
                         class="template-option"
                         data-template="minimal"
+                        aria-label="Seleccionar diseño minimalista"
                     >
 
                         <span
                             class="template-preview minimal-preview"
+                            aria-hidden="true"
                         ></span>
 
                         <span>
@@ -655,10 +818,12 @@
                         type="button"
                         class="template-option"
                         data-template="modern"
+                        aria-label="Seleccionar diseño moderno"
                     >
 
                         <span
                             class="template-preview modern-preview"
+                            aria-hidden="true"
                         ></span>
 
                         <span>
@@ -671,6 +836,7 @@
                 </div>
 
             </section>
+
 
 
             <!-- =================================================
@@ -686,6 +852,7 @@
                 >
                     Actualizar CV
                 </button>
+
 
                 <button
                     type="button"
@@ -709,11 +876,15 @@
         </aside>
 
 
+
         <!-- =================================================
              PREVISUALIZACIÓN
         ================================================== -->
 
-        <section class="preview-panel">
+        <section
+            class="preview-panel"
+            aria-label="Vista previa del currículum"
+        >
 
 
             <div class="preview-toolbar">
@@ -735,9 +906,10 @@
                     type="button"
                     id="printButton"
                     class="download-button"
+                    aria-label="Descargar currículum en PDF"
                 >
 
-                    <span>
+                    <span aria-hidden="true">
                         ↓
                     </span>
 
@@ -746,6 +918,7 @@
                 </button>
 
             </div>
+
 
 
             <!-- =================================================
@@ -759,7 +932,7 @@
 
 
                 <!-- =================================================
-                     CABECERA CV
+                     CABECERA DEL CV
                 ================================================== -->
 
                 <header class="cv-header">
@@ -798,7 +971,10 @@
                     </div>
 
 
-                    <!-- FOTO DEL CV -->
+
+                    <!-- =================================================
+                         FOTO
+                    ================================================== -->
 
                     <div
                         id="cvPhotoContainer"
@@ -813,6 +989,7 @@
 
                         </div>
 
+
                         <img
                             id="cvPhoto"
                             class="cv-photo"
@@ -822,12 +999,12 @@
 
                     </div>
 
-
                 </header>
 
 
+
                 <!-- =================================================
-                     CUERPO CV
+                     CUERPO DEL CV
                 ================================================== -->
 
                 <div class="cv-body">
@@ -848,6 +1025,7 @@
                     </section>
 
 
+
                     <!-- EXPERIENCIA -->
 
                     <section class="cv-block">
@@ -859,12 +1037,13 @@
                         <div id="cvExperienceList">
 
                             <div class="empty-cv">
-                                Tu experiencia aparecerá aquí.
+                                Tu experiencia profesional aparecerá aquí.
                             </div>
 
                         </div>
 
                     </section>
+
 
 
                     <!-- FORMACIÓN -->
@@ -886,6 +1065,7 @@
                     </section>
 
 
+
                     <!-- HABILIDADES -->
 
                     <section class="cv-block">
@@ -899,6 +1079,7 @@
                         </p>
 
                     </section>
+
 
 
                     <!-- IDIOMAS -->
@@ -929,6 +1110,72 @@
     </main>
 
 
+
+    <!-- =====================================================
+         CONTENIDO SEO
+         
+         Este texto ayuda a explicar a los buscadores qué es
+         CV Fácil sin interferir con la aplicación.
+    ====================================================== -->
+
+    <section
+        class="seo-content"
+        aria-labelledby="seo-title"
+    >
+
+        <div class="seo-content-inner">
+
+            <h2 id="seo-title">
+                Crea tu CV profesional gratis con IA
+            </h2>
+
+            <p>
+                Con <strong>CV Fácil</strong> puedes crear un
+                currículum profesional de forma sencilla y
+                gratuita. Completa tus datos, añade tu
+                experiencia laboral, formación, habilidades
+                e idiomas y visualiza tu CV en tiempo real.
+            </p>
+
+            <h3>
+                Mejora tu currículum con inteligencia artificial
+            </h3>
+
+            <p>
+                Utiliza la inteligencia artificial para mejorar
+                la redacción de tu perfil profesional, describir
+                mejor tu experiencia laboral y presentar tus
+                habilidades de una forma más profesional.
+            </p>
+
+            <h3>
+                Diseña y descarga tu currículum
+            </h3>
+
+            <p>
+                Elige entre diferentes diseños de CV, añade una
+                fotografía profesional y descarga el resultado
+                en formato PDF para utilizarlo en tus
+                candidaturas de empleo.
+            </p>
+
+            <h3>
+                Fácil, gratuito y sin registro
+            </h3>
+
+            <p>
+                CV Fácil está diseñado para que puedas crear
+                tu currículum sin necesidad de registrarte.
+                Tus datos se mantienen localmente en tu
+                dispositivo en esta versión de la aplicación.
+            </p>
+
+        </div>
+
+    </section>
+
+
+
     <!-- =====================================================
          FOOTER
     ====================================================== -->
@@ -936,14 +1183,15 @@
     <footer class="site-footer">
 
         <p>
-            CV Fácil · Generador de CV profesional
+            CV Fácil · Generador de CV profesional gratis
         </p>
 
         <span>
-            Crea · Mejora con IA · Descarga
+            Crea · Mejora con IA · Personaliza · Descarga
         </span>
 
     </footer>
+
 
 
     <!-- =====================================================
