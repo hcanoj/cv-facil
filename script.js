@@ -34,8 +34,8 @@ document.addEventListener("DOMContentLoaded", function () {
        URL DEL BACKEND
     ================================================= */
 
-    const AI_BACKEND_URL =
-        "https://bitter-band-b917.hectorcanojimenez.workers.dev";
+   const AI_BACKEND_URL =
+    "https://bitter-band-b917.hectorcanojimenez.workers.dev";
 
 
     /* =================================================
@@ -991,6 +991,46 @@ async function mejorarExperienciaConIA(
     );
 
 }
+    /* =================================================
+   IA - PERFIL
+================================================= */
+
+async function mejorarPerfilConIA() {
+
+    const textarea =
+        document.getElementById("perfil");
+
+    const button =
+        document.getElementById("improveProfile");
+
+    await mejorarTextoConIA(
+        textarea,
+        button,
+        "Escribe primero tu perfil profesional."
+    );
+
+}
+
+
+/* =================================================
+   IA - HABILIDADES
+================================================= */
+
+async function mejorarHabilidadesConIA() {
+
+    const textarea =
+        document.getElementById("skills");
+
+    const button =
+        document.getElementById("improveSkills");
+
+    await mejorarTextoConIA(
+        textarea,
+        button,
+        "Escribe primero tus habilidades."
+    );
+
+}
 
 
     /* =================================================
@@ -1102,7 +1142,35 @@ async function mejorarExperienciaConIA(
         );
 
     }
+/* =================================================
+   BOTONES IA
+================================================= */
 
+const improveProfileButton =
+    document.getElementById("improveProfile");
+
+const improveSkillsButton =
+    document.getElementById("improveSkills");
+
+
+if (improveProfileButton) {
+
+    improveProfileButton.addEventListener(
+        "click",
+        mejorarPerfilConIA
+    );
+
+}
+
+
+if (improveSkillsButton) {
+
+    improveSkillsButton.addEventListener(
+        "click",
+        mejorarHabilidadesConIA
+    );
+
+}
 
     /* =================================================
        ACTUALIZACIÓN AUTOMÁTICA
