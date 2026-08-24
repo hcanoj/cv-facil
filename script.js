@@ -813,126 +813,184 @@ document.addEventListener("DOMContentLoaded", function () {
        MEJORAR EXPERIENCIA CON IA
     ================================================= */
 
-    async function mejorarExperienciaConIA(
-        item,
-        button
-    ) {
+   /* =================================================
+   IA - FUNCIÓN GENERAL
+================================================= */
 
-        const textarea =
-            item.querySelector(
-                ".experience-description"
-            );
+async function mejorarTextoConIA(
+    textarea,
+    button,
+    mensajeVacio = "Escribe primero un texto."
+) {
 
-
-        const description =
-            textarea.value.trim();
-
-
-        if (!description) {
-
-            alert(
-                "Escribe primero una descripción de tu experiencia."
-            );
-
-            return;
-
-        }
+    if (!textarea) {
+        return;
+    }
 
 
-        button.classList.add(
-            "loading"
+    const originalText =
+        textarea.value.trim();
+
+
+    if (!originalText) {
+
+        alert(mensajeVacio);
+
+        return;
+
+    }
+
+
+    button.disabled = true;
+
+    button.classList.add("loading");
+
+    button.textContent =
+        "✨ Mejorando...";
+
+
+    try {
+
+        console.log(
+            "IA: enviando petición..."
+        );
+
+        console.log(
+            "Worker:",
+            AI_BACKEND_URL
         );
 
 
-        button.textContent =
-            "✨ Mejorando...";
+        const response =
+            await fetch(
+                AI_BACKEND_URL,
+                {
+                    method: "POST",
+
+                    headers: {
+                        "Content-Type":
+                            "application/json"
+                    },
+
+                    body: JSON.stringify({
+                        description:
+                            originalText
+                    })
+                }
+            );
 
 
-        button.disabled = true;
+        let data;
 
 
         try {
-            console.log("BOTÓN IA: iniciando petición");
-console.log("URL DEL WORKER:", AI_BACKEND_URL);
 
-            const response =
-                await fetch(
-                    AI_BACKEND_URL,
-                    {
-                        method: "POST",
-
-                        headers: {
-                            "Content-Type":
-                                "application/json"
-                        },
-
-                        body: JSON.stringify({
-                            description:
-                                description
-                        })
-
-                    }
-                );
-
-
-            const data =
+            data =
                 await response.json();
 
+        } catch {
 
-            if (!response.ok) {
-
-                throw new Error(
-                    data.error ||
-                    "Error del servidor."
-                );
-
-            }
-
-
-            if (!data.text) {
-
-                throw new Error(
-                    "La IA no devolvió ningún texto."
-                );
-
-            }
-
-
-            textarea.value =
-                data.text;
-
-
-            updateCV();
-
-
-        } catch (error) {
-
-            console.error(
-                "Error IA:",
-                error
+            throw new Error(
+                "El servidor no devolvió una respuesta válida."
             );
-
-
-            alert(
-                "No se ha podido mejorar el texto. Comprueba que el backend esté correctamente configurado."
-            );
-
-        } finally {
-
-            button.classList.remove(
-                "loading"
-            );
-
-
-            button.textContent =
-                "✨ Mejorar con IA";
-
-
-            button.disabled = false;
 
         }
 
+
+        if (!response.ok) {
+
+            console.error(
+                "Respuesta del servidor:",
+                data
+            );
+
+
+            throw new Error(
+                data.error ||
+                "El servidor ha rechazado la petición."
+            );
+
+        }
+
+
+        if (
+            !data.text ||
+            typeof data.text !== "string" ||
+            !data.text.trim()
+        ) {
+
+            console.error(
+                "Respuesta IA sin texto:",
+                data
+            );
+
+
+            throw new Error(
+                "La IA no devolvió ningún texto."
+            );
+
+        }
+
+
+        textarea.value =
+            data.text.trim();
+
+
+        updateCV();
+
+
+    } catch (error) {
+
+        console.error(
+            "Error IA:",
+            error
+        );
+
+
+        alert(
+            error.message ||
+            "No se ha podido mejorar el texto."
+        );
+
+
+    } finally {
+
+        button.disabled = false;
+
+        button.classList.remove(
+            "loading"
+        );
+
+        button.textContent =
+            "✨ Mejorar con IA";
+
     }
+
+}
+
+
+/* =================================================
+   IA - EXPERIENCIA
+================================================= */
+
+async function mejorarExperienciaConIA(
+    item,
+    button
+) {
+
+    const textarea =
+        item.querySelector(
+            ".experience-description"
+        );
+
+
+    await mejorarTextoConIA(
+        textarea,
+        button,
+        "Escribe primero una descripción de tu experiencia."
+    );
+
+}
 
 
     /* =================================================
