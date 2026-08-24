@@ -34,8 +34,8 @@ document.addEventListener("DOMContentLoaded", function () {
        URL DEL BACKEND
     ================================================= */
 
-   const AI_BACKEND_URL =
-    "https://bitter-band-b917.hectorcanojimenez.workers.dev";
+    const AI_BACKEND_URL =
+        "https://bitter-band-b917.hectorcanojimenez.workers.dev";
 
 
     /* =================================================
@@ -190,12 +190,8 @@ document.addEventListener("DOMContentLoaded", function () {
         `;
 
 
-        /* ELIMINAR EXPERIENCIA */
-
         const deleteButton =
-            item.querySelector(
-                ".delete-button"
-            );
+            item.querySelector(".delete-button");
 
 
         deleteButton.addEventListener(
@@ -210,12 +206,8 @@ document.addEventListener("DOMContentLoaded", function () {
         );
 
 
-        /* BOTÓN IA */
-
         const aiButton =
-            item.querySelector(
-                ".ai-button"
-            );
+            item.querySelector(".ai-button");
 
 
         aiButton.addEventListener(
@@ -319,9 +311,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
         const deleteButton =
-            item.querySelector(
-                ".delete-button"
-            );
+            item.querySelector(".delete-button");
 
 
         deleteButton.addEventListener(
@@ -487,9 +477,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
         const contact =
-            document.getElementById(
-                "cvContact"
-            );
+            document.getElementById("cvContact");
 
 
         if (contact) {
@@ -523,9 +511,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
         const cvProfile =
-            document.getElementById(
-                "cvProfile"
-            );
+            document.getElementById("cvProfile");
 
 
         if (cvProfile) {
@@ -538,9 +524,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
         const cvSkills =
-            document.getElementById(
-                "cvSkills"
-            );
+            document.getElementById("cvSkills");
 
 
         if (cvSkills) {
@@ -553,9 +537,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
         const cvLanguages =
-            document.getElementById(
-                "cvLanguages"
-            );
+            document.getElementById("cvLanguages");
 
 
         if (cvLanguages) {
@@ -810,227 +792,222 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
     /* =================================================
-       MEJORAR EXPERIENCIA CON IA
+       IA - FUNCIÓN GENERAL
     ================================================= */
 
-   /* =================================================
-   IA - FUNCIÓN GENERAL
-================================================= */
+    async function mejorarTextoConIA(
+        textarea,
+        button,
+        mensajeVacio = "Escribe primero un texto."
+    ) {
 
-async function mejorarTextoConIA(
-    textarea,
-    button,
-    mensajeVacio = "Escribe primero un texto."
-) {
-
-    if (!textarea) {
-        return;
-    }
+        if (!textarea || !button) {
+            return;
+        }
 
 
-    const originalText =
-        textarea.value.trim();
+        const originalText =
+            textarea.value.trim();
 
 
-    if (!originalText) {
+        if (!originalText) {
 
-        alert(mensajeVacio);
+            alert(mensajeVacio);
 
-        return;
+            return;
 
-    }
-
-
-    button.disabled = true;
-
-    button.classList.add("loading");
-
-    button.textContent =
-        "✨ Mejorando...";
+        }
 
 
-    try {
+        button.disabled = true;
 
-        console.log(
-            "IA: enviando petición..."
-        );
+        button.classList.add("loading");
 
-        console.log(
-            "Worker:",
-            AI_BACKEND_URL
-        );
-
-
-        const response =
-            await fetch(
-                AI_BACKEND_URL,
-                {
-                    method: "POST",
-
-                    headers: {
-                        "Content-Type":
-                            "application/json"
-                    },
-
-                    body: JSON.stringify({
-                        description:
-                            originalText
-                    })
-                }
-            );
-
-
-        let data;
+        button.textContent =
+            "✨ Mejorando...";
 
 
         try {
 
-            data =
-                await response.json();
-
-        } catch {
-
-            throw new Error(
-                "El servidor no devolvió una respuesta válida."
+            console.log(
+                "IA: enviando petición..."
             );
 
-        }
+
+            const response =
+                await fetch(
+                    AI_BACKEND_URL,
+                    {
+                        method: "POST",
+
+                        headers: {
+                            "Content-Type":
+                                "application/json"
+                        },
+
+                        body: JSON.stringify({
+                            description:
+                                originalText
+                        })
+                    }
+                );
 
 
-        if (!response.ok) {
+            let data;
+
+
+            try {
+
+                data =
+                    await response.json();
+
+            } catch {
+
+                throw new Error(
+                    "El servidor no devolvió una respuesta válida."
+                );
+
+            }
+
+
+            if (!response.ok) {
+
+                console.error(
+                    "Respuesta del servidor:",
+                    data
+                );
+
+
+                throw new Error(
+                    data.error ||
+                    "El servidor ha rechazado la petición."
+                );
+
+            }
+
+
+            if (
+                !data.text ||
+                typeof data.text !== "string" ||
+                !data.text.trim()
+            ) {
+
+                console.error(
+                    "Respuesta IA sin texto:",
+                    data
+                );
+
+
+                throw new Error(
+                    "La IA no devolvió ningún texto."
+                );
+
+            }
+
+
+            textarea.value =
+                data.text.trim();
+
+
+            updateCV();
+
+
+        } catch (error) {
 
             console.error(
-                "Respuesta del servidor:",
-                data
+                "Error IA:",
+                error
             );
 
 
-            throw new Error(
-                data.error ||
-                "El servidor ha rechazado la petición."
+            alert(
+                error.message ||
+                "No se ha podido mejorar el texto."
             );
+
+
+        } finally {
+
+            button.disabled = false;
+
+            button.classList.remove(
+                "loading"
+            );
+
+            button.textContent =
+                "✨ Mejorar con IA";
 
         }
-
-
-        if (
-            !data.text ||
-            typeof data.text !== "string" ||
-            !data.text.trim()
-        ) {
-
-            console.error(
-                "Respuesta IA sin texto:",
-                data
-            );
-
-
-            throw new Error(
-                "La IA no devolvió ningún texto."
-            );
-
-        }
-
-
-        textarea.value =
-            data.text.trim();
-
-
-        updateCV();
-
-
-    } catch (error) {
-
-        console.error(
-            "Error IA:",
-            error
-        );
-
-
-        alert(
-            error.message ||
-            "No se ha podido mejorar el texto."
-        );
-
-
-    } finally {
-
-        button.disabled = false;
-
-        button.classList.remove(
-            "loading"
-        );
-
-        button.textContent =
-            "✨ Mejorar con IA";
 
     }
 
-}
+
+    /* =================================================
+       IA - EXPERIENCIA
+    ================================================= */
+
+    async function mejorarExperienciaConIA(
+        item,
+        button
+    ) {
+
+        const textarea =
+            item.querySelector(
+                ".experience-description"
+            );
 
 
-/* =================================================
-   IA - EXPERIENCIA
-================================================= */
-
-async function mejorarExperienciaConIA(
-    item,
-    button
-) {
-
-    const textarea =
-        item.querySelector(
-            ".experience-description"
+        await mejorarTextoConIA(
+            textarea,
+            button,
+            "Escribe primero una descripción de tu experiencia."
         );
 
+    }
 
-    await mejorarTextoConIA(
-        textarea,
-        button,
-        "Escribe primero una descripción de tu experiencia."
-    );
 
-}
     /* =================================================
-   IA - PERFIL
-================================================= */
+       IA - PERFIL
+    ================================================= */
 
-async function mejorarPerfilConIA() {
+    async function mejorarPerfilConIA() {
 
-    const textarea =
-        document.getElementById("perfil");
+        const textarea =
+            document.getElementById("perfil");
 
-    const button =
-        document.getElementById("improveProfile");
-
-    await mejorarTextoConIA(
-        textarea,
-        button,
-        "Escribe primero tu perfil profesional."
-    );
-
-}
+        const button =
+            document.getElementById("improveProfile");
 
 
-/* =================================================
-   IA - HABILIDADES
-================================================= */
+        await mejorarTextoConIA(
+            textarea,
+            button,
+            "Escribe primero tu perfil profesional."
+        );
 
-async function mejorarHabilidadesConIA() {
+    }
 
-    const textarea =
-        document.getElementById("skills");
 
-    const button =
-        document.getElementById("improveSkills");
+    /* =================================================
+       IA - HABILIDADES
+    ================================================= */
 
-    await mejorarTextoConIA(
-        textarea,
-        button,
-        "Escribe primero tus habilidades."
-    );
+    async function mejorarHabilidadesConIA() {
 
-}
+        const textarea =
+            document.getElementById("skills");
+
+        const button =
+            document.getElementById("improveSkills");
+
+
+        await mejorarTextoConIA(
+            textarea,
+            button,
+            "Escribe primero tus habilidades."
+        );
+
+    }
 
 
     /* =================================================
@@ -1142,35 +1119,38 @@ async function mejorarHabilidadesConIA() {
         );
 
     }
-/* =================================================
-   BOTONES IA
-================================================= */
-
-const improveProfileButton =
-    document.getElementById("improveProfile");
-
-const improveSkillsButton =
-    document.getElementById("improveSkills");
 
 
-if (improveProfileButton) {
+    /* =================================================
+       BOTONES IA
+    ================================================= */
 
-    improveProfileButton.addEventListener(
-        "click",
-        mejorarPerfilConIA
-    );
+    const improveProfileButton =
+        document.getElementById("improveProfile");
 
-}
+    const improveSkillsButton =
+        document.getElementById("improveSkills");
 
 
-if (improveSkillsButton) {
+    if (improveProfileButton) {
 
-    improveSkillsButton.addEventListener(
-        "click",
-        mejorarHabilidadesConIA
-    );
+        improveProfileButton.addEventListener(
+            "click",
+            mejorarPerfilConIA
+        );
 
-}
+    }
+
+
+    if (improveSkillsButton) {
+
+        improveSkillsButton.addEventListener(
+            "click",
+            mejorarHabilidadesConIA
+        );
+
+    }
+
 
     /* =================================================
        ACTUALIZACIÓN AUTOMÁTICA
