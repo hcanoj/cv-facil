@@ -2,18 +2,21 @@ document.addEventListener("DOMContentLoaded", () => {
 
     /* =====================================================
        CONFIGURACIÓN
-    ===================================================== */
+    ====================================================== */
 
     const AI_BACKEND_URL =
         "https://bitter-band-b917.hectorcanojimenez.workers.dev";
 
     const STORAGE_KEY =
-        "cv-facil-data-v3";
+        "cv-facil-data-v4";
+
+    const THEME_KEY =
+        "cv-facil-theme";
 
 
     /* =====================================================
        ELEMENTOS
-    ===================================================== */
+    ====================================================== */
 
     const experienceList =
         document.getElementById("experienceList");
@@ -36,26 +39,29 @@ document.addEventListener("DOMContentLoaded", () => {
     const themeToggle =
         document.getElementById("themeToggle");
 
+    const themeIcon =
+        document.getElementById("themeIcon");
+
+    const themeText =
+        document.getElementById("themeText");
+
     const photoInput =
         document.getElementById("photoInput");
-
-    const photoPreview =
-        document.getElementById("photoPreview");
 
     const cvPhoto =
         document.getElementById("cvPhoto");
 
+    const cvPhotoContainer =
+        document.getElementById("cvPhotoContainer");
+
     const removePhotoButton =
         document.getElementById("removePhoto");
 
-    const saveStatus =
-        document.getElementById("saveStatus");
-
-    const toast =
-        document.getElementById("toast");
-
     const templateButtons =
         document.querySelectorAll(".template-option");
+
+    const aiButtons =
+        document.querySelectorAll(".ai-button[data-ai-target]");
 
 
     let experienceCounter = 0;
@@ -65,7 +71,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     /* =====================================================
        UTILIDADES
-    ===================================================== */
+    ====================================================== */
 
     function getValue(id) {
 
@@ -75,6 +81,17 @@ document.addEventListener("DOMContentLoaded", () => {
         return element
             ? element.value.trim()
             : "";
+    }
+
+
+    function setValue(id, value) {
+
+        const element =
+            document.getElementById(id);
+
+        if (element) {
+            element.value = value || "";
+        }
     }
 
 
@@ -92,6 +109,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
     function showToast(message) {
 
+        let toast =
+            document.getElementById("toast");
+
         if (!toast) {
             return;
         }
@@ -101,62 +121,82 @@ document.addEventListener("DOMContentLoaded", () => {
 
         toast.classList.add("show");
 
-        clearTimeout(
-            showToast.timeout
-        );
+        clearTimeout(showToast.timeout);
 
         showToast.timeout =
             setTimeout(() => {
 
-                toast.classList.remove(
-                    "show"
-                );
+                toast.classList.remove("show");
 
             }, 3000);
     }
 
 
-    function setSaveStatus(message) {
+    function scheduleSave() {
 
-        if (!saveStatus) {
-            return;
-        }
+        clearTimeout(saveTimeout);
 
-        saveStatus.textContent =
-            message;
+        saveTimeout =
+            setTimeout(() => {
+
+                saveData();
+
+            }, 400);
     }
 
 
     /* =====================================================
        FOTO
-    ===================================================== */
+    ====================================================== */
 
-    function updatePhotoPreview(src) {
+    function setPhoto(src) {
 
-        if (!photoPreview || !cvPhoto) {
+        if (!cvPhoto || !cvPhotoContainer) {
             return;
         }
 
         if (src) {
 
-            photoPreview.innerHTML =
-                `<img src="${src}" alt="Foto de perfil">`;
+            cvPhoto.src = src;
 
-            cvPhoto.innerHTML =
-                `<img src="${src}" alt="Foto del candidato">`;
+            cvPhoto.hidden = false;
+
+            const placeholder =
+                cvPhotoContainer.querySelector(
+                    ".cv-photo-placeholder"
+                );
+
+            if (placeholder) {
+                placeholder.hidden = true;
+            }
+
+            if (removePhotoButton) {
+                removePhotoButton.hidden = false;
+            }
 
         } else {
 
-            photoPreview.innerHTML =
-                "<span>Foto</span>";
+            cvPhoto.removeAttribute("src");
 
-            cvPhoto.innerHTML =
-                "<span>Foto</span>";
+            cvPhoto.hidden = true;
+
+            const placeholder =
+                cvPhotoContainer.querySelector(
+                    ".cv-photo-placeholder"
+                );
+
+            if (placeholder) {
+                placeholder.hidden = false;
+            }
+
+            if (removePhotoButton) {
+                removePhotoButton.hidden = true;
+            }
         }
     }
 
 
-    async function handlePhotoUpload(file) {
+    function handlePhotoUpload(file) {
 
         if (!file) {
             return;
@@ -196,7 +236,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
             image.onload = () => {
 
-                const maxSize = 500;
+                const maxSize = 600;
 
                 const scale =
                     Math.min(
@@ -209,18 +249,22 @@ document.addEventListener("DOMContentLoaded", () => {
                     );
 
                 const canvas =
-                    document.createElement(
-                        "canvas"
-                    );
+                    document.createElement("canvas");
 
                 canvas.width =
-                    Math.round(
-                        image.width * scale
+                    Math.max(
+                        1,
+                        Math.round(
+                            image.width * scale
+                        )
                     );
 
                 canvas.height =
-                    Math.round(
-                        image.height * scale
+                    Math.max(
+                        1,
+                        Math.round(
+                            image.height * scale
+                        )
                     );
 
                 const context =
@@ -240,15 +284,16 @@ document.addEventListener("DOMContentLoaded", () => {
                         0.82
                     );
 
-                updatePhotoPreview(
-                    compressed
-                );
+                setPhoto(compressed);
 
                 saveData();
+
+                showToast(
+                    "✓ Fotografía añadida."
+                );
             };
 
-            image.src =
-                reader.result;
+            image.src = reader.result;
         };
 
         reader.readAsDataURL(file);
@@ -262,13 +307,13 @@ document.addEventListener("DOMContentLoaded", () => {
             event => {
 
                 const file =
-                    event.target.files?.[0];
+                    event.target.files &&
+                    event.target.files[0];
 
                 handlePhotoUpload(file);
 
             }
         );
-
     }
 
 
@@ -278,7 +323,7 @@ document.addEventListener("DOMContentLoaded", () => {
             "click",
             () => {
 
-                updatePhotoPreview("");
+                setPhoto("");
 
                 if (photoInput) {
                     photoInput.value = "";
@@ -286,17 +331,23 @@ document.addEventListener("DOMContentLoaded", () => {
 
                 saveData();
 
+                showToast(
+                    "Fotografía eliminada."
+                );
             }
         );
-
     }
 
 
     /* =====================================================
        EXPERIENCIA
-    ===================================================== */
+    ====================================================== */
 
     function addExperience(data = {}) {
+
+        if (!experienceList) {
+            return;
+        }
 
         experienceCounter++;
 
@@ -304,10 +355,9 @@ document.addEventListener("DOMContentLoaded", () => {
             document.createElement("div");
 
         item.className =
-            "repeatable-item";
+            "repeatable-item dynamic-item";
 
         item.innerHTML = `
-
             <div class="repeatable-header">
 
                 <span class="repeatable-title">
@@ -316,7 +366,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
                 <button
                     type="button"
-                    class="delete-button"
+                    class="delete-button remove-button"
                 >
                     Eliminar
                 </button>
@@ -325,32 +375,26 @@ document.addEventListener("DOMContentLoaded", () => {
 
             <div class="field">
 
-                <label>
-                    Puesto
-                </label>
+                <label>Puesto</label>
 
                 <input
                     type="text"
                     class="experience-position"
                     placeholder="Ej: Diseñador gráfico"
                     maxlength="100"
-                    value="${escapeHTML(data.position || "")}"
                 >
 
             </div>
 
             <div class="field">
 
-                <label>
-                    Empresa
-                </label>
+                <label>Empresa</label>
 
                 <input
                     type="text"
                     class="experience-company"
                     placeholder="Ej: Agencia Creativa"
                     maxlength="120"
-                    value="${escapeHTML(data.company || "")}"
                 >
 
             </div>
@@ -359,32 +403,26 @@ document.addEventListener("DOMContentLoaded", () => {
 
                 <div class="field">
 
-                    <label>
-                        Fecha de inicio
-                    </label>
+                    <label>Fecha de inicio</label>
 
                     <input
                         type="text"
                         class="experience-start"
                         placeholder="2022"
                         maxlength="30"
-                        value="${escapeHTML(data.start || "")}"
                     >
 
                 </div>
 
                 <div class="field">
 
-                    <label>
-                        Fecha de finalización
-                    </label>
+                    <label>Fecha de finalización</label>
 
                     <input
                         type="text"
                         class="experience-end"
                         placeholder="Actualidad"
                         maxlength="30"
-                        value="${escapeHTML(data.end || "")}"
                     >
 
                 </div>
@@ -402,17 +440,43 @@ document.addEventListener("DOMContentLoaded", () => {
                     rows="4"
                     maxlength="1500"
                     placeholder="Describe tus principales responsabilidades y logros..."
-                >${escapeHTML(data.description || "")}</textarea>
+                ></textarea>
 
                 <button
                     type="button"
-                    class="ai-button"
+                    class="ai-button experience-ai"
                 >
                     ✨ Mejorar con IA
                 </button>
 
             </div>
         `;
+
+
+        item.querySelector(
+            ".experience-position"
+        ).value =
+            data.position || "";
+
+        item.querySelector(
+            ".experience-company"
+        ).value =
+            data.company || "";
+
+        item.querySelector(
+            ".experience-start"
+        ).value =
+            data.start || "";
+
+        item.querySelector(
+            ".experience-end"
+        ).value =
+            data.end || "";
+
+        item.querySelector(
+            ".experience-description"
+        ).value =
+            data.description || "";
 
 
         const deleteButton =
@@ -427,6 +491,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 item.remove();
 
                 updateCV();
+
                 saveData();
 
             }
@@ -435,7 +500,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         const aiButton =
             item.querySelector(
-                ".ai-button"
+                ".experience-ai"
             );
 
         aiButton.addEventListener(
@@ -462,9 +527,13 @@ document.addEventListener("DOMContentLoaded", () => {
 
     /* =====================================================
        FORMACIÓN
-    ===================================================== */
+    ====================================================== */
 
     function addEducation(data = {}) {
+
+        if (!educationList) {
+            return;
+        }
 
         educationCounter++;
 
@@ -472,10 +541,9 @@ document.addEventListener("DOMContentLoaded", () => {
             document.createElement("div");
 
         item.className =
-            "repeatable-item";
+            "repeatable-item dynamic-item";
 
         item.innerHTML = `
-
             <div class="repeatable-header">
 
                 <span class="repeatable-title">
@@ -484,7 +552,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
                 <button
                     type="button"
-                    class="delete-button"
+                    class="delete-button remove-button"
                 >
                     Eliminar
                 </button>
@@ -493,52 +561,59 @@ document.addEventListener("DOMContentLoaded", () => {
 
             <div class="field">
 
-                <label>
-                    Titulación
-                </label>
+                <label>Titulación</label>
 
                 <input
                     type="text"
                     class="education-title"
                     placeholder="Ej: Grado en Diseño Gráfico"
                     maxlength="150"
-                    value="${escapeHTML(data.title || "")}"
                 >
 
             </div>
 
             <div class="field">
 
-                <label>
-                    Centro educativo
-                </label>
+                <label>Centro educativo</label>
 
                 <input
                     type="text"
                     class="education-school"
                     placeholder="Ej: Universidad de Madrid"
                     maxlength="150"
-                    value="${escapeHTML(data.school || "")}"
                 >
 
             </div>
 
             <div class="field">
 
-                <label>
-                    Año
-                </label>
+                <label>Año</label>
 
                 <input
                     type="text"
                     class="education-date"
                     placeholder="2020"
                     maxlength="30"
-                    value="${escapeHTML(data.date || "")}"
                 >
 
             </div>
         `;
+
+
+        item.querySelector(
+            ".education-title"
+        ).value =
+            data.title || "";
+
+        item.querySelector(
+            ".education-school"
+        ).value =
+            data.school || "";
+
+        item.querySelector(
+            ".education-date"
+        ).value =
+            data.date || "";
 
 
         item.querySelector(
@@ -550,6 +625,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 item.remove();
 
                 updateCV();
+
                 saveData();
 
             }
@@ -564,79 +640,95 @@ document.addEventListener("DOMContentLoaded", () => {
 
     /* =====================================================
        OBTENER EXPERIENCIA
-    ===================================================== */
+    ====================================================== */
 
     function getExperiences() {
+
+        if (!experienceList) {
+            return [];
+        }
 
         return Array.from(
             experienceList.querySelectorAll(
                 ".repeatable-item"
             )
-        ).map(item => ({
+        ).map(item => {
 
-            position:
-                item.querySelector(
-                    ".experience-position"
-                )?.value.trim() || "",
+            return {
 
-            company:
-                item.querySelector(
-                    ".experience-company"
-                )?.value.trim() || "",
+                position:
+                    item.querySelector(
+                        ".experience-position"
+                    )?.value.trim() || "",
 
-            start:
-                item.querySelector(
-                    ".experience-start"
-                )?.value.trim() || "",
+                company:
+                    item.querySelector(
+                        ".experience-company"
+                    )?.value.trim() || "",
 
-            end:
-                item.querySelector(
-                    ".experience-end"
-                )?.value.trim() || "",
+                start:
+                    item.querySelector(
+                        ".experience-start"
+                    )?.value.trim() || "",
 
-            description:
-                item.querySelector(
-                    ".experience-description"
-                )?.value.trim() || ""
+                end:
+                    item.querySelector(
+                        ".experience-end"
+                    )?.value.trim() || "",
 
-        }));
+                description:
+                    item.querySelector(
+                        ".experience-description"
+                    )?.value.trim() || ""
+
+            };
+
+        });
     }
 
 
     /* =====================================================
        OBTENER FORMACIÓN
-    ===================================================== */
+    ====================================================== */
 
     function getEducation() {
+
+        if (!educationList) {
+            return [];
+        }
 
         return Array.from(
             educationList.querySelectorAll(
                 ".repeatable-item"
             )
-        ).map(item => ({
+        ).map(item => {
 
-            title:
-                item.querySelector(
-                    ".education-title"
-                )?.value.trim() || "",
+            return {
 
-            school:
-                item.querySelector(
-                    ".education-school"
-                )?.value.trim() || "",
+                title:
+                    item.querySelector(
+                        ".education-title"
+                    )?.value.trim() || "",
 
-            date:
-                item.querySelector(
-                    ".education-date"
-                )?.value.trim() || ""
+                school:
+                    item.querySelector(
+                        ".education-school"
+                    )?.value.trim() || "",
 
-        }));
+                date:
+                    item.querySelector(
+                        ".education-date"
+                    )?.value.trim() || ""
+
+            };
+
+        });
     }
 
 
     /* =====================================================
        DATOS PERSONALES
-    ===================================================== */
+    ====================================================== */
 
     function updatePersonalData() {
 
@@ -665,70 +757,88 @@ document.addEventListener("DOMContentLoaded", () => {
             getValue("languages");
 
 
-        document.getElementById(
-            "cvName"
-        ).textContent =
-            name || "Tu nombre";
+        const cvName =
+            document.getElementById("cvName");
+
+        if (cvName) {
+
+            cvName.textContent =
+                name || "Tu nombre";
+        }
 
 
-        document.getElementById(
-            "cvJob"
-        ).textContent =
-            job || "Tu profesión";
+        const cvJob =
+            document.getElementById("cvJob");
+
+        if (cvJob) {
+
+            cvJob.textContent =
+                job || "Tu profesión";
+        }
 
 
         const contact =
-            document.getElementById(
-                "cvContact"
-            );
+            document.getElementById("cvContact");
 
-        contact.innerHTML = "";
+        if (contact) {
 
+            contact.innerHTML = "";
 
-        [
-            email || "email@ejemplo.com",
-            phone || "Teléfono",
-            location || "Ubicación"
-        ].forEach(value => {
+            [
+                email || "email@ejemplo.com",
+                phone || "Teléfono",
+                location || "Ubicación"
+            ].forEach(value => {
 
-            const span =
-                document.createElement(
-                    "span"
-                );
+                const span =
+                    document.createElement("span");
 
-            span.textContent =
-                value;
+                span.textContent =
+                    value;
 
-            contact.appendChild(span);
+                contact.appendChild(span);
 
-        });
+            });
+        }
 
 
-        document.getElementById(
-            "cvProfile"
-        ).textContent =
-            profile ||
-            "Tu perfil profesional aparecerá aquí.";
+        const cvProfile =
+            document.getElementById("cvProfile");
+
+        if (cvProfile) {
+
+            cvProfile.textContent =
+                profile ||
+                "Tu perfil profesional aparecerá aquí.";
+        }
 
 
-        document.getElementById(
-            "cvSkills"
-        ).textContent =
-            skills ||
-            "Tus habilidades aparecerán aquí.";
+        const cvSkills =
+            document.getElementById("cvSkills");
+
+        if (cvSkills) {
+
+            cvSkills.textContent =
+                skills ||
+                "Tus habilidades aparecerán aquí.";
+        }
 
 
-        document.getElementById(
-            "cvLanguages"
-        ).textContent =
-            languages ||
-            "Tus idiomas aparecerán aquí.";
+        const cvLanguages =
+            document.getElementById("cvLanguages");
+
+        if (cvLanguages) {
+
+            cvLanguages.textContent =
+                languages ||
+                "Tus idiomas aparecerán aquí.";
+        }
     }
 
 
     /* =====================================================
        EXPERIENCIA EN CV
-    ===================================================== */
+    ====================================================== */
 
     function updateExperiences() {
 
@@ -736,6 +846,10 @@ document.addEventListener("DOMContentLoaded", () => {
             document.getElementById(
                 "cvExperienceList"
             );
+
+        if (!container) {
+            return;
+        }
 
         const experiences =
             getExperiences();
@@ -755,82 +869,100 @@ document.addEventListener("DOMContentLoaded", () => {
         }
 
 
-        experiences.forEach(
-            experience => {
+        experiences.forEach(experience => {
 
-                const item =
-                    document.createElement(
-                        "div"
-                    );
+            const item =
+                document.createElement("div");
 
-                item.className =
-                    "cv-experience";
+            item.className =
+                "cv-item";
 
 
-                const position =
-                    escapeHTML(
-                        experience.position ||
-                        "Puesto"
-                    );
+            const position =
+                escapeHTML(
+                    experience.position ||
+                    "Puesto"
+                );
 
-                const company =
-                    escapeHTML(
-                        experience.company ||
-                        "Empresa"
-                    );
+            const company =
+                escapeHTML(
+                    experience.company ||
+                    "Empresa"
+                );
 
-                const start =
-                    escapeHTML(
-                        experience.start
-                    );
+            const start =
+                escapeHTML(
+                    experience.start
+                );
 
-                const end =
-                    escapeHTML(
-                        experience.end
-                    );
+            const end =
+                escapeHTML(
+                    experience.end
+                );
 
-                const description =
-                    escapeHTML(
-                        experience.description ||
-                        "Descripción de la experiencia."
-                    );
-
-
-                let dates = "";
-
-                if (start || end) {
-
-                    dates =
-                        ` · ${start || ""} - ${end || ""}`;
-                }
+            const description =
+                escapeHTML(
+                    experience.description ||
+                    ""
+                );
 
 
-                item.innerHTML = `
+            const dates =
+                start || end
+                    ? `${start || ""} - ${end || ""}`
+                    : "";
 
-                    <h4>
-                        ${position}
-                    </h4>
 
-                    <div class="cv-meta">
-                        ${company}${dates}
+            item.innerHTML = `
+
+                <div class="cv-item-header">
+
+                    <div>
+
+                        <h4>
+                            ${position}
+                        </h4>
+
+                        <div class="cv-company">
+                            ${company}
+                        </div>
+
                     </div>
 
-                    <p>
-                        ${description}
-                    </p>
-                `;
+                    ${
+                        dates
+                            ? `
+                                <div class="cv-date">
+                                    ${dates}
+                                </div>
+                              `
+                            : ""
+                    }
+
+                </div>
+
+                ${
+                    description
+                        ? `
+                            <div class="cv-item-description">
+                                ${description}
+                            </div>
+                          `
+                        : ""
+                }
+
+            `;
 
 
-                container.appendChild(item);
+            container.appendChild(item);
 
-            }
-        );
+        });
     }
 
 
     /* =====================================================
        FORMACIÓN EN CV
-    ===================================================== */
+    ====================================================== */
 
     function updateEducation() {
 
@@ -838,6 +970,10 @@ document.addEventListener("DOMContentLoaded", () => {
             document.getElementById(
                 "cvEducationList"
             );
+
+        if (!container) {
+            return;
+        }
 
         const education =
             getEducation();
@@ -857,59 +993,73 @@ document.addEventListener("DOMContentLoaded", () => {
         }
 
 
-        education.forEach(
-            data => {
+        education.forEach(data => {
 
-                const item =
-                    document.createElement(
-                        "div"
-                    );
+            const item =
+                document.createElement("div");
 
-                item.className =
-                    "cv-education";
+            item.className =
+                "cv-item";
 
 
-                const title =
-                    escapeHTML(
-                        data.title ||
-                        "Titulación"
-                    );
+            const title =
+                escapeHTML(
+                    data.title ||
+                    "Titulación"
+                );
 
-                const school =
-                    escapeHTML(
-                        data.school ||
-                        "Centro educativo"
-                    );
+            const school =
+                escapeHTML(
+                    data.school ||
+                    "Centro educativo"
+                );
 
-                const date =
-                    escapeHTML(
-                        data.date
-                    );
+            const date =
+                escapeHTML(
+                    data.date
+                );
 
 
-                item.innerHTML = `
+            item.innerHTML = `
 
-                    <h4>
-                        ${title}
-                    </h4>
+                <div class="cv-item-header">
 
-                    <div class="cv-meta">
-                        ${school}
-                        ${date ? ` · ${date}` : ""}
+                    <div>
+
+                        <h4>
+                            ${title}
+                        </h4>
+
+                        <div class="cv-company">
+                            ${school}
+                        </div>
+
                     </div>
-                `;
+
+                    ${
+                        date
+                            ? `
+                                <div class="cv-date">
+                                    ${date}
+                                </div>
+                              `
+                            : ""
+                    }
+
+                </div>
+
+            `;
 
 
-                container.appendChild(item);
+            container.appendChild(item);
 
-            }
-        );
+        });
     }
 
 
     /* =====================================================
        ACTUALIZAR CV
-    ===================================================== */
+    ====================================================== */
 
     function updateCV() {
 
@@ -924,414 +1074,22 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
     /* =====================================================
-       GUARDADO AUTOMÁTICO
-    ===================================================== */
+       PLANTILLAS
+    ====================================================== */
 
-    function collectData() {
+    function getCurrentTemplate() {
 
-        const activeTemplate =
+        const activeButton =
             document.querySelector(
                 ".template-option.active"
-            )?.dataset.template ||
-            "professional";
-
-
-        return {
-
-            version: 3,
-
-            nombre:
-                getValue("nombre"),
-
-            profesion:
-                getValue("profesion"),
-
-            email:
-                getValue("email"),
-
-            telefono:
-                getValue("telefono"),
-
-            ubicacion:
-                getValue("ubicacion"),
-
-            perfil:
-                getValue("perfil"),
-
-            skills:
-                getValue("skills"),
-
-            languages:
-                getValue("languages"),
-
-            photo:
-                cvPhoto?.querySelector("img")?.src ||
-                "",
-
-            experiences:
-                getExperiences(),
-
-            education:
-                getEducation(),
-
-            template:
-                activeTemplate
-        };
-    }
-
-
-    function saveData() {
-
-        try {
-
-            localStorage.setItem(
-                STORAGE_KEY,
-                JSON.stringify(
-                    collectData()
-                )
             );
 
-            setSaveStatus(
-                "✓ Guardado automáticamente"
-            );
-
-        } catch (error) {
-
-            console.error(
-                "Error guardando datos:",
-                error
-            );
-
-            setSaveStatus(
-                "No se pudo guardar"
-            );
-        }
-    }
-
-
-    function scheduleSave() {
-
-        clearTimeout(
-            saveTimeout
+        return (
+            activeButton?.dataset.template ||
+            "professional"
         );
-
-        saveTimeout =
-            setTimeout(
-                saveData,
-                500
-            );
     }
 
-
-    /* =====================================================
-       CARGAR DATOS
-    ===================================================== */
-
-    function loadData() {
-
-        let data;
-
-        try {
-
-            const saved =
-                localStorage.getItem(
-                    STORAGE_KEY
-                );
-
-            if (!saved) {
-                return;
-            }
-
-            data =
-                JSON.parse(saved);
-
-        } catch (error) {
-
-            console.error(
-                "No se pudieron cargar los datos:",
-                error
-            );
-
-            return;
-        }
-
-
-        const fields = [
-            "nombre",
-            "profesion",
-            "email",
-            "telefono",
-            "ubicacion",
-            "perfil",
-            "skills",
-            "languages"
-        ];
-
-
-        fields.forEach(id => {
-
-            const element =
-                document.getElementById(id);
-
-            if (element && typeof data[id] === "string") {
-
-                element.value =
-                    data[id];
-
-            }
-
-        });
-
-
-        if (data.photo) {
-
-            updatePhotoPreview(
-                data.photo
-            );
-
-        }
-
-
-        if (Array.isArray(data.experiences)) {
-
-            data.experiences.forEach(
-                experience => {
-
-                    addExperience(
-                        experience
-                    );
-
-                }
-            );
-
-        } else {
-
-            addExperience();
-        }
-
-
-        if (Array.isArray(data.education)) {
-
-            data.education.forEach(
-                education => {
-
-                    addEducation(
-                        education
-                    );
-
-                }
-            );
-
-        } else {
-
-            addEducation();
-        }
-
-
-        if (data.template) {
-
-            applyTemplate(
-                data.template
-            );
-
-        }
-
-
-        updateCV();
-    }
-
-
-    /* =====================================================
-       IA
-    ===================================================== */
-
-    async function mejorarTextoConIA(
-        textarea,
-        button,
-        type
-    ) {
-
-        if (!textarea || !button) {
-            return;
-        }
-
-
-        const originalText =
-            textarea.value.trim();
-
-
-        if (!originalText) {
-
-            showToast(
-                "Escribe primero un texto."
-            );
-
-            textarea.focus();
-
-            return;
-        }
-
-
-        if (originalText.length < 5) {
-
-            showToast(
-                "Escribe un poco más de información para que la IA pueda ayudarte."
-            );
-
-            return;
-        }
-
-
-        button.disabled = true;
-
-        button.classList.add(
-            "loading"
-        );
-
-        button.textContent =
-            "✨ Mejorando...";
-
-
-        try {
-
-            const response =
-                await fetch(
-                    AI_BACKEND_URL,
-                    {
-                        method: "POST",
-
-                        headers: {
-                            "Content-Type":
-                                "application/json"
-                        },
-
-                        body: JSON.stringify({
-
-                            type: type,
-
-                            description:
-                                originalText
-
-                        })
-                    }
-                );
-
-
-            let data;
-
-            try {
-
-                data =
-                    await response.json();
-
-            } catch {
-
-                throw new Error(
-                    "El servidor no devolvió una respuesta válida."
-                );
-
-            }
-
-
-            if (!response.ok) {
-
-                throw new Error(
-                    data?.error ||
-                    "La IA no ha podido procesar el texto."
-                );
-
-            }
-
-
-            if (
-                !data?.text ||
-                typeof data.text !== "string"
-            ) {
-
-                throw new Error(
-                    "La IA no devolvió ningún texto."
-                );
-
-            }
-
-
-            textarea.value =
-                data.text.trim();
-
-
-            updateCV();
-
-            saveData();
-
-            showToast(
-                "✓ Texto mejorado correctamente."
-            );
-
-
-        } catch (error) {
-
-            console.error(
-                "Error IA:",
-                error
-            );
-
-            showToast(
-                error.message ||
-                "No se ha podido mejorar el texto."
-            );
-
-
-        } finally {
-
-            button.disabled = false;
-
-            button.classList.remove(
-                "loading"
-            );
-
-            button.textContent =
-                "✨ Mejorar con IA";
-        }
-    }
-
-
-    /* =====================================================
-       BOTONES IA
-    ===================================================== */
-
-    document
-        .querySelectorAll(
-            ".ai-button[data-ai-target]"
-        )
-        .forEach(button => {
-
-            button.addEventListener(
-                "click",
-                () => {
-
-                    const target =
-                        button.dataset.aiTarget;
-
-                    const textarea =
-                        document.getElementById(
-                            target
-                        );
-
-                    mejorarTextoConIA(
-                        textarea,
-                        button,
-                        target
-                    );
-
-                }
-            );
-
-        });
-
-
-    /* =====================================================
-       TEMPLATES
-    ===================================================== */
 
     function applyTemplate(template) {
 
@@ -1369,75 +1127,582 @@ document.addEventListener("DOMContentLoaded", () => {
         );
 
 
-        templateButtons.forEach(
-            button => {
+        templateButtons.forEach(button => {
 
-                button.classList.toggle(
-                    "active",
-                    button.dataset.template ===
-                    template
-                );
+            button.classList.toggle(
+                "active",
+                button.dataset.template ===
+                template
+            );
 
-            }
-        );
+        });
 
 
         scheduleSave();
     }
 
 
-    templateButtons.forEach(
-        button => {
+    templateButtons.forEach(button => {
 
-            button.addEventListener(
-                "click",
-                () => {
+        button.addEventListener(
+            "click",
+            () => {
 
-                    applyTemplate(
-                        button.dataset.template
+                const template =
+                    button.dataset.template;
+
+                applyTemplate(template);
+
+                showToast(
+                    `✓ Plantilla ${getTemplateName(template)} seleccionada.`
+                );
+
+            }
+        );
+
+    });
+
+
+    function getTemplateName(template) {
+
+        const names = {
+
+            professional:
+                "Profesional",
+
+            minimal:
+                "Minimalista",
+
+            modern:
+                "Moderno"
+
+        };
+
+        return (
+            names[template] ||
+            "Profesional"
+        );
+    }
+
+
+    /* =====================================================
+       GUARDAR DATOS
+    ====================================================== */
+
+    function collectData() {
+
+        return {
+
+            version: 4,
+
+            nombre:
+                getValue("nombre"),
+
+            profesion:
+                getValue("profesion"),
+
+            email:
+                getValue("email"),
+
+            telefono:
+                getValue("telefono"),
+
+            ubicacion:
+                getValue("ubicacion"),
+
+            perfil:
+                getValue("perfil"),
+
+            skills:
+                getValue("skills"),
+
+            languages:
+                getValue("languages"),
+
+            photo:
+                cvPhoto?.src || "",
+
+            experiences:
+                getExperiences(),
+
+            education:
+                getEducation(),
+
+            template:
+                getCurrentTemplate()
+
+        };
+    }
+
+
+    function saveData() {
+
+        try {
+
+            localStorage.setItem(
+                STORAGE_KEY,
+                JSON.stringify(
+                    collectData()
+                )
+            );
+
+        } catch (error) {
+
+            console.error(
+                "Error guardando datos:",
+                error
+            );
+        }
+    }
+
+
+    /* =====================================================
+       CARGAR DATOS
+    ====================================================== */
+
+    function loadData() {
+
+        let data = null;
+
+        try {
+
+            const saved =
+                localStorage.getItem(
+                    STORAGE_KEY
+                );
+
+            if (saved) {
+
+                data =
+                    JSON.parse(saved);
+            }
+
+        } catch (error) {
+
+            console.error(
+                "Error cargando datos:",
+                error
+            );
+        }
+
+
+        if (!data) {
+
+            addExperience();
+
+            addEducation();
+
+            applyTemplate(
+                "professional"
+            );
+
+            return;
+        }
+
+
+        const fields = [
+            "nombre",
+            "profesion",
+            "email",
+            "telefono",
+            "ubicacion",
+            "perfil",
+            "skills",
+            "languages"
+        ];
+
+
+        fields.forEach(id => {
+
+            if (
+                typeof data[id] ===
+                "string"
+            ) {
+
+                setValue(
+                    id,
+                    data[id]
+                );
+            }
+
+        });
+
+
+        if (data.photo) {
+
+            setPhoto(
+                data.photo
+            );
+
+        }
+
+
+        if (
+            Array.isArray(
+                data.experiences
+            ) &&
+            data.experiences.length
+        ) {
+
+            data.experiences.forEach(
+                experience => {
+
+                    addExperience(
+                        experience
                     );
 
                 }
             );
 
+        } else {
+
+            addExperience();
         }
-    );
+
+
+        if (
+            Array.isArray(
+                data.education
+            ) &&
+            data.education.length
+        ) {
+
+            data.education.forEach(
+                education => {
+
+                    addEducation(
+                        education
+                    );
+
+                }
+            );
+
+        } else {
+
+            addEducation();
+        }
+
+
+        applyTemplate(
+            data.template ||
+            "professional"
+        );
+    }
 
 
     /* =====================================================
-       TEMA CLARO / OSCURO
-    ===================================================== */
+       LIMPIAR DATOS
+    ====================================================== */
+
+    const clearButton =
+        document.getElementById("clearButton");
+
+
+    if (clearButton) {
+
+        clearButton.addEventListener(
+            "click",
+            () => {
+
+                const confirmed =
+                    window.confirm(
+                        "¿Quieres borrar todos los datos del CV?"
+                    );
+
+                if (!confirmed) {
+                    return;
+                }
+
+
+                localStorage.removeItem(
+                    STORAGE_KEY
+                );
+
+
+                [
+                    "nombre",
+                    "profesion",
+                    "email",
+                    "telefono",
+                    "ubicacion",
+                    "perfil",
+                    "skills",
+                    "languages"
+                ].forEach(id => {
+
+                    setValue(id, "");
+
+                });
+
+
+                if (experienceList) {
+                    experienceList.innerHTML = "";
+                }
+
+                if (educationList) {
+                    educationList.innerHTML = "";
+                }
+
+
+                experienceCounter = 0;
+                educationCounter = 0;
+
+
+                setPhoto("");
+
+
+                if (photoInput) {
+                    photoInput.value = "";
+                }
+
+
+                addExperience();
+
+                addEducation();
+
+                applyTemplate(
+                    "professional"
+                );
+
+                updateCV();
+
+                saveData();
+
+                showToast(
+                    "✓ Datos eliminados."
+                );
+            }
+        );
+    }
+
+
+    /* =====================================================
+       IA
+    ====================================================== */
+
+    async function mejorarTextoConIA(
+        textarea,
+        button,
+        type
+    ) {
+
+        if (!textarea || !button) {
+            return;
+        }
+
+
+        const originalText =
+            textarea.value.trim();
+
+
+        if (!originalText) {
+
+            showToast(
+                "Escribe primero un texto."
+            );
+
+            textarea.focus();
+
+            return;
+        }
+
+
+        if (originalText.length < 5) {
+
+            showToast(
+                "Escribe un poco más de información."
+            );
+
+            textarea.focus();
+
+            return;
+        }
+
+
+        button.disabled = true;
+
+        const originalLabel =
+            button.textContent;
+
+        button.textContent =
+            "✨ Mejorando...";
+
+
+        try {
+
+            const response =
+                await fetch(
+                    AI_BACKEND_URL,
+                    {
+                        method: "POST",
+
+                        headers: {
+                            "Content-Type":
+                                "application/json"
+                        },
+
+                        body: JSON.stringify({
+                            type: type,
+                            description:
+                                originalText
+                        })
+                    }
+                );
+
+
+            let data = null;
+
+            try {
+
+                data =
+                    await response.json();
+
+            } catch {
+
+                throw new Error(
+                    "El servidor no devolvió una respuesta válida."
+                );
+            }
+
+
+            if (!response.ok) {
+
+                throw new Error(
+                    data?.error ||
+                    "La IA no ha podido procesar el texto."
+                );
+            }
+
+
+            if (
+                !data ||
+                typeof data.text !==
+                "string" ||
+                !data.text.trim()
+            ) {
+
+                throw new Error(
+                    "La IA no devolvió ningún texto."
+                );
+            }
+
+
+            textarea.value =
+                data.text.trim();
+
+
+            updateCV();
+
+            saveData();
+
+            showToast(
+                "✓ Texto mejorado correctamente."
+            );
+
+        } catch (error) {
+
+            console.error(
+                "Error de IA:",
+                error
+            );
+
+            showToast(
+                error.message ||
+                "No se ha podido mejorar el texto."
+            );
+
+        } finally {
+
+            button.disabled = false;
+
+            button.textContent =
+                originalLabel ||
+                "✨ Mejorar con IA";
+        }
+    }
+
+
+    aiButtons.forEach(button => {
+
+        button.addEventListener(
+            "click",
+            () => {
+
+                const target =
+                    button.dataset.aiTarget;
+
+                const textarea =
+                    document.getElementById(
+                        target
+                    );
+
+                mejorarTextoConIA(
+                    textarea,
+                    button,
+                    target
+                );
+
+            }
+        );
+
+    });
+
+
+    /* =====================================================
+       IA DE EXPERIENCIA
+    ====================================================== */
+
+    /* Los botones de experiencia se conectan al crearse
+       dentro de addExperience(). */
+
+
+    /* =====================================================
+       TEMA
+    ====================================================== */
 
     function applyTheme(theme) {
 
         if (theme === "dark") {
 
-            document.documentElement
-                .setAttribute(
-                    "data-theme",
-                    "dark"
-                );
+            document.documentElement.classList.add(
+                "dark"
+            );
 
-            if (themeToggle) {
-                themeToggle.textContent =
-                    "☀️";
+            document.documentElement.setAttribute(
+                "data-theme",
+                "dark"
+            );
+
+            if (themeIcon) {
+                themeIcon.textContent = "☀";
+            }
+
+            if (themeText) {
+                themeText.textContent = "Claro";
             }
 
         } else {
 
-            document.documentElement
-                .removeAttribute(
-                    "data-theme"
-                );
+            document.documentElement.classList.remove(
+                "dark"
+            );
 
-            if (themeToggle) {
-                themeToggle.textContent =
-                    "🌙";
+            document.documentElement.removeAttribute(
+                "data-theme"
+            );
+
+            if (themeIcon) {
+                themeIcon.textContent = "☾";
+            }
+
+            if (themeText) {
+                themeText.textContent = "Oscuro";
             }
         }
 
+
         localStorage.setItem(
-            "cv-facil-theme",
+            THEME_KEY,
             theme
         );
     }
@@ -1445,16 +1710,18 @@ document.addEventListener("DOMContentLoaded", () => {
 
     function loadTheme() {
 
-        const savedTheme =
+        const saved =
             localStorage.getItem(
-                "cv-facil-theme"
+                THEME_KEY
             );
 
-        if (savedTheme) {
 
-            applyTheme(
-                savedTheme
-            );
+        if (
+            saved === "dark" ||
+            saved === "light"
+        ) {
+
+            applyTheme(saved);
 
             return;
         }
@@ -1482,10 +1749,12 @@ document.addEventListener("DOMContentLoaded", () => {
             () => {
 
                 const current =
-                    document.documentElement
-                        .getAttribute(
-                            "data-theme"
-                        );
+                    document.documentElement.classList.contains(
+                        "dark"
+                    )
+                        ? "dark"
+                        : "light";
+
 
                 applyTheme(
                     current === "dark"
@@ -1495,13 +1764,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
             }
         );
-
     }
 
 
     /* =====================================================
        BOTONES
-    ===================================================== */
+    ====================================================== */
 
     if (addExperienceButton) {
 
@@ -1515,7 +1783,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
             }
         );
-
     }
 
 
@@ -1531,7 +1798,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
             }
         );
-
     }
 
 
@@ -1543,13 +1809,14 @@ document.addEventListener("DOMContentLoaded", () => {
 
                 updateCV();
 
+                saveData();
+
                 showToast(
                     "✓ CV actualizado."
                 );
 
             }
         );
-
     }
 
 
@@ -1567,57 +1834,17 @@ document.addEventListener("DOMContentLoaded", () => {
                         window.print();
 
                     },
-                    100
+                    150
                 );
 
             }
         );
-
-    }
-
-
-    /* =====================================================
-       VALIDACIÓN EMAIL
-    ===================================================== */
-
-    const emailInput =
-        document.getElementById("email");
-
-
-    if (emailInput) {
-
-        emailInput.addEventListener(
-            "blur",
-            () => {
-
-                if (
-                    emailInput.value &&
-                    !emailInput.checkValidity()
-                ) {
-
-                    emailInput.setCustomValidity(
-                        "Introduce un email válido."
-                    );
-
-                    emailInput.reportValidity();
-
-                } else {
-
-                    emailInput.setCustomValidity(
-                        ""
-                    );
-
-                }
-
-            }
-        );
-
     }
 
 
     /* =====================================================
        ACTUALIZACIÓN AUTOMÁTICA
-    ===================================================== */
+    ====================================================== */
 
     document.addEventListener(
         "input",
@@ -1632,14 +1859,13 @@ document.addEventListener("DOMContentLoaded", () => {
                 updateCV();
 
             }
-
         }
     );
 
 
     /* =====================================================
        INICIO
-    ===================================================== */
+    ====================================================== */
 
     loadTheme();
 
@@ -1648,5 +1874,3 @@ document.addEventListener("DOMContentLoaded", () => {
     updateCV();
 
 });
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5829758548724314"
-     crossorigin="anonymous"></script>
