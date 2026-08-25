@@ -1,7 +1,7 @@
 /* =========================================================
    CV FÁCIL
    STYLE.CSS COMPLETO
-   Diseño profesional · Claro/Oscuro · Responsive · SEO
+   Diseño profesional · Plantillas · Responsive · SEO
 ========================================================= */
 
 
@@ -46,11 +46,9 @@
     --radius: 12px;
     --radius-lg: 18px;
 
-    --transition:
-        180ms ease;
+    --transition: 180ms ease;
 
     --cv-width: 794px;
-
 }
 
 
@@ -87,7 +85,6 @@ html.dark {
 
     --shadow-lg:
         0 20px 50px rgba(0, 0, 0, 0.35);
-
 }
 
 
@@ -109,12 +106,7 @@ body {
 
     min-height: 100vh;
 
-    background:
-        linear-gradient(
-            180deg,
-            var(--bg),
-            var(--bg)
-        );
+    background: var(--bg);
 
     color: var(--text);
 
@@ -132,16 +124,13 @@ body {
     transition:
         background var(--transition),
         color var(--transition);
-
 }
 
 button,
 input,
 textarea,
 select {
-
     font: inherit;
-
 }
 
 button {
@@ -165,12 +154,7 @@ a {
 
     z-index: 100;
 
-    background:
-        color-mix(
-            in srgb,
-            var(--surface) 94%,
-            transparent
-        );
+    background: var(--surface);
 
     border-bottom:
         1px solid var(--border);
@@ -180,16 +164,16 @@ a {
 
     -webkit-backdrop-filter:
         blur(14px);
-
 }
 
 
 .header-inner {
 
-    width: min(
-        1500px,
-        calc(100% - 40px)
-    );
+    width:
+        min(
+            1500px,
+            calc(100% - 40px)
+        );
 
     min-height: 76px;
 
@@ -202,7 +186,6 @@ a {
     justify-content: space-between;
 
     gap: 24px;
-
 }
 
 
@@ -217,7 +200,6 @@ a {
     text-decoration: none;
 
     color: var(--text);
-
 }
 
 
@@ -234,15 +216,13 @@ a {
 
     background: var(--primary);
 
-    color:
-        var(--surface);
+    color: var(--surface);
 
     font-size: 14px;
 
     font-weight: 800;
 
     letter-spacing: -0.04em;
-
 }
 
 
@@ -255,7 +235,6 @@ a {
     line-height: 1.1;
 
     letter-spacing: -0.03em;
-
 }
 
 
@@ -268,7 +247,6 @@ a {
     color: var(--text-muted);
 
     font-size: 12px;
-
 }
 
 
@@ -279,7 +257,6 @@ a {
     align-items: center;
 
     gap: 12px;
-
 }
 
 
@@ -294,15 +271,17 @@ a {
     border-radius:
         999px;
 
-    color: var(--text-secondary);
+    color:
+        var(--text-secondary);
 
     background:
         var(--surface-soft);
 
-    font-size: 12px;
+    font-size:
+        12px;
 
-    font-weight: 600;
-
+    font-weight:
+        600;
 }
 
 
@@ -337,7 +316,6 @@ a {
         transform var(--transition),
         background var(--transition),
         border-color var(--transition);
-
 }
 
 
@@ -351,14 +329,11 @@ a {
 
     transform:
         translateY(-1px);
-
 }
 
 
 #themeIcon {
-
     font-size: 15px;
-
 }
 
 
@@ -368,10 +343,11 @@ a {
 
 .app-container {
 
-    width: min(
-        1500px,
-        calc(100% - 40px)
-    );
+    width:
+        min(
+            1500px,
+            calc(100% - 40px)
+        );
 
     margin:
         32px auto 60px;
@@ -385,7 +361,6 @@ a {
     gap: 28px;
 
     align-items: start;
-
 }
 
 
@@ -407,8 +382,8 @@ a {
     box-shadow:
         var(--shadow);
 
-    overflow: hidden;
-
+    overflow:
+        hidden;
 }
 
 
@@ -426,7 +401,6 @@ a {
             var(--surface),
             var(--surface-soft)
         );
-
 }
 
 
@@ -439,12 +413,14 @@ a {
     color:
         var(--accent);
 
-    font-size: 11px;
+    font-size:
+        11px;
 
-    font-weight: 800;
+    font-weight:
+        800;
 
-    letter-spacing: 0.12em;
-
+    letter-spacing:
+        0.12em;
 }
 
 
@@ -458,7 +434,6 @@ a {
 
     letter-spacing:
         -0.04em;
-
 }
 
 
@@ -471,7 +446,6 @@ a {
 
     font-size:
         14px;
-
 }
 
 
@@ -486,7 +460,6 @@ a {
 
     border-bottom:
         1px solid var(--border);
-
 }
 
 
@@ -500,7 +473,6 @@ a {
 
     margin-bottom:
         20px;
-
 }
 
 
@@ -508,7 +480,6 @@ a {
 
     justify-content:
         space-between;
-
 }
 
 
@@ -519,7 +490,6 @@ a {
     align-items: flex-start;
 
     gap: 12px;
-
 }
 
 
@@ -548,7 +518,6 @@ a {
 
     font-weight:
         800;
-
 }
 
 
@@ -562,7 +531,6 @@ a {
 
     letter-spacing:
         -0.01em;
-
 }
 
 
@@ -575,7 +543,6 @@ a {
 
     font-size:
         12px;
-
 }
 
 
@@ -584,18 +551,11 @@ a {
 ========================================================= */
 
 .field {
-
-    margin-bottom:
-        16px;
-
+    margin-bottom: 16px;
 }
 
-
 .field:last-child {
-
-    margin-bottom:
-        0;
-
+    margin-bottom: 0;
 }
 
 
@@ -614,7 +574,6 @@ a {
 
     font-weight:
         700;
-
 }
 
 
@@ -644,26 +603,20 @@ a {
         border-color var(--transition),
         box-shadow var(--transition),
         background var(--transition);
-
 }
 
 
 .field input {
-
-    min-height:
-        43px;
-
+    min-height: 43px;
 }
 
 
 .field textarea {
 
-    resize:
-        vertical;
+    resize: vertical;
 
     min-height:
         105px;
-
 }
 
 
@@ -675,7 +628,6 @@ a {
 
     opacity:
         0.7;
-
 }
 
 
@@ -692,7 +644,6 @@ a {
             var(--accent) 14%,
             transparent
         );
-
 }
 
 
@@ -703,8 +654,8 @@ a {
     grid-template-columns:
         1fr 1fr;
 
-    gap: 12px;
-
+    gap:
+        12px;
 }
 
 
@@ -728,7 +679,6 @@ a {
 
     text-align:
         center;
-
 }
 
 
@@ -765,34 +715,22 @@ a {
 
     cursor:
         pointer;
-
-    transition:
-        transform var(--transition),
-        border-color var(--transition),
-        background var(--transition);
-
-}
-
-
-.photo-upload-button:hover {
-
-    transform:
-        translateY(-1px);
-
-    border-color:
-        var(--accent);
-
 }
 
 
 .photo-upload-icon {
 
-    width: 22px;
-    height: 22px;
+    width:
+        22px;
 
-    display: grid;
+    height:
+        22px;
 
-    place-items: center;
+    display:
+        grid;
+
+    place-items:
+        center;
 
     border-radius:
         50%;
@@ -805,7 +743,6 @@ a {
 
     font-weight:
         700;
-
 }
 
 
@@ -833,7 +770,6 @@ a {
 
     font-weight:
         700;
-
 }
 
 
@@ -847,7 +783,6 @@ a {
 
     font-size:
         11px;
-
 }
 
 
@@ -885,11 +820,6 @@ a {
 
     font-weight:
         700;
-
-    transition:
-        transform var(--transition),
-        background var(--transition);
-
 }
 
 
@@ -899,12 +829,7 @@ a {
         translateY(-1px);
 
     background:
-        color-mix(
-            in srgb,
-            var(--accent-soft) 75%,
-            var(--accent)
-        );
-
+        var(--accent-soft);
 }
 
 
@@ -914,7 +839,8 @@ a {
 
 .small-button {
 
-    flex: 0 0 auto;
+    flex:
+        0 0 auto;
 
     padding:
         8px 11px;
@@ -936,7 +862,6 @@ a {
 
     font-weight:
         700;
-
 }
 
 
@@ -947,17 +872,18 @@ a {
 
     color:
         var(--accent);
-
 }
 
 
 /* =========================================================
-   DYNAMIC EXPERIENCE / EDUCATION
+   DYNAMIC ITEMS
 ========================================================= */
 
-.dynamic-item {
+.dynamic-item,
+.repeatable-item {
 
-    position: relative;
+    position:
+        relative;
 
     margin-bottom:
         14px;
@@ -973,36 +899,63 @@ a {
 
     background:
         var(--surface-soft);
-
 }
 
 
-.dynamic-item:last-child {
+.dynamic-item:last-child,
+.repeatable-item:last-child {
 
     margin-bottom:
         0;
-
 }
 
 
-.dynamic-item .remove-button {
+.dynamic-item .remove-button,
+.repeatable-item .delete-button {
 
-    position: absolute;
+    border:
+        0;
 
-    top: 10px;
+    background:
+        transparent;
 
-    right: 10px;
+    color:
+        var(--danger);
 
-    border: 0;
+    font-size:
+        12px;
 
-    background: transparent;
+    font-weight:
+        700;
+}
 
-    color: var(--danger);
 
-    font-size: 12px;
+.repeatable-header {
 
-    font-weight: 700;
+    display:
+        flex;
 
+    align-items:
+        center;
+
+    justify-content:
+        space-between;
+
+    gap:
+        12px;
+
+    margin-bottom:
+        15px;
+}
+
+
+.repeatable-title {
+
+    font-size:
+        13px;
+
+    font-weight:
+        800;
 }
 
 
@@ -1012,23 +965,27 @@ a {
 
 .template-grid {
 
-    display: grid;
+    display:
+        grid;
 
     grid-template-columns:
         repeat(3, 1fr);
 
-    gap: 9px;
-
+    gap:
+        9px;
 }
 
 
 .template-option {
 
-    display: flex;
+    display:
+        flex;
 
-    flex-direction: column;
+    flex-direction:
+        column;
 
-    gap: 8px;
+    gap:
+        8px;
 
     padding:
         8px;
@@ -1050,11 +1007,6 @@ a {
 
     font-weight:
         700;
-
-    transition:
-        border-color var(--transition),
-        transform var(--transition);
-
 }
 
 
@@ -1065,7 +1017,6 @@ a {
 
     border-color:
         var(--accent);
-
 }
 
 
@@ -1081,17 +1032,19 @@ a {
             var(--accent) 12%,
             transparent
         );
-
 }
 
 
 .template-preview {
 
-    display: block;
+    display:
+        block;
 
-    width: 100%;
+    width:
+        100%;
 
-    height: 70px;
+    height:
+        70px;
 
     border-radius:
         6px;
@@ -1101,7 +1054,6 @@ a {
 
     border:
         1px solid var(--border);
-
 }
 
 
@@ -1109,11 +1061,10 @@ a {
 
     background:
         linear-gradient(
-            120deg,
-            var(--primary) 0 31%,
-            var(--surface-soft) 31%
+            90deg,
+            #111827 0 32%,
+            #f8fafc 32%
         );
-
 }
 
 
@@ -1122,10 +1073,10 @@ a {
     background:
         linear-gradient(
             180deg,
-            var(--surface-soft) 0 22%,
-            var(--surface) 22%
+            #ffffff 0 25%,
+            #f3f4f6 25% 27%,
+            #ffffff 27%
         );
-
 }
 
 
@@ -1134,10 +1085,9 @@ a {
     background:
         linear-gradient(
             135deg,
-            var(--accent) 0 25%,
-            var(--surface) 25%
+            #2563eb 0 30%,
+            #eff6ff 30%
         );
-
 }
 
 
@@ -1147,13 +1097,14 @@ a {
 
 .editor-actions {
 
-    display: grid;
+    display:
+        grid;
 
-    gap: 10px;
+    gap:
+        10px;
 
     padding:
         22px 26px;
-
 }
 
 
@@ -1179,11 +1130,6 @@ a {
 
     font-weight:
         800;
-
-    transition:
-        transform var(--transition),
-        opacity var(--transition);
-
 }
 
 
@@ -1194,7 +1140,6 @@ a {
 
     opacity:
         0.92;
-
 }
 
 
@@ -1220,7 +1165,6 @@ a {
 
     font-weight:
         700;
-
 }
 
 
@@ -1231,7 +1175,6 @@ a {
 
     color:
         var(--danger);
-
 }
 
 
@@ -1248,7 +1191,6 @@ a {
 
     font-size:
         11px;
-
 }
 
 
@@ -1257,32 +1199,33 @@ a {
 ========================================================= */
 
 .preview-panel {
-
-    min-width:
-        0;
-
+    min-width: 0;
 }
 
 
 .preview-toolbar {
 
-    display: flex;
+    display:
+        flex;
 
-    align-items: center;
+    align-items:
+        center;
 
-    justify-content: space-between;
+    justify-content:
+        space-between;
 
-    gap: 20px;
+    gap:
+        20px;
 
     margin-bottom:
         18px;
-
 }
 
 
 .preview-label {
 
-    display: block;
+    display:
+        block;
 
     margin-bottom:
         4px;
@@ -1298,30 +1241,32 @@ a {
 
     letter-spacing:
         0.13em;
-
 }
 
 
 .preview-toolbar h2 {
 
-    margin: 0;
+    margin:
+        0;
 
     font-size:
         21px;
 
     letter-spacing:
         -0.03em;
-
 }
 
 
 .download-button {
 
-    display: inline-flex;
+    display:
+        inline-flex;
 
-    align-items: center;
+    align-items:
+        center;
 
-    gap: 8px;
+    gap:
+        8px;
 
     min-height:
         42px;
@@ -1349,7 +1294,6 @@ a {
 
     box-shadow:
         var(--shadow-sm);
-
 }
 
 
@@ -1360,7 +1304,6 @@ a {
 
     color:
         var(--accent);
-
 }
 
 
@@ -1393,28 +1336,43 @@ a {
 
     overflow:
         hidden;
-
 }
 
 
+/* =========================================================
+   CV HEADER
+   IMPORTANTE:
+   La foto está dentro del GRID.
+   Nunca usa position:absolute.
+========================================================= */
+
 .cv-header {
 
-    position: relative;
+    position:
+        relative;
 
     min-height:
         190px;
 
     padding:
-        42px 46px;
+        40px 42px;
 
-    display: grid;
+    display:
+        grid;
 
     grid-template-columns:
         minmax(0, 1fr)
-        auto;
+        120px;
 
-    gap:
-        30px;
+    grid-template-areas:
+        "main photo"
+        "contact photo";
+
+    column-gap:
+        28px;
+
+    row-gap:
+        12px;
 
     align-items:
         center;
@@ -1424,15 +1382,19 @@ a {
 
     color:
         #ffffff;
-
 }
 
 
 .cv-header-main {
 
+    grid-area:
+        main;
+
     min-width:
         0;
 
+    padding-right:
+        0;
 }
 
 
@@ -1450,6 +1412,8 @@ a {
     letter-spacing:
         -0.04em;
 
+    color:
+        #ffffff;
 }
 
 
@@ -1466,20 +1430,32 @@ a {
 
     font-weight:
         500;
-
 }
 
 
+/* =========================================================
+   CV CONTACTO
+========================================================= */
+
 .cv-contact {
+
+    grid-area:
+        contact;
+
+    min-width:
+        0;
 
     display:
         flex;
 
-    flex-direction:
-        column;
+    flex-wrap:
+        wrap;
+
+    align-items:
+        center;
 
     gap:
-        5px;
+        6px 18px;
 
     color:
         #d1d5db;
@@ -1487,49 +1463,99 @@ a {
     font-size:
         11px;
 
-    text-align:
-        right;
+    line-height:
+        1.5;
+}
 
+
+.cv-contact span {
+
+    display:
+        inline-block;
+
+    max-width:
+        100%;
+
+    overflow-wrap:
+        anywhere;
 }
 
 
 /* =========================================================
    CV PHOTO
+   NUNCA ABSOLUTE
 ========================================================= */
 
 .cv-photo-container {
 
+    grid-area:
+        photo;
+
     position:
-        absolute;
-
-    top:
-        26px;
-
-    right:
-        38px;
+        relative;
 
     width:
-        105px;
+        110px;
 
     height:
-        130px;
+        110px;
+
+    min-width:
+        110px;
+
+    min-height:
+        110px;
+
+    justify-self:
+        end;
+
+    align-self:
+        center;
 
     display:
-        grid;
+        flex;
 
-    place-items:
+    align-items:
+        center;
+
+    justify-content:
         center;
 
     overflow:
         hidden;
 
+    z-index:
+        2;
+
     border:
         2px solid
-        rgba(255,255,255,0.75);
+        rgba(255,255,255,0.85);
 
     background:
         rgba(255,255,255,0.08);
 
+    border-radius:
+        50%;
+}
+
+
+.cv-photo-container img,
+.cv-photo {
+
+    display:
+        block;
+
+    width:
+        100%;
+
+    height:
+        100%;
+
+    object-fit:
+        cover;
+
+    border-radius:
+        50%;
 }
 
 
@@ -1542,9 +1568,12 @@ a {
         100%;
 
     display:
-        grid;
+        flex;
 
-    place-items:
+    align-items:
+        center;
+
+    justify-content:
         center;
 
     color:
@@ -1558,21 +1587,6 @@ a {
 
     letter-spacing:
         0.08em;
-
-}
-
-
-.cv-photo {
-
-    width:
-        100%;
-
-    height:
-        100%;
-
-    object-fit:
-        cover;
-
 }
 
 
@@ -1585,6 +1599,8 @@ a {
     padding:
         42px 48px;
 
+    background:
+        #ffffff;
 }
 
 
@@ -1592,7 +1608,6 @@ a {
 
     margin-bottom:
         31px;
-
 }
 
 
@@ -1600,7 +1615,6 @@ a {
 
     margin-bottom:
         0;
-
 }
 
 
@@ -1626,7 +1640,6 @@ a {
 
     letter-spacing:
         0.08em;
-
 }
 
 
@@ -1643,7 +1656,6 @@ a {
 
     line-height:
         1.7;
-
 }
 
 
@@ -1651,7 +1663,6 @@ a {
 
     white-space:
         pre-line;
-
 }
 
 
@@ -1662,7 +1673,6 @@ a {
 
     font-size:
         12px;
-
 }
 
 
@@ -1670,19 +1680,21 @@ a {
    CV EXPERIENCE / EDUCATION
 ========================================================= */
 
-.cv-item {
+.cv-item,
+.cv-experience,
+.cv-education {
 
     margin-bottom:
         18px;
-
 }
 
 
-.cv-item:last-child {
+.cv-item:last-child,
+.cv-experience:last-child,
+.cv-education:last-child {
 
     margin-bottom:
         0;
-
 }
 
 
@@ -1696,11 +1708,12 @@ a {
 
     gap:
         20px;
-
 }
 
 
-.cv-item h4 {
+.cv-item h4,
+.cv-experience h4,
+.cv-education h4 {
 
     margin:
         0;
@@ -1710,11 +1723,11 @@ a {
 
     font-size:
         13px;
-
 }
 
 
-.cv-item .cv-company {
+.cv-item .cv-company,
+.cv-meta {
 
     margin-top:
         2px;
@@ -1724,7 +1737,6 @@ a {
 
     font-size:
         11px;
-
 }
 
 
@@ -1738,11 +1750,11 @@ a {
 
     font-size:
         10px;
-
 }
 
 
-.cv-item-description {
+.cv-item-description,
+.cv-experience p {
 
     margin-top:
         7px;
@@ -1758,7 +1770,336 @@ a {
 
     white-space:
         pre-line;
+}
 
+
+/* =========================================================
+   PLANTILLA PROFESIONAL
+========================================================= */
+
+.cv.template-professional .cv-header {
+
+    background:
+        #111827;
+
+    color:
+        #ffffff;
+}
+
+
+.cv.template-professional .cv-header h1 {
+
+    color:
+        #ffffff;
+}
+
+
+.cv.template-professional .cv-header h2 {
+
+    color:
+        #d1d5db;
+}
+
+
+.cv.template-professional .cv-contact {
+
+    color:
+        #d1d5db;
+}
+
+
+.cv.template-professional .cv-body {
+
+    background:
+        #ffffff;
+}
+
+
+.cv.template-professional .cv-block h3 {
+
+    color:
+        #111827;
+
+    border-bottom:
+        2px solid #111827;
+}
+
+
+/* =========================================================
+   PLANTILLA MINIMALISTA
+========================================================= */
+
+.cv.template-minimal .cv-header {
+
+    background:
+        #ffffff;
+
+    color:
+        #111827;
+
+    min-height:
+        170px;
+
+    padding:
+        38px 48px;
+
+    border-bottom:
+        1px solid #e5e7eb;
+}
+
+
+.cv.template-minimal .cv-header h1 {
+
+    color:
+        #111827;
+
+    font-size:
+        34px;
+
+    font-weight:
+        600;
+}
+
+
+.cv.template-minimal .cv-header h2 {
+
+    color:
+        #6b7280;
+
+    font-size:
+        14px;
+
+    font-weight:
+        400;
+}
+
+
+.cv.template-minimal .cv-contact {
+
+    color:
+        #6b7280;
+}
+
+
+.cv.template-minimal .cv-body {
+
+    padding:
+        48px 52px;
+}
+
+
+.cv.template-minimal .cv-block {
+
+    margin-bottom:
+        34px;
+}
+
+
+.cv.template-minimal .cv-block h3 {
+
+    border-bottom:
+        0;
+
+    padding-bottom:
+        0;
+
+    margin-bottom:
+        12px;
+
+    color:
+        #111827;
+
+    font-size:
+        12px;
+
+    letter-spacing:
+        0.14em;
+}
+
+
+.cv.template-minimal .cv-block p {
+
+    color:
+        #4b5563;
+
+    font-size:
+        12px;
+
+    line-height:
+        1.8;
+}
+
+
+.cv.template-minimal .cv-item h4,
+.cv.template-minimal .cv-experience h4,
+.cv.template-minimal .cv-education h4 {
+
+    font-weight:
+        600;
+}
+
+
+.cv.template-minimal .cv-photo-container {
+
+    border:
+        1px solid #d1d5db;
+
+    background:
+        #f9fafb;
+}
+
+
+/* =========================================================
+   PLANTILLA MODERNA
+========================================================= */
+
+.cv.template-modern .cv-header {
+
+    background:
+        linear-gradient(
+            135deg,
+            #2563eb,
+            #1e40af
+        );
+
+    color:
+        #ffffff;
+
+    min-height:
+        210px;
+
+    padding:
+        45px 48px;
+}
+
+
+.cv.template-modern .cv-header h1 {
+
+    color:
+        #ffffff;
+
+    font-size:
+        38px;
+
+    font-weight:
+        800;
+}
+
+
+.cv.template-modern .cv-header h2 {
+
+    color:
+        #dbeafe;
+
+    font-size:
+        16px;
+}
+
+
+.cv.template-modern .cv-contact {
+
+    color:
+        #dbeafe;
+}
+
+
+.cv.template-modern .cv-body {
+
+    padding:
+        42px 48px;
+}
+
+
+.cv.template-modern .cv-block {
+
+    margin-bottom:
+        32px;
+
+    padding-left:
+        18px;
+
+    border-left:
+        4px solid #2563eb;
+}
+
+
+.cv.template-modern .cv-block h3 {
+
+    border-bottom:
+        0;
+
+    padding-bottom:
+        0;
+
+    margin-bottom:
+        10px;
+
+    color:
+        #1e3a8a;
+
+    font-size:
+        13px;
+}
+
+
+.cv.template-modern .cv-block p {
+
+    color:
+        #374151;
+
+    line-height:
+        1.7;
+}
+
+
+.cv.template-modern .cv-item h4,
+.cv.template-modern .cv-experience h4,
+.cv.template-modern .cv-education h4 {
+
+    color:
+        #1e3a8a;
+}
+
+
+.cv.template-modern .cv-photo-container {
+
+    border:
+        3px solid rgba(255,255,255,0.9);
+
+    border-radius:
+        14px;
+}
+
+
+.cv.template-modern .cv-photo-container img {
+
+    border-radius:
+        10px;
+}
+
+
+/* =========================================================
+   BOTONES DE PLANTILLAS
+========================================================= */
+
+.template-option[data-template="professional"].active {
+
+    border-color:
+        #111827;
+}
+
+
+.template-option[data-template="minimal"].active {
+
+    border-color:
+        #6b7280;
+}
+
+
+.template-option[data-template="modern"].active {
+
+    border-color:
+        #2563eb;
 }
 
 
@@ -1776,7 +2117,6 @@ a {
 
     margin:
         0 auto 70px;
-
 }
 
 
@@ -1796,7 +2136,6 @@ a {
 
     box-shadow:
         var(--shadow-sm);
-
 }
 
 
@@ -1810,7 +2149,6 @@ a {
 
     text-align:
         center;
-
 }
 
 
@@ -1833,7 +2171,6 @@ a {
 
     letter-spacing:
         0.13em;
-
 }
 
 
@@ -1843,14 +2180,17 @@ a {
         0 0 15px;
 
     font-size:
-        clamp(28px, 4vw, 42px);
+        clamp(
+            28px,
+            4vw,
+            42px
+        );
 
     line-height:
         1.08;
 
     letter-spacing:
         -0.045em;
-
 }
 
 
@@ -1867,7 +2207,6 @@ a {
 
     line-height:
         1.75;
-
 }
 
 
@@ -1888,7 +2227,6 @@ a {
 
     margin-bottom:
         55px;
-
 }
 
 
@@ -1905,30 +2243,6 @@ a {
 
     background:
         var(--surface-soft);
-
-    transition:
-        transform var(--transition),
-        border-color var(--transition),
-        box-shadow var(--transition);
-
-}
-
-
-.seo-feature:hover {
-
-    transform:
-        translateY(-3px);
-
-    border-color:
-        color-mix(
-            in srgb,
-            var(--accent) 35%,
-            var(--border)
-        );
-
-    box-shadow:
-        var(--shadow-sm);
-
 }
 
 
@@ -1960,7 +2274,6 @@ a {
 
     font-weight:
         800;
-
 }
 
 
@@ -1974,7 +2287,6 @@ a {
 
     letter-spacing:
         -0.02em;
-
 }
 
 
@@ -1991,7 +2303,6 @@ a {
 
     line-height:
         1.65;
-
 }
 
 
@@ -2006,7 +2317,6 @@ a {
 
     border-top:
         1px solid var(--border);
-
 }
 
 
@@ -2020,7 +2330,6 @@ a {
 
     letter-spacing:
         -0.035em;
-
 }
 
 
@@ -2034,7 +2343,6 @@ a {
 
     font-size:
         13px;
-
 }
 
 
@@ -2048,7 +2356,6 @@ a {
 
     gap:
         12px;
-
 }
 
 
@@ -2080,26 +2387,6 @@ a {
 
     text-decoration:
         none;
-
-    transition:
-        transform var(--transition),
-        border-color var(--transition),
-        box-shadow var(--transition);
-
-}
-
-
-.seo-link-card:hover {
-
-    transform:
-        translateY(-2px);
-
-    border-color:
-        var(--accent);
-
-    box-shadow:
-        var(--shadow-sm);
-
 }
 
 
@@ -2110,7 +2397,6 @@ a {
 
     font-size:
         14px;
-
 }
 
 
@@ -2124,7 +2410,6 @@ a {
 
     line-height:
         1.55;
-
 }
 
 
@@ -2145,7 +2430,6 @@ a {
 
     border-top:
         1px solid var(--border);
-
 }
 
 
@@ -2159,7 +2443,6 @@ a {
 
     letter-spacing:
         -0.035em;
-
 }
 
 
@@ -2167,7 +2450,6 @@ a {
 
     border-bottom:
         1px solid var(--border);
-
 }
 
 
@@ -2190,7 +2472,6 @@ a {
 
     list-style:
         none;
-
 }
 
 
@@ -2198,7 +2479,6 @@ a {
 
     display:
         none;
-
 }
 
 
@@ -2215,10 +2495,6 @@ a {
 
     font-size:
         18px;
-
-    font-weight:
-        400;
-
 }
 
 
@@ -2226,7 +2502,6 @@ a {
 
     content:
         "−";
-
 }
 
 
@@ -2246,7 +2521,6 @@ a {
 
     line-height:
         1.7;
-
 }
 
 
@@ -2261,7 +2535,6 @@ a {
 
     background:
         var(--surface);
-
 }
 
 
@@ -2290,7 +2563,6 @@ a {
 
     color:
         var(--text-muted);
-
 }
 
 
@@ -2307,7 +2579,6 @@ a {
 
     font-size:
         15px;
-
 }
 
 
@@ -2318,7 +2589,6 @@ a {
 
     font-size:
         12px;
-
 }
 
 
@@ -2330,12 +2600,8 @@ a {
     flex-wrap:
         wrap;
 
-    align-content:
-        flex-start;
-
     gap:
         8px 18px;
-
 }
 
 
@@ -2349,7 +2615,6 @@ a {
 
     text-decoration:
         none;
-
 }
 
 
@@ -2357,7 +2622,6 @@ a {
 
     color:
         var(--accent);
-
 }
 
 
@@ -2377,12 +2641,11 @@ a {
 
     font-size:
         11px;
-
 }
 
 
 /* =========================================================
-   FOCUS ACCESSIBILITY
+   ACCESIBILIDAD
 ========================================================= */
 
 button:focus-visible,
@@ -2401,7 +2664,6 @@ summary:focus-visible {
 
     outline-offset:
         2px;
-
 }
 
 
@@ -2416,27 +2678,25 @@ summary:focus-visible {
         grid-template-columns:
             380px
             minmax(0, 1fr);
-
     }
-
 
     .seo-features {
 
         grid-template-columns:
             repeat(2, 1fr);
-
     }
-
 
     .seo-link-grid {
 
         grid-template-columns:
             repeat(2, 1fr);
-
     }
-
 }
 
+
+/* =========================================================
+   TABLET
+========================================================= */
 
 @media (max-width: 950px) {
 
@@ -2444,83 +2704,58 @@ summary:focus-visible {
 
         grid-template-columns:
             1fr;
-
     }
-
 
     .editor-panel {
-
-        order:
-            1;
-
+        order: 1;
     }
-
 
     .preview-panel {
-
-        order:
-            2;
-
+        order: 2;
     }
-
 
     .cv {
 
         width:
             100%;
-
     }
-
 
     .site-footer-inner {
 
         grid-template-columns:
             1fr 1fr;
-
     }
-
 
     .site-footer > .site-footer-inner > div:last-child {
 
         text-align:
             left;
-
     }
-
 }
 
+
+/* =========================================================
+   MÓVIL
+========================================================= */
 
 @media (max-width: 700px) {
 
     .header-inner {
 
         width:
-            min(
-                100% - 24px,
-                1500px
-            );
+            calc(100% - 24px);
 
         min-height:
             68px;
-
     }
-
 
     .header-badge {
-
-        display:
-            none;
-
+        display: none;
     }
-
 
     .brand span {
-
-        display:
-            none;
-
+        display: none;
     }
-
 
     .app-container {
 
@@ -2529,57 +2764,43 @@ summary:focus-visible {
 
         margin-top:
             18px;
-
     }
-
 
     .form-section {
 
         padding:
             22px 18px;
-
     }
-
 
     .panel-header {
 
         padding:
             24px 18px;
-
     }
-
 
     .editor-actions {
 
         padding:
             20px 18px;
-
     }
-
 
     .privacy-note {
 
         padding:
             0 18px 20px;
-
     }
-
 
     .two-columns {
 
         grid-template-columns:
             1fr;
-
     }
-
 
     .template-grid {
 
         grid-template-columns:
-            1fr 1fr 1fr;
-
+            repeat(3, 1fr);
     }
-
 
     .preview-toolbar {
 
@@ -2588,9 +2809,7 @@ summary:focus-visible {
 
         flex-direction:
             column;
-
     }
-
 
     .download-button {
 
@@ -2599,67 +2818,100 @@ summary:focus-visible {
 
         justify-content:
             center;
-
     }
 
+
+    /* =====================================================
+       CV MÓVIL
+    ===================================================== */
 
     .cv-header {
 
+        grid-template-columns:
+            1fr;
+
+        grid-template-areas:
+            "photo"
+            "main"
+            "contact";
+
         min-height:
-            170px;
+            auto;
 
         padding:
-            30px 25px;
+            28px 25px 30px;
 
+        row-gap:
+            16px;
+
+        text-align:
+            center;
     }
 
+    .cv-photo-container {
+
+        grid-area:
+            photo;
+
+        width:
+            90px;
+
+        height:
+            90px;
+
+        min-width:
+            90px;
+
+        min-height:
+            90px;
+
+        justify-self:
+            center;
+
+        align-self:
+            center;
+    }
+
+    .cv-header-main {
+
+        grid-area:
+            main;
+
+        padding:
+            0;
+    }
 
     .cv-header h1 {
 
         font-size:
             28px;
-
     }
-
 
     .cv-header h2 {
 
         font-size:
             13px;
-
     }
-
 
     .cv-contact {
 
+        grid-area:
+            contact;
+
+        justify-content:
+            center;
+
+        text-align:
+            center;
+
         font-size:
-            9px;
-
+            10px;
     }
-
-
-    .cv-photo-container {
-
-        width:
-            82px;
-
-        height:
-            105px;
-
-        right:
-            20px;
-
-        top:
-            20px;
-
-    }
-
 
     .cv-body {
 
         padding:
             30px 25px;
-
     }
 
 
@@ -2667,33 +2919,25 @@ summary:focus-visible {
 
         width:
             calc(100% - 20px);
-
     }
-
 
     .seo-content-inner {
 
         padding:
             32px 20px;
-
     }
-
 
     .seo-features {
 
         grid-template-columns:
             1fr;
-
     }
-
 
     .seo-link-grid {
 
         grid-template-columns:
             1fr;
-
     }
-
 
     .site-footer-inner {
 
@@ -2705,11 +2949,19 @@ summary:focus-visible {
 
         gap:
             22px;
-
     }
 
+    .site-footer > .site-footer-inner > div:last-child {
+
+        text-align:
+            left;
+    }
 }
 
+
+/* =========================================================
+   MÓVIL PEQUEÑO
+========================================================= */
 
 @media (max-width: 480px) {
 
@@ -2717,109 +2969,83 @@ summary:focus-visible {
 
         padding:
             8px 10px;
-
     }
-
 
     #themeText {
-
-        display:
-            none;
-
+        display: none;
     }
-
 
     .section-heading-actions {
 
         align-items:
             flex-start;
-
     }
-
 
     .template-grid {
 
         grid-template-columns:
             1fr;
-
     }
-
 
     .template-preview {
 
         height:
             85px;
-
     }
 
+
+    /* CV pequeño */
 
     .cv-header {
 
-        display:
-            block;
-
         padding:
-            28px 20px 30px;
-
+            25px 20px 28px;
     }
 
+    .cv-photo-container {
 
-    .cv-header-main {
+        width:
+            80px;
 
-        padding-right:
-            95px;
+        height:
+            80px;
 
+        min-width:
+            80px;
+
+        min-height:
+            80px;
     }
-
 
     .cv-header h1 {
 
         font-size:
             24px;
-
     }
-
 
     .cv-contact {
 
-        margin-top:
-            18px;
+        flex-direction:
+            column;
 
-        text-align:
-            left;
+        gap:
+            4px;
 
+        align-items:
+            center;
     }
-
-
-    .cv-photo-container {
-
-        width:
-            70px;
-
-        height:
-            90px;
-
-        right:
-            20px;
-
-    }
-
 
     .cv-body {
 
         padding:
             25px 20px;
-
     }
-
 
     .seo-intro h2 {
 
         font-size:
             29px;
-
     }
-
 }
 
 
@@ -2836,9 +3062,7 @@ summary:focus-visible {
 
         margin:
             0;
-
     }
-
 
     html,
     body {
@@ -2854,17 +3078,13 @@ summary:focus-visible {
 
         background:
             #ffffff !important;
-
     }
-
 
     body {
 
         color:
             #111827 !important;
-
     }
-
 
     .site-header,
     .editor-panel,
@@ -2874,9 +3094,7 @@ summary:focus-visible {
 
         display:
             none !important;
-
     }
-
 
     .app-container {
 
@@ -2888,9 +3106,7 @@ summary:focus-visible {
 
         margin:
             0;
-
     }
-
 
     .preview-panel {
 
@@ -2899,9 +3115,7 @@ summary:focus-visible {
 
         margin:
             0;
-
     }
-
 
     .cv {
 
@@ -2916,9 +3130,58 @@ summary:focus-visible {
 
         box-shadow:
             none;
-
     }
 
+    /* Mantener la foto dentro del encabezado al imprimir */
+
+    .cv-header {
+
+        display:
+            grid;
+
+        grid-template-columns:
+            minmax(0, 1fr)
+            120px;
+
+        grid-template-areas:
+            "main photo"
+            "contact photo";
+
+        column-gap:
+            28px;
+
+        row-gap:
+            12px;
+    }
+
+    .cv-photo-container {
+
+        grid-area:
+            photo;
+
+        position:
+            relative;
+
+        width:
+            110px;
+
+        height:
+            110px;
+
+        min-width:
+            110px;
+
+        min-height:
+            110px;
+    }
+
+    .cv-header-main {
+        grid-area: main;
+    }
+
+    .cv-contact {
+        grid-area: contact;
+    }
 }
 
 
@@ -2940,502 +3203,5 @@ summary:focus-visible {
 
         animation:
             none !important;
-
     }
-
-}
-/* =========================================================
-   PLANTILLAS DEL CV
-========================================================= */
-
-
-/* =========================================================
-   PROFESIONAL
-========================================================= */
-
-.cv.template-professional .cv-header {
-    background: #111827;
-    color: #ffffff;
-}
-
-.cv.template-professional .cv-header h1 {
-    color: #ffffff;
-}
-
-.cv.template-professional .cv-header h2 {
-    color: #d1d5db;
-}
-
-.cv.template-professional .cv-contact {
-    color: #d1d5db;
-}
-
-.cv.template-professional .cv-block h3 {
-    color: #111827;
-    border-bottom: 2px solid #111827;
-}
-
-.cv.template-professional .cv-body {
-    background: #ffffff;
-}
-
-
-/* =========================================================
-   MINIMALISTA
-========================================================= */
-
-.cv.template-minimal .cv-header {
-
-    background: #ffffff;
-
-    color: #111827;
-
-    min-height: 150px;
-
-    padding: 42px 52px;
-
-    border-bottom: 1px solid #e5e7eb;
-
-}
-
-.cv.template-minimal .cv-header h1 {
-
-    color: #111827;
-
-    font-size: 34px;
-
-    font-weight: 600;
-
-}
-
-.cv.template-minimal .cv-header h2 {
-
-    color: #6b7280;
-
-    font-size: 14px;
-
-    font-weight: 400;
-
-}
-
-.cv.template-minimal .cv-contact {
-
-    color: #6b7280;
-
-}
-
-.cv.template-minimal .cv-body {
-
-    padding: 48px 52px;
-
-}
-
-.cv.template-minimal .cv-block {
-
-    margin-bottom: 34px;
-
-}
-
-.cv.template-minimal .cv-block h3 {
-
-    border-bottom: 0;
-
-    padding-bottom: 0;
-
-    margin-bottom: 12px;
-
-    color: #111827;
-
-    font-size: 12px;
-
-    letter-spacing: 0.14em;
-
-}
-
-.cv.template-minimal .cv-block p {
-
-    color: #4b5563;
-
-    font-size: 12px;
-
-    line-height: 1.8;
-
-}
-
-.cv.template-minimal .cv-item h4 {
-
-    font-weight: 600;
-
-}
-
-.cv.template-minimal .cv-photo-container {
-
-    border: 1px solid #d1d5db;
-
-}
-
-
-/* =========================================================
-   MODERNO
-========================================================= */
-
-.cv.template-modern .cv-header {
-
-    background:
-        linear-gradient(
-            135deg,
-            #2563eb,
-            #1e40af
-        );
-
-    color: #ffffff;
-
-    min-height: 210px;
-
-    padding: 48px 48px;
-
-}
-
-.cv.template-modern .cv-header h1 {
-
-    color: #ffffff;
-
-    font-size: 38px;
-
-    font-weight: 800;
-
-}
-
-.cv.template-modern .cv-header h2 {
-
-    color: #dbeafe;
-
-    font-size: 16px;
-
-}
-
-.cv.template-modern .cv-contact {
-
-    color: #dbeafe;
-
-}
-
-.cv.template-modern .cv-body {
-
-    padding: 42px 48px;
-
-}
-
-.cv.template-modern .cv-block {
-
-    margin-bottom: 32px;
-
-    padding-left: 18px;
-
-    border-left: 4px solid #2563eb;
-
-}
-
-.cv.template-modern .cv-block h3 {
-
-    border-bottom: 0;
-
-    padding-bottom: 0;
-
-    margin-bottom: 10px;
-
-    color: #1e3a8a;
-
-    font-size: 13px;
-
-}
-
-.cv.template-modern .cv-block p {
-
-    color: #374151;
-
-    line-height: 1.7;
-
-}
-
-.cv.template-modern .cv-item h4 {
-
-    color: #1e3a8a;
-
-}
-
-.cv.template-modern .cv-photo-container {
-
-    border: 3px solid rgba(255,255,255,0.9);
-
-    border-radius: 14px;
-
-}
-
-
-/* =========================================================
-   BOTONES DE SELECCIÓN DE PLANTILLA
-========================================================= */
-
-.template-option[data-template="professional"].active {
-
-    border-color: #111827;
-
-}
-
-.template-option[data-template="minimal"].active {
-
-    border-color: #6b7280;
-
-}
-
-.template-option[data-template="modern"].active {
-
-    border-color: #2563eb;
-
-}
-
-
-/* =========================================================
-   PREVISUALIZACIONES DE LAS PLANTILLAS
-========================================================= */
-
-.professional-preview {
-
-    background:
-        linear-gradient(
-            90deg,
-            #111827 0 32%,
-            #f8fafc 32%
-        );
-
-}
-
-
-.minimal-preview {
-
-    background:
-        linear-gradient(
-            180deg,
-            #ffffff 0 25%,
-            #f3f4f6 25% 27%,
-            #ffffff 27%
-        );
-
-}
-
-
-.modern-preview {
-
-    background:
-        linear-gradient(
-            135deg,
-            #2563eb 0 30%,
-            #eff6ff 30%
-        );
-
-}
-/* =====================================================
-   CORRECCIÓN DEFINITIVA DE LA FOTO DEL CV
-===================================================== */
-
-.cv-header {
-    position: relative;
-}
-
-/* Reservamos espacio para que la foto nunca tape
-   nombre, profesión ni datos de contacto */
-.cv-header-main {
-    padding-right: 145px;
-}
-
-.cv-contact {
-    position: relative;
-    z-index: 1;
-
-    display: flex;
-    flex-direction: column;
-    gap: 5px;
-
-    max-width: calc(100% - 145px);
-
-    text-align: left;
-}
-
-/* Foto */
-.cv-photo-container {
-    position: absolute;
-
-    top: 50%;
-    right: 38px;
-
-    width: 105px;
-    height: 105px;
-
-    transform: translateY(-50%);
-
-    z-index: 5;
-
-    display: grid;
-    place-items: center;
-
-    overflow: hidden;
-
-    flex-shrink: 0;
-}
-
-/* Imagen */
-.cv-photo-container .cv-photo,
-.cv-photo-container .cv-photo-placeholder {
-    width: 100%;
-    height: 100%;
-
-    object-fit: cover;
-}
-
-/* =====================================================
-   PROFESIONAL
-===================================================== */
-
-.cv.template-professional .cv-photo-container {
-    width: 105px;
-    height: 105px;
-
-    border-radius: 12px;
-}
-
-
-/* =====================================================
-   MINIMALISTA
-===================================================== */
-
-.cv.template-minimal .cv-photo-container {
-    width: 105px;
-    height: 105px;
-
-    border-radius: 50%;
-}
-
-
-/* =====================================================
-   MODERNO
-===================================================== */
-
-.cv.template-modern .cv-photo-container {
-    width: 110px;
-    height: 110px;
-
-    border-radius: 14px;
-}
-
-
-/* =====================================================
-   MÓVIL
-===================================================== */
-
-@media (max-width: 700px) {
-
-    .cv-header {
-        display: block;
-        position: relative;
-
-        min-height: 190px;
-
-        padding: 30px 25px;
-    }
-
-    .cv-header-main {
-        padding-right: 105px;
-    }
-
-    .cv-contact {
-        max-width: calc(100% - 105px);
-
-        margin-top: 16px;
-
-        display: flex;
-        flex-direction: column;
-
-        text-align: left;
-    }
-
-    .cv-photo-container {
-        top: 25px;
-        right: 20px;
-
-        width: 82px;
-        height: 105px;
-
-        transform: none;
-    }
-
-}
-
-
-/* =====================================================
-   MÓVIL PEQUEÑO
-===================================================== */
-
-@media (max-width: 480px) {
-
-    .cv-header {
-        min-height: 220px;
-
-        padding: 28px 20px 30px;
-    }
-
-    .cv-header-main {
-        padding-right: 90px;
-    }
-
-    .cv-header h1 {
-        font-size: 24px;
-    }
-
-    .cv-header h2 {
-        font-size: 13px;
-    }
-
-    .cv-contact {
-        max-width: calc(100% - 90px);
-
-        margin-top: 18px;
-
-        font-size: 9px;
-    }
-
-    .cv-photo-container {
-        width: 70px;
-        height: 90px;
-
-        right: 20px;
-        top: 20px;
-    }
-
-}
-
-
-/* =====================================================
-   IMPRESIÓN / PDF
-===================================================== */
-
-@media print {
-
-    .cv-header-main {
-        padding-right: 145px;
-    }
-
-    .cv-contact {
-        max-width: calc(100% - 145px);
-    }
-
-    .cv-photo-container {
-        position: absolute;
-
-        top: 50%;
-        right: 38px;
-
-        transform: translateY(-50%);
-    }
-
 }
