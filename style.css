@@ -2944,3 +2944,294 @@ summary:focus-visible {
     }
 
 }
+/* =========================================================
+   PLANTILLAS DEL CV
+========================================================= */
+
+
+/* =========================================================
+   PROFESIONAL
+========================================================= */
+
+.cv.template-professional .cv-header {
+    background: #111827;
+    color: #ffffff;
+}
+
+.cv.template-professional .cv-header h1 {
+    color: #ffffff;
+}
+
+.cv.template-professional .cv-header h2 {
+    color: #d1d5db;
+}
+
+.cv.template-professional .cv-contact {
+    color: #d1d5db;
+}
+
+.cv.template-professional .cv-block h3 {
+    color: #111827;
+    border-bottom: 2px solid #111827;
+}
+
+.cv.template-professional .cv-body {
+    background: #ffffff;
+}
+
+
+/* =========================================================
+   MINIMALISTA
+========================================================= */
+
+.cv.template-minimal .cv-header {
+
+    background: #ffffff;
+
+    color: #111827;
+
+    min-height: 150px;
+
+    padding: 42px 52px;
+
+    border-bottom: 1px solid #e5e7eb;
+
+}
+
+.cv.template-minimal .cv-header h1 {
+
+    color: #111827;
+
+    font-size: 34px;
+
+    font-weight: 600;
+
+}
+
+.cv.template-minimal .cv-header h2 {
+
+    color: #6b7280;
+
+    font-size: 14px;
+
+    font-weight: 400;
+
+}
+
+.cv.template-minimal .cv-contact {
+
+    color: #6b7280;
+
+}
+
+.cv.template-minimal .cv-body {
+
+    padding: 48px 52px;
+
+}
+
+.cv.template-minimal .cv-block {
+
+    margin-bottom: 34px;
+
+}
+
+.cv.template-minimal .cv-block h3 {
+
+    border-bottom: 0;
+
+    padding-bottom: 0;
+
+    margin-bottom: 12px;
+
+    color: #111827;
+
+    font-size: 12px;
+
+    letter-spacing: 0.14em;
+
+}
+
+.cv.template-minimal .cv-block p {
+
+    color: #4b5563;
+
+    font-size: 12px;
+
+    line-height: 1.8;
+
+}
+
+.cv.template-minimal .cv-item h4 {
+
+    font-weight: 600;
+
+}
+
+.cv.template-minimal .cv-photo-container {
+
+    border: 1px solid #d1d5db;
+
+}
+
+
+/* =========================================================
+   MODERNO
+========================================================= */
+
+.cv.template-modern .cv-header {
+
+    background:
+        linear-gradient(
+            135deg,
+            #2563eb,
+            #1e40af
+        );
+
+    color: #ffffff;
+
+    min-height: 210px;
+
+    padding: 48px 48px;
+
+}
+
+.cv.template-modern .cv-header h1 {
+
+    color: #ffffff;
+
+    font-size: 38px;
+
+    font-weight: 800;
+
+}
+
+.cv.template-modern .cv-header h2 {
+
+    color: #dbeafe;
+
+    font-size: 16px;
+
+}
+
+.cv.template-modern .cv-contact {
+
+    color: #dbeafe;
+
+}
+
+.cv.template-modern .cv-body {
+
+    padding: 42px 48px;
+
+}
+
+.cv.template-modern .cv-block {
+
+    margin-bottom: 32px;
+
+    padding-left: 18px;
+
+    border-left: 4px solid #2563eb;
+
+}
+
+.cv.template-modern .cv-block h3 {
+
+    border-bottom: 0;
+
+    padding-bottom: 0;
+
+    margin-bottom: 10px;
+
+    color: #1e3a8a;
+
+    font-size: 13px;
+
+}
+
+.cv.template-modern .cv-block p {
+
+    color: #374151;
+
+    line-height: 1.7;
+
+}
+
+.cv.template-modern .cv-item h4 {
+
+    color: #1e3a8a;
+
+}
+
+.cv.template-modern .cv-photo-container {
+
+    border: 3px solid rgba(255,255,255,0.9);
+
+    border-radius: 14px;
+
+}
+
+
+/* =========================================================
+   BOTONES DE SELECCIÓN DE PLANTILLA
+========================================================= */
+
+.template-option[data-template="professional"].active {
+
+    border-color: #111827;
+
+}
+
+.template-option[data-template="minimal"].active {
+
+    border-color: #6b7280;
+
+}
+
+.template-option[data-template="modern"].active {
+
+    border-color: #2563eb;
+
+}
+
+
+/* =========================================================
+   PREVISUALIZACIONES DE LAS PLANTILLAS
+========================================================= */
+
+.professional-preview {
+
+    background:
+        linear-gradient(
+            90deg,
+            #111827 0 32%,
+            #f8fafc 32%
+        );
+
+}
+
+
+.minimal-preview {
+
+    background:
+        linear-gradient(
+            180deg,
+            #ffffff 0 25%,
+            #f3f4f6 25% 27%,
+            #ffffff 27%
+        );
+
+}
+
+
+.modern-preview {
+
+    background:
+        linear-gradient(
+            135deg,
+            #2563eb 0 30%,
+            #eff6ff 30%
+        );
+
+}
