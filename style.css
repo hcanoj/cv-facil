@@ -3236,57 +3236,96 @@ summary:focus-visible {
 
 }
 /* =====================================================
-   CORRECCIÓN POSICIÓN FOTO DEL CV
+   CORRECCIÓN DEFINITIVA DE LA FOTO DEL CV
 ===================================================== */
 
 .cv-header {
     position: relative;
-    display: grid;
-    grid-template-columns: minmax(0, 1fr) auto;
-    grid-template-areas:
-        "main photo"
-        "contact photo";
-    column-gap: 30px;
-    align-items: center;
 }
 
+/* Reservamos espacio para que la foto nunca tape
+   nombre, profesión ni datos de contacto */
 .cv-header-main {
-    grid-area: main;
-    min-width: 0;
+    padding-right: 145px;
 }
 
 .cv-contact {
-    grid-area: contact;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 6px 18px;
-    min-width: 0;
-}
-
-.cv-photo-container {
-    grid-area: photo;
     position: relative;
-    width: 110px;
-    height: 110px;
-    flex-shrink: 0;
-    align-self: center;
-    justify-self: end;
-    z-index: 2;
+    z-index: 1;
+
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+
+    max-width: calc(100% - 145px);
+
+    text-align: left;
 }
 
+/* Foto */
+.cv-photo-container {
+    position: absolute;
+
+    top: 50%;
+    right: 38px;
+
+    width: 105px;
+    height: 105px;
+
+    transform: translateY(-50%);
+
+    z-index: 5;
+
+    display: grid;
+    place-items: center;
+
+    overflow: hidden;
+
+    flex-shrink: 0;
+}
+
+/* Imagen */
 .cv-photo-container .cv-photo,
 .cv-photo-container .cv-photo-placeholder {
-    width: 110px;
-    height: 110px;
-    border-radius: 50%;
+    width: 100%;
+    height: 100%;
+
     object-fit: cover;
-    display: block;
 }
 
-.cv-photo-placeholder {
-    display: flex;
-    align-items: center;
-    justify-content: center;
+/* =====================================================
+   PROFESIONAL
+===================================================== */
+
+.cv.template-professional .cv-photo-container {
+    width: 105px;
+    height: 105px;
+
+    border-radius: 12px;
+}
+
+
+/* =====================================================
+   MINIMALISTA
+===================================================== */
+
+.cv.template-minimal .cv-photo-container {
+    width: 105px;
+    height: 105px;
+
+    border-radius: 50%;
+}
+
+
+/* =====================================================
+   MODERNO
+===================================================== */
+
+.cv.template-modern .cv-photo-container {
+    width: 110px;
+    height: 110px;
+
+    border-radius: 14px;
 }
 
 
@@ -3297,21 +3336,106 @@ summary:focus-visible {
 @media (max-width: 700px) {
 
     .cv-header {
-        grid-template-columns: 1fr;
-        grid-template-areas:
-            "photo"
-            "main"
-            "contact";
-        row-gap: 16px;
-        text-align: center;
+        display: block;
+        position: relative;
+
+        min-height: 190px;
+
+        padding: 30px 25px;
     }
 
-    .cv-photo-container {
-        justify-self: center;
+    .cv-header-main {
+        padding-right: 105px;
     }
 
     .cv-contact {
-        justify-content: center;
+        max-width: calc(100% - 105px);
+
+        margin-top: 16px;
+
+        display: flex;
+        flex-direction: column;
+
+        text-align: left;
+    }
+
+    .cv-photo-container {
+        top: 25px;
+        right: 20px;
+
+        width: 82px;
+        height: 105px;
+
+        transform: none;
+    }
+
+}
+
+
+/* =====================================================
+   MÓVIL PEQUEÑO
+===================================================== */
+
+@media (max-width: 480px) {
+
+    .cv-header {
+        min-height: 220px;
+
+        padding: 28px 20px 30px;
+    }
+
+    .cv-header-main {
+        padding-right: 90px;
+    }
+
+    .cv-header h1 {
+        font-size: 24px;
+    }
+
+    .cv-header h2 {
+        font-size: 13px;
+    }
+
+    .cv-contact {
+        max-width: calc(100% - 90px);
+
+        margin-top: 18px;
+
+        font-size: 9px;
+    }
+
+    .cv-photo-container {
+        width: 70px;
+        height: 90px;
+
+        right: 20px;
+        top: 20px;
+    }
+
+}
+
+
+/* =====================================================
+   IMPRESIÓN / PDF
+===================================================== */
+
+@media print {
+
+    .cv-header-main {
+        padding-right: 145px;
+    }
+
+    .cv-contact {
+        max-width: calc(100% - 145px);
+    }
+
+    .cv-photo-container {
+        position: absolute;
+
+        top: 50%;
+        right: 38px;
+
+        transform: translateY(-50%);
     }
 
 }
